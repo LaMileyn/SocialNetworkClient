@@ -19,3 +19,14 @@ export interface IUser {
     createdAt : string,
     updatedAt : string
 }
+export interface UserDto{
+    accessToken : string,
+    refreshToken : string,
+    userInfo : {
+        _id : string,
+        email : string,
+        activated : boolean,
+        username : string,
+        profilePicture : string
+    }
+}
