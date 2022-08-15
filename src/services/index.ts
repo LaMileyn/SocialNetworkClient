@@ -34,6 +34,7 @@ $api.interceptors.response.use((config : AxiosResponse) => {
 export { default as conversationService } from './conversation-service'
 export { default as messageService } from './message-service'
 export { default as postService } from './post-service'
-export { default as uploadServce } from './upload.service'
+export { default as uploadService } from './upload.service'
 export { default as userService } from './user-service'
+
 export default $api;

@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Welcome to my Social Network!
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

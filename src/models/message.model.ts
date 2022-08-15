@@ -6,7 +6,7 @@ export interface IMessage {
     sender : IUser | string,
     conversation : IConversation | string,
     text : string,
-    updated : boolean,
+    updated? : boolean,
     createdAt? : string,
     updatedAt? : string
 }

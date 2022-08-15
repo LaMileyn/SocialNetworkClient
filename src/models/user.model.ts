@@ -19,6 +19,14 @@ export interface IUser {
     createdAt : string,
     updatedAt : string
 }
+export interface UserAuthorizationModel {
+    email : string,
+    password : string,
+}
+export interface UserRegistrationModel extends UserAuthorizationModel{
+    username : string,
+    repeatPassword : string
+}
 export interface UserDto{
     accessToken : string,
     refreshToken : string,
