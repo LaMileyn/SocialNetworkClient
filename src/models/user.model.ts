@@ -1,4 +1,4 @@
-export interface IUser {
+export interface IUser<T> {
     _id : string,
     username : string,
     email : string,
@@ -11,9 +11,9 @@ export interface IUser {
     activationLink : string,
     profilePicture : string,
     coverPicture : string,
-    followers : Array<IUser> | Array<string>,
-    followersRequests : Array<IUser> | Array<string>,
-    followingRequests : Array<IUser> | Array<string>,
+    followers : Array<T>,
+    followersRequests : Array<T>,
+    followingRequests : Array<T>,
     isAdmin : boolean,
     desc: string,
     createdAt : string,

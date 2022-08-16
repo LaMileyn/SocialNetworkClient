@@ -1,11 +1,11 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {UserDto} from "../../models/user.model";
+import {ServerError, UserDto} from "../../models";
 import {checkAuth, loginMe, registerMe} from "./auth.actions";
 
 interface SliceState {
     user: UserDto | null,
     fetching: boolean,
-    error: any
+    error: ServerError | null
 }
 
 const initialState : SliceState = {
