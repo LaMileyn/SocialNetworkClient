@@ -4,6 +4,7 @@ import usersSlice from "./users/users.slice";
 import followersRequestsSlice from "./followersRequests/followersRequests.slice";
 import followingRequestsSlice from "./followingRequests/followingRequests.slice";
 import profileSlice from "./profile/profile.slice";
+import themeSlice from "./theme/theme.slice";
 
 
 const store = configureStore({
@@ -12,7 +13,8 @@ const store = configureStore({
         users : usersSlice,
         followers : followersRequestsSlice,
         following : followingRequestsSlice,
-        profile : profileSlice
+        profile : profileSlice,
+        theme : themeSlice
     },
     middleware : (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck : false
