@@ -5,7 +5,7 @@ import {IUser, ServerError} from "../../models";
 
 
 interface SliceState {
-    users : IUser<string>[] | null,
+    users : IUser[] | null,
     fetching : boolean,
     error : null | ServerError
 }
@@ -25,7 +25,7 @@ const usersSlice = createSlice({
             .addCase(getAllUsers.pending, (state) =>{
                 state.fetching = true
             })
-            .addCase(getAllUsers.fulfilled, (state,action : PayloadAction<IUser<string>[]>) => {
+            .addCase(getAllUsers.fulfilled, (state,action : PayloadAction<IUser[]>) => {
                 state.fetching = false;
                 state.users = action.payload
             })

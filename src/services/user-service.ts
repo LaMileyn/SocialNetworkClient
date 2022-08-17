@@ -4,7 +4,7 @@ import {IUser, UserAuthorizationModel, UserDto, UserRegistrationModel} from "../
 
 class UsersApi {
     getUser(userId : string) {
-        return $api.get<IUser<string>>(`users/${userId}`)
+        return $api.get<IUser>(`users/${userId}`)
     }
 
     login(user : UserAuthorizationModel) {
@@ -20,7 +20,7 @@ class UsersApi {
     }
 
     getFriends(userId : string) {
-        return $api.get<Array<IUser<string>>>(`users/friends/${userId}`)
+        return $api.get<Array<IUser>>(`users/friends/${userId}`)
     }
 
     // create a request to follow a man
@@ -45,15 +45,15 @@ class UsersApi {
     }
 
     allUsers(search : string) {
-        return $api.get<Array<IUser<string>>>(`users?search=${search}`)
+        return $api.get<Array<IUser>>(`users?search=${search}`)
     }
 
     userFollowersRequests() {
-        return $api.get<Array<IUser<string>>>(`users/friends/followersRequests`)
+        return $api.get<Array<IUser>>(`users/friends/followersRequests`)
     }
 
     userFollowingRequests() {
-        return $api.get<Array<IUser<string>>>(`users/friends/followingRequests`)
+        return $api.get<Array<IUser>>(`users/friends/followingRequests`)
     }
 
 

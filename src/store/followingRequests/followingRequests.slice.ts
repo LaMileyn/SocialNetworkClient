@@ -3,7 +3,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {cancelFollow, followPerson, getFollowingRequests} from "./followingRequests.actions";
 
 interface SliceState {
-    followingRequests: Array<IUser<string>> | null,
+    followingRequests: Array<IUser> | null,
     fetching: boolean,
     error: null,
 }
@@ -23,7 +23,7 @@ const followingRequestsSlice = createSlice({
             .addCase(getFollowingRequests.pending, (state) => {
                 state.fetching = true
             })
-            .addCase(getFollowingRequests.fulfilled, (state, action: PayloadAction<Array<IUser<string>>>) => {
+            .addCase(getFollowingRequests.fulfilled, (state, action: PayloadAction<Array<IUser>>) => {
                 state.fetching = false
                 state.followingRequests = action.payload
             })
@@ -47,7 +47,7 @@ const followingRequestsSlice = createSlice({
             .addCase(followPerson.pending, (state) => {
                 state.fetching = true
             })
-            .addCase(followPerson.fulfilled, (state, action: PayloadAction<IUser<string>>) => {
+            .addCase(followPerson.fulfilled, (state, action: PayloadAction<IUser>) => {
                 state.fetching = false
                 if (!state.followingRequests) state.followingRequests = []
                 state.followingRequests.push(action.payload)
@@ -57,3 +57,5 @@ const followingRequestsSlice = createSlice({
                 state.error = action.payload
             })
 })
+export const {} = followingRequestsSlice.actions;
+export default followingRequestsSlice.reducer;

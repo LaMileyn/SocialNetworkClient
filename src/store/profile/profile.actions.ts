@@ -16,65 +16,68 @@ export const getProfile = createAsyncThunk(
 
 
 //follow
+interface IFollowParams {
+    userToFollowId : string,
+    myId : string
+}
 export const followPerson = createAsyncThunk(
-    "profile/follow", async (userToFollowId: string, {rejectWithValue, getState}) => {
+    "profile/follow", async ( params : IFollowParams, {rejectWithValue}) => {
         try {
-            await userService.follow(userToFollowId)
-            const appState = getState() as RootState
-            return appState.auth.user.userInfo.id
+            await userService.follow(params.userToFollowId)
+            return params.myId
         } catch (err: any) {
             return rejectWithValue(err.response.data)
         }
     })
 //unFollow
-export const unFollowPerson = createAsyncThunk("profile/unfollow", async (userToUnfollowId: string, {
-    rejectWithValue,
-    getState
-}) => {
+interface IUnFollowParams {
+    userToUnfollowId : string,
+    myId : string
+}
+export const unFollowPerson = createAsyncThunk("profile/unfollow", async (params : IUnFollowParams, {rejectWithValue}) => {
     try {
-        await userService.unFollow(userToUnfollowId)
-        const appState = getState() as RootState
-        return appState.auth.user.userInfo.id
+        await userService.unFollow(params.userToUnfollowId)
+        return params.myId
     } catch (err: any) {
         return rejectWithValue(err.response.data)
     }
 })
 //accepFriend
-export const acceptFriend = createAsyncThunk("profile/acceptFriend", async (userToAcceptId: string, {
-    rejectWithValue,
-    getState
-}) => {
+interface IAcceptFriendParams {
+    userToAcceptId : string,
+    myId : string
+}
+export const acceptFriend = createAsyncThunk("profile/acceptFriend", async (params : IAcceptFriendParams, {rejectWithValue}) => {
     try {
-        await userService.acceptFriendship(userToAcceptId)
-        const appState = getState() as RootState
-        return appState.auth.user.userInfo.id
+        await userService.acceptFriendship(params.userToAcceptId)
+        return params.myId
     } catch (err: any) {
         return rejectWithValue(err.response.data)
     }
 })
 //rejectFriend
-export const rejectFriend = createAsyncThunk("profile/rejectFriend", async (userToRejectId: string, {
-    rejectWithValue,
-    getState
-}) => {
+interface IAcceptFriendParams {
+    userToRejectId : string,
+    myId : string
+}
+export const rejectFriend = createAsyncThunk("profile/rejectFriend", async (params : IAcceptFriendParams, {rejectWithValue}) => {
     try {
-        await userService.rejectFriendship(userToRejectId)
-        const appState = getState() as RootState
-        return appState.auth.user.userInfo.id
+        await userService.rejectFriendship(params.userToRejectId)
+        return params.myId
     } catch (err: any) {
         return rejectWithValue(err.response.data)
     }
 })
 
 //cancel follow request
-export const cancelFollow = createAsyncThunk("profile/cancelFollow", async (receiverId: string, {
-    rejectWithValue,
-    getState
-}) => {
+interface ICancelFollowParams {
+    receiverId : string,
+    myId : string
+}
+export const cancelFollow = createAsyncThunk("profile/cancelFollow", async (params: ICancelFollowParams, {rejectWithValue}) => {
     try {
-        await userService.cancelFollowRequest(receiverId)
-        const appState = getState() as RootState
-        return appState.auth.user.userInfo.id
+        await userService.cancelFollowRequest(params.receiverId)
+        return params.myId
     } catch (err: any) {
         return rejectWithValue(err.response.data)
     }

@@ -13,7 +13,7 @@ export const getFollowersRequests = createAsyncThunk("friends/getFollowers", asy
 })
 
 
-export const acceptFriendship = createAsyncThunk("friends/acceptFriend", async (userToAccept: IUser<string>, {
+export const acceptFriendship = createAsyncThunk("friends/acceptFriend", async (userToAccept: IUser, {
     rejectWithValue
 }) => {
     try {

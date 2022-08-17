@@ -2,7 +2,7 @@ import {IUser} from "./user.model";
 
 export interface IPost {
     _id : string,
-    user : Array<IUser> | Array<string>,
+    user : IUser | string,
     img : string,
     desc : string,
     likes : Array<IUser> | Array<string>,

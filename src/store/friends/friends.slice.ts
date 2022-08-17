@@ -4,8 +4,8 @@ import {getCurrentUser, getFriends, unFollowFriend} from "./friends.actions";
 import {acceptFriendship} from "../followersRequests/followersRequests.actions";
 
 interface SliceState {
-    friends: Array<IUser<string>> | null,
-    currentUser: IUser<string> | null
+    friends: Array<IUser> | null,
+    currentUser: IUser | null
     fetching: boolean,
     error: null,
 }
@@ -23,14 +23,14 @@ const friendsSlice = createSlice({
     extraReducers: (builder) =>
         builder
             // get current user
-            .addCase(getCurrentUser.fulfilled, (state, action: PayloadAction<IUser<string>>) => {
+            .addCase(getCurrentUser.fulfilled, (state, action: PayloadAction<IUser>) => {
                 state.currentUser = action.payload
             })
             // get friends
             .addCase(getFriends.pending, (state) => {
                 state.fetching = true
             })
-            .addCase(getFriends.fulfilled, (state, action: PayloadAction<Array<IUser<string>>>) => {
+            .addCase(getFriends.fulfilled, (state, action: PayloadAction<Array<IUser>>) => {
                 state.fetching = false
                 state.friends = action.payload
             })
@@ -51,7 +51,7 @@ const friendsSlice = createSlice({
                 state.error = action.payload
             })
             // acceptFriend
-            .addCase(acceptFriendship.fulfilled, (state, action: PayloadAction<IUser<string>>) => {
+            .addCase(acceptFriendship.fulfilled, (state, action: PayloadAction<IUser>) => {
                 if (!state.friends){
                     state.friends = []
                 }
@@ -59,3 +59,6 @@ const friendsSlice = createSlice({
             })
 
 })
+
+export const { } = friendsSlice.actions;
+export default friendsSlice.reducer;

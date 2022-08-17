@@ -3,7 +3,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {acceptFriendship, getFollowersRequests} from "./followersRequests.actions";
 
 interface SliceState {
-    followersRequests: Array<IUser<string>> | null,
+    followersRequests: Array<IUser> | null,
     fetching: boolean,
     error: null,
 }
@@ -23,7 +23,7 @@ const followersRequestsSlice = createSlice({
             .addCase(getFollowersRequests.pending, (state) => {
                 state.fetching = true
             })
-            .addCase(getFollowersRequests.fulfilled, (state, action : PayloadAction<Array<IUser<string>>>) => {
+            .addCase(getFollowersRequests.fulfilled, (state, action : PayloadAction<Array<IUser>>) => {
                 state.fetching = false
                 state.followersRequests = action.payload
             })
@@ -35,7 +35,7 @@ const followersRequestsSlice = createSlice({
             .addCase(getFollowersRequests.pending, (state) => {
                 state.fetching = true
             })
-            .addCase(acceptFriendship.fulfilled, (state, action : PayloadAction<IUser<string>>) => {
+            .addCase(acceptFriendship.fulfilled, (state, action : PayloadAction<IUser>) => {
                 state.fetching = false
                 state.followersRequests = state.followersRequests!.filter( person => person._id !== action.payload._id);
             })
@@ -47,7 +47,7 @@ const followersRequestsSlice = createSlice({
             .addCase(getFollowersRequests.pending, (state) => {
                 state.fetching = true
             })
-            .addCase(acceptFriendship.fulfilled, (state, action : PayloadAction<IUser<string>>) => {
+            .addCase(acceptFriendship.fulfilled, (state, action : PayloadAction<IUser>) => {
                 state.fetching = false
                 state.followersRequests = state.followersRequests!.filter( person => person._id !== action.payload._id);
             })
@@ -57,3 +57,6 @@ const followersRequestsSlice = createSlice({
             })
 
 })
+
+export const {} = followersRequestsSlice.actions;
+export default followersRequestsSlice.reducer;

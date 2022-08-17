@@ -27,7 +27,7 @@ export const cancelFollow = createAsyncThunk(
 
 export const followPerson = createAsyncThunk(
     "friends/followPerson",
-    async (person: IUser<string>, {rejectWithValue}) => {
+    async (person: IUser, {rejectWithValue}) => {
         try {
             await userService.follow(person._id)
             return person
