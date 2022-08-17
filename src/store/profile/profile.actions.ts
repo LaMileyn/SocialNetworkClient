@@ -1,6 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {RootState} from "../index";
-import {userService} from "../../services";
+import userService from "../../services/user-service";
 
 
 export const getProfile = createAsyncThunk(

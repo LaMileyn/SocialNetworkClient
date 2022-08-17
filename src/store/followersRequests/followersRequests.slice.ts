@@ -1,6 +1,6 @@
 import {IUser} from "../../models";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {acceptFriendship, getFollowersRequests} from "./followersRequests.actions";
+import {acceptFriendship, getFollowersRequests, rejectFriendship} from "./followersRequests.actions";
 
 interface SliceState {
     followersRequests: Array<IUser> | null,
@@ -32,26 +32,26 @@ const followersRequestsSlice = createSlice({
                 state.error = action.payload
             })
             // accept
-            .addCase(getFollowersRequests.pending, (state) => {
+            .addCase(acceptFriendship.pending, (state) => {
                 state.fetching = true
             })
             .addCase(acceptFriendship.fulfilled, (state, action : PayloadAction<IUser>) => {
                 state.fetching = false
                 state.followersRequests = state.followersRequests!.filter( person => person._id !== action.payload._id);
             })
-            .addCase(getFollowersRequests.rejected, (state, action : PayloadAction<any>) => {
+            .addCase(acceptFriendship.rejected, (state, action : PayloadAction<any>) => {
                 state.fetching = false
                 state.error = action.payload
             })
             // reject
-            .addCase(getFollowersRequests.pending, (state) => {
+            .addCase(rejectFriendship.pending, (state) => {
                 state.fetching = true
             })
-            .addCase(acceptFriendship.fulfilled, (state, action : PayloadAction<IUser>) => {
+            .addCase(rejectFriendship.fulfilled, (state, action : PayloadAction<string>) => {
                 state.fetching = false
-                state.followersRequests = state.followersRequests!.filter( person => person._id !== action.payload._id);
+                state.followersRequests = state.followersRequests!.filter( person => person._id !== action.payload);
             })
-            .addCase(getFollowersRequests.rejected, (state, action : PayloadAction<any>) => {
+            .addCase(rejectFriendship.rejected, (state, action : PayloadAction<any>) => {
                 state.fetching = false
                 state.error = action.payload
             })

@@ -1,0 +1,14 @@
+@import "./variables";
+
+*{
+  box-sizing: border-box;
+  outline: none;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  font-size: 100%;
+  text-decoration: none;
+}
+html,body{
+  font-family: var(--app-font);
+}

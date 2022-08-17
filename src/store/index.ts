@@ -13,7 +13,6 @@ const store = configureStore({
         followers : followersRequestsSlice,
         following : followingRequestsSlice,
         profile : profileSlice
-
     },
     middleware : (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck : false

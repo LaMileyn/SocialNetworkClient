@@ -1,0 +1,23 @@
+:root {
+  --app-font: "Roboto",sans-serif;
+
+  --header-height : 72px;
+
+  --color-primary : #2BA7F3; // main design color
+}
+
+:root[data-theme="light"] {
+  --color-light : #edf0f2; // light is background secondary color
+  --color-white : #ffffff; // white is blocks primary color
+  --color-grey-low: #dcdcdc;
+  --color-text-main: #000000;
+  --color-text-secondary: var(--color-grey-low);
+}
+
+:root[data-theme="dark"] {
+  --color-light : #3C424B;
+  --color-white : #262D37; // is going to be black --> blocks primary
+  --color-grey-low: #a3a3a3;
+  --color-text-main: #ffffff;
+  --color-text-secondary: var(--color-grey-low);
+}

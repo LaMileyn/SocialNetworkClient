@@ -1,5 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {userService} from "../../services";
+import userService from "../../services/user-service";
 
 
 export const getCurrentUser = createAsyncThunk("friends/currentUser", async (id: string, {rejectWithValue}) => {
