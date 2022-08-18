@@ -1,7 +1,7 @@
-import Header from "./components/layout/Header/Header";
 import './utils/styles/main.scss'
 import {useEffect} from "react";
 import {useAppSelector} from "./utils/hooks";
+import MainLayout from "./components/layout/MainLayout/MainLayout";
 
 const App = () => {
 
@@ -13,7 +13,7 @@ const App = () => {
 
     return (
         <div className="App">
-            <Header/>
+            <MainLayout/>
         </div>
     );
 }

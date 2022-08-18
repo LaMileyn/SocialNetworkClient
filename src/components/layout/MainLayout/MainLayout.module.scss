@@ -1,4 +1,7 @@
 .centerLayout{
-  display: grid;
-  grid-template-columns: 350px auto;
+  display: flex;
+  min-height: 100vh;
+}
+.rightWrapper{
+  flex: 1;
 }

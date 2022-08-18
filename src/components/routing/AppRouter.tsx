@@ -5,6 +5,7 @@ import MessagesPage from "../../views/Messages/MessagesPage/MessagesPage";
 import ProfilePage from "../../views/Profile/ProfilePage/ProfilePage";
 import FriendsPage from "../../views/Friends/FriendsPage/FriendsPage";
 import AuthPage from "../../views/Auth/AuthPage/AuthPage";
+import MainLayout from "../layout/MainLayout/MainLayout";
 
 
 const AppRouter : FC = (props) => {
@@ -12,11 +13,11 @@ const AppRouter : FC = (props) => {
         <Routes>
             <Route path="/login" element={<AuthPage/>}/>
             <Route path="/register" element={<AuthPage/>}/>
-            {/*<Route path="/" element={*/}
-            {/*    <RequireAuth>*/}
-            {/*        <MainLayout/>*/}
-            {/*    </RequireAuth>*/}
-            {/*}>*/}
+            <Route path="/" element={
+                    <MainLayout/>
+                // <RequireAuth>
+                // </RequireAuth>
+            }/>
             {/*    <Route index element={<Navigate to={"/feed"}/>}/>*/}
             {/*    <Route path="feed" element={<HomePage/>}/>*/}
             {/*    <Route path="messages" element={<MessagesPage/>}/>*/}
