@@ -10,6 +10,7 @@ const App = () => {
         document.documentElement.dataset.theme = theme;
         localStorage.setItem("theme",theme)
     },[theme])
+
     return (
         <div className="App">
             <Header/>

@@ -1,0 +1,88 @@
+.header {
+  height: var(--header-height);
+  background-color: var(--color-white);
+  display: flex;
+  align-items: center;
+  box-shadow: -2px -7px 13px 0px #1b1c1f78;;
+}
+
+.container {
+  max-width: var(--container-width);
+  padding: 0 20px;
+  width: 100%;
+  display: flex;
+  margin: 0 auto;
+  gap: var(--block-gap);
+  align-items: center;
+  justify-content: space-between;
+}
+.extraLinks {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  width: 400px;
+  a{
+    color: var(--color-text-main);
+  }
+}
+.search{
+  flex: 1;
+}
+.inputWrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background-color: var(--backgroundColor-input);
+  padding: 10px;
+  border-radius: var(--border-radius);
+  margin: 0 auto;
+  input {
+    border: none;
+    width: 100%;
+    background: none;
+    color: var(--color-grey-middle);
+
+    &::placeholder {
+      color: var(--color-grey-middle);
+    }
+  }
+}
+.iconSearch{
+  color: var(--color-text-main) !important;
+}
+
+.userAndNotifications{
+  width: 400px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 2rem;
+}
+
+.btnIcon{
+  position: relative;
+  font-size: 30px;
+  color: var(--color-text-main) !important;
+}
+.iconBadge{
+  width: 21px;
+  height: 21px;
+  background-color: red;
+  border-radius: 50%;
+  color: white;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: -5px;
+  font-size: 12px;
+  top: -5px;
+}
+
+.user{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--color-text-main);
+}
