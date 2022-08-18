@@ -1,0 +1,76 @@
+.dots{
+  display: flex;
+  align-items: center;
+  gap: .2rem;
+  margin-top: 35px;
+  justify-content: center;
+  &__item{
+    transition: .3s all linear;
+    width: 8px;
+    height: 8px;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.5);
+    &.active{
+      width: 18px;
+      background-color: white;
+    }
+  }
+}
+.slider{
+  width: 100%;
+}
+.lottieImages{
+  position: relative;
+  width: 100%;
+  height: 750px;
+  overflow: hidden;
+}
+.lottie{
+  position: absolute;
+  transition: .3s all;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  &.currentSlide{
+    opacity: 1;
+    transform: translateX(0);
+  }
+  &.lastSlide{
+    transform: translateX(-100%);
+  }
+  &.nextSlide{
+    transform: translateX(100%);
+  }
+}
+.textData{
+  padding: 10px 0;
+  height: 100px;
+  width: 100%;
+  position: relative;
+}
+.text{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding-top: 10px;
+  top: 0;
+  text-align: center;
+  transition: .5s all;
+  opacity: 0;
+  transform: scale(.8);
+  &.active{
+    opacity: 1;
+    transform: scale(1);
+  }
+  span{
+    color: #dedede;
+  }
+}
+.title{
+  color: white;
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 40px;
+}

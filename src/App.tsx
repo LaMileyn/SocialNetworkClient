@@ -2,6 +2,7 @@ import './utils/styles/main.scss'
 import {useEffect} from "react";
 import {useAppSelector} from "./utils/hooks";
 import MainLayout from "./components/layout/MainLayout/MainLayout";
+import AuthPage from "./views/Auth/AuthPage/AuthPage";
 
 const App = () => {
 
@@ -13,7 +14,7 @@ const App = () => {
 
     return (
         <div className="App">
-            <MainLayout/>
+            <AuthPage/>
         </div>
     );
 }

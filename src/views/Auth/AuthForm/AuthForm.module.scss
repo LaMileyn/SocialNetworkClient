@@ -1,0 +1,54 @@
+.form{
+  padding: 25px 40px;
+  border-radius: 10px;
+  width: 710px;
+  margin: 0 auto;
+
+  &__under{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+.recovery{
+  color: var(--color-primary);
+}
+.remember{
+  color: var(--color-grey-middle);
+}
+.acceptButton{
+  margin-top: 45px !important;
+  height: 50px !important;
+  width: 100% !important;
+}
+.field{
+  margin-bottom: 15px !important;
+  width: 100%;
+}
+.submit{
+  width: 100%;
+  height: 50px;
+}
+.error{
+  margin-bottom: 25px;
+}
+.hr{
+  margin: 20px;
+}
+.help{
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.helper{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: var(--blue);
+  font-size: 12px;
+  &:hover{
+    text-decoration: underline;
+  }
+}
