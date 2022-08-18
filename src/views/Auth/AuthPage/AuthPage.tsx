@@ -1,18 +1,21 @@
 import React, {FC, useMemo} from 'react';
 import styles from './AuthPage.module.scss';
 import AuthSlider from "../AuthSlider/AuthSlider";
-import {useLocation} from "react-router-dom";
+import {Navigate, useLocation} from "react-router-dom";
 import {Button} from "@mui/material";
 import logo from './../../../assets/images/logoLarge.png'
 import AuthForm from "../AuthForm/AuthForm";
+import {useAuth} from "../../../utils/hooks";
 
 const AuthPage: FC = (props) => {
 
+    const auth = useAuth()
     const location = useLocation()
     const isLogin = useMemo( () =>{
         return location.pathname.includes("/login")
     },[location.pathname])
 
+    if (auth) return <Navigate to={"/"}/>
     return (
         <section className={styles.auth}>
             <div className={styles.wrapper}>

@@ -19,7 +19,7 @@ const MainLayout: FC = (props) => {
     //     });
     //
     // }, [dispatch,user])
-    //
+
     // if (!socket) return <CircularProgress variant={"indeterminate"} color={"primary"}/>
     return (
         <>

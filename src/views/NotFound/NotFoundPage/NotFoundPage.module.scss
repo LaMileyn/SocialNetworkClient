@@ -1,0 +1,66 @@
+.notFound{
+  padding: 150px 30px;
+  height: 100vh;
+  text-align: center;
+  h1{
+    color: var(--color-text-main);
+    font-size: 50px;
+    margin-bottom: 15px;
+    font-weight: normal;
+  }
+  h2{
+    color: var(--color-text-main);
+    font-size: 76px;
+    margin-bottom: 30px;
+    font-weight: bold;
+  }
+  p{
+    font-size: 32px;
+    color: var(--color-text-main);
+    font-weight: 300;
+  }
+  button{
+    margin-top: 25px;
+    a{
+      color: white;
+    }
+  }
+  .lottie{
+    width: 70%;
+    margin: 0 auto;
+    height: 70%;
+  }
+}
+@media screen and (max-width: 640px) {
+  .notFound{
+    text-align: left;
+    padding: 100px 30px;
+    .lottie{
+      margin-top: -150px;
+      width: 80%;
+      height: 80%;
+    }
+  }
+
+}
+@media screen and (max-width: 515px) {
+  .notFound{
+    text-align: left;
+    padding: 100px 30px;
+
+    h1{
+      font-size: 37px;
+    }
+    h2{
+      font-size: 60px;
+    }
+    p{
+      font-size: 21px;
+    }
+    .lottie{
+      margin-top: -200px;
+      width: 80%;
+      height: 80%;
+    }
+  }
+}
