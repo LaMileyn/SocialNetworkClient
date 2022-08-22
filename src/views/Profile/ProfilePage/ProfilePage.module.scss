@@ -1,0 +1,8 @@
+.top{
+  height: 350px;
+  &__background{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

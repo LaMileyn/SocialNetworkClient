@@ -1,7 +1,7 @@
 import React, {FC, useMemo} from 'react';
 import styles from './AuthPage.module.scss';
 import AuthSlider from "../AuthSlider/AuthSlider";
-import {Navigate, useLocation} from "react-router-dom";
+import {Link, Navigate, useLocation} from "react-router-dom";
 import {Button} from "@mui/material";
 import logo from './../../../assets/images/logoLarge.png'
 import AuthForm from "../AuthForm/AuthForm";
@@ -45,7 +45,9 @@ const AuthPage: FC = (props) => {
                             : "Don`t have an account yet? "
                         }</p>
                         <Button variant={"text"} color={"primary"}>
-                            {isLogin ? "Sign Up" : "Sign In" }
+                            {isLogin
+                                ? <Link to={"/register"}>Sign Up</Link>
+                                : <Link to={"/login"}>Sign In</Link> }
                         </Button>
                     </div>
                 </div>

@@ -24,6 +24,10 @@ const AppRouter: FC = (props) => {
                 <Route path="feed" element={<HomePage/>}/>
                 <Route path="messages" element={<MessagesPage/>}/>
                 <Route path="profile/:id/" element={<ProfilePage/>}/>
+                <Route path="profile/">
+                    <Route index element={<ProfilePage/>} />
+                    <Route path=":id" element={<ProfilePage/>} />
+                </Route>
                 <Route path="friends/:id/*" element={<FriendsPage/>}/>
             </Route>
             <Route path="*" element={<NotFoundPage/>}/>

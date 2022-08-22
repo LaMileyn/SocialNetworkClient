@@ -31,7 +31,7 @@ export interface UserDto{
     accessToken : string,
     refreshToken : string,
     userInfo : {
-        _id : string,
+        id : string,
         email : string,
         activated : boolean,
         username : string,

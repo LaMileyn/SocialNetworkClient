@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {ServerError, UserDto} from "../../models";
-import {checkAuth, loginMe, registerMe} from "./auth.actions";
+import {checkAuth, loginMe, logout, registerMe} from "./auth.actions";
 
 interface SliceState {
     user: UserDto | null,
@@ -8,7 +8,7 @@ interface SliceState {
     error: ServerError | null
 }
 
-const initialState : SliceState = {
+const initialState: SliceState = {
     user: null,
     fetching: false,
     error: null
@@ -57,6 +57,10 @@ const authSlice = createSlice({
                 state.error = action.payload;
                 state.user = null
                 localStorage.removeItem("token")
+            })
+            // logout
+            .addCase(logout.fulfilled, (state) =>{
+                state.user = null
             })
 })
 

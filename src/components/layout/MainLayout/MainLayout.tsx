@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import styles from './MainLayout.module.scss';
-import {Outlet} from "react-router-dom";
+import {Outlet, Navigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../utils/hooks";
 import Header from "../Header/Header";
 import SideBar from "../SideBar/SideBar";
@@ -21,6 +21,7 @@ const MainLayout: FC = (props) => {
     // }, [dispatch,user])
 
     // if (!socket) return <CircularProgress variant={"indeterminate"} color={"primary"}/>
+
     return (
         <>
             <div className={styles.centerLayout}>

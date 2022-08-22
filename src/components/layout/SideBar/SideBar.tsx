@@ -1,10 +1,8 @@
 import React, {FC} from 'react';
 import styles from './SideBar.module.scss';
-import {Avatar} from "@mui/material";
 import {NavLink} from "react-router-dom";
 import {
-    ExploreOffOutlined,
-    ManOutlined,
+    ExploreOffOutlined, GamesOutlined,
     Message,
     MoreHoriz,
     NoteAltOutlined,
@@ -12,6 +10,49 @@ import {
 } from "@mui/icons-material";
 import logo from './../../../assets/images/logoLarge.png'
 
+
+interface IRoute {
+    to : string,
+    icon : JSX.Element,
+    title : string
+}
+const routes : IRoute[] = [
+    {
+        to : "/feed",
+        icon : <OtherHousesRounded className={styles.navIcon}/>,
+        title : "Feed"
+    },
+    {
+        to : "/explore",
+        icon : <ExploreOffOutlined className={styles.navIcon}/>,
+        title : "Explore"
+    },
+    {
+        to : "/notifications",
+        icon : <Notifications className={styles.navIcon}/>,
+        title : "Notifications"
+    },
+    {
+        to : "/messages",
+        icon : <Message className={styles.navIcon}/>,
+        title : "Messages"
+    },
+    {
+        to : "/games",
+        icon : <GamesOutlined className={styles.navIcon}/>,
+        title : "Games"
+    },
+    {
+        to : "/profile",
+        icon : <PersonOutlined className={styles.navIcon}/>,
+        title : "Profile"
+    },
+    {
+        to : "/more",
+        icon : <MoreHoriz className={styles.navIcon}/>,
+        title : "More"
+    },
+]
 const SideBar: FC = (props) => {
     return (
         <div className={styles.sidebar}>
@@ -23,48 +64,16 @@ const SideBar: FC = (props) => {
             <div className={styles.center}>
                 <nav className={styles.navigation}>
                     <ul className={styles.list}>
-                        <li className={styles.list__item}>
-                            <NavLink to={'/feed'} className={({isActive}) => isActive && styles.active}>
-                                <OtherHousesRounded className={styles.navIcon}/>
-                                <span>Feed</span>
-                            </NavLink>
-                        </li>
-                        <li className={styles.list__item}>
-                            <NavLink to={'/explore'} className={({isActive}) => isActive && styles.active}>
-                                <ExploreOffOutlined className={styles.navIcon}/>
-                                <span>Explore</span>
-                            </NavLink>
-                        </li>
-                        <li className={styles.list__item}>
-                            <NavLink to={'/notifications'} className={({isActive}) => isActive && styles.active}>
-                                <Notifications className={styles.navIcon}/>
-                                <span>Notifications</span>
-                            </NavLink>
-                        </li>
-                        <li className={styles.list__item}>
-                            <NavLink to={'/message'} className={({isActive}) => isActive && styles.active}>
-                                <Message className={styles.navIcon}/>
-                                <span>Messages</span>
-                            </NavLink>
-                        </li>
-                        <li className={styles.list__item}>
-                            <NavLink to={'/lists'} className={({isActive}) => isActive && styles.active}>
-                                <NoteAltOutlined className={styles.navIcon}/>
-                                <span>Lists</span>
-                            </NavLink>
-                        </li>
-                        <li className={styles.list__item}>
-                            <NavLink to={'/profile'} className={({isActive}) => isActive && styles.active}>
-                                <PersonOutlined className={styles.navIcon}/>
-                                <span>Profile</span>
-                            </NavLink>
-                        </li>
-                        <li className={styles.list__item}>
-                            <NavLink to={'/more'} className={({isActive}) => isActive && styles.active}>
-                                <MoreHoriz className={styles.navIcon}/>
-                                <span>More</span>
-                            </NavLink>
-                        </li>
+                        {
+                            routes.map( ({ icon , to, title}) => (
+                                <li className={styles.list__item} key={to}>
+                                    <NavLink to={to} className={({isActive}) => isActive && styles.active}>
+                                        {icon}
+                                        <span>{title}</span>
+                                    </NavLink>
+                                </li>
+                            ))
+                        }
                     </ul>
                 </nav>
             </div>

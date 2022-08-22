@@ -4,10 +4,11 @@ import {Link} from "react-router-dom";
 import {Avatar, Box, Divider, Menu, Tooltip, MenuItem, ListItemIcon} from "@mui/material";
 import {Logout, Notifications, SearchRounded, Settings} from "@mui/icons-material";
 import {IconButton} from "@mui/material";
-import {useAppSelector} from "../../../utils/hooks";
+import {useAppDispatch, useAppSelector} from "../../../utils/hooks";
+import {logout} from "../../../store/auth/auth.actions";
 
 const Header: FC = (props) => {
-
+    const dispatch = useAppDispatch()
     const { user }  = useAppSelector( state => state.auth)
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -40,7 +41,7 @@ const Header: FC = (props) => {
                     </div>
                     <div className={styles.user}>
                         <span className={styles.user__name}>
-                            Hey, <strong>John</strong>
+                            Hey, <strong>{user?.userInfo?.username}</strong>
                         </span>
                         <span className={styles.user__avatar}>
                             <div>
@@ -55,7 +56,7 @@ const Header: FC = (props) => {
                                             aria-expanded={open ? 'true' : undefined}
                                         >
                                             <Avatar sx={{width: 40, height: 40}}
-                                                    src={"/images/"+user?.userInfo?.profilePicture ?? ""}></Avatar>
+                                                    src={"/images/"+user?.userInfo?.profilePicture ?? ""}/>
                                         </IconButton>
                                     </Tooltip>
                                 </Box>
@@ -96,7 +97,7 @@ const Header: FC = (props) => {
                                     anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
                                 >
                                     <MenuItem sx={{ color : "var(--color-text-main)"}}>
-                                        <Avatar src={"/images/"+user?.userInfo?.profilePicture ?? ""}/> Profile
+                                        <Avatar src={"/images/"+user?.userInfo?.profilePicture}/> {user?.userInfo?.username}
                                     </MenuItem>
                                     <Divider/>
                                     <MenuItem sx={{ color : "var(--color-text-main)"}}>
@@ -105,7 +106,7 @@ const Header: FC = (props) => {
                                         </ListItemIcon>
                                         Settings
                                     </MenuItem>
-                                    <MenuItem sx={{ color : "var(--color-text-main)"}}>
+                                    <MenuItem sx={{ color : "var(--color-text-main)"}} onClick ={ () => dispatch(logout())}>
                                         <ListItemIcon sx={{ color : "var(--color-text-main)"}}>
                                             <Logout fontSize="small"/>
                                         </ListItemIcon>

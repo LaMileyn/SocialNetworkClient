@@ -1,7 +1,6 @@
 import './utils/styles/main.scss'
 import {useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "./utils/hooks";
-import AuthPage from "./views/Auth/AuthPage/AuthPage";
 import {checkAuth} from "./store/auth/auth.actions";
 import {CircularProgress} from "@mui/material";
 import AppRouter from "./components/routing/AppRouter";
