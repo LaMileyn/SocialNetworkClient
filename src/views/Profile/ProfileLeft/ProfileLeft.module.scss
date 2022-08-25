@@ -1,13 +1,18 @@
 .profileLeft{
   flex-basis: 400px;
-  background-color: var(--color-white);
-  border-radius: var(--border-radius);
-  position: relative;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 0;
-  justify-content: space-between;
+  &__top{
+    background-color: var(--color-white);
+    border-radius: var(--border-radius);
+    padding: 30px 15px;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0;
+    justify-content: space-between;
+    position: relative;
+  }
+  &__bottom{
+    margin-top: var(--block-gap);
+  }
 }
 .profileArrow{
   position: absolute;
@@ -77,4 +82,32 @@
   }
 
 
+}
+
+// left bottom
+.bottomSquares{
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--block-gap);
+}
+.square{
+  flex-basis: calc( (100% / 2) - var(--block-gap) / 2 ) ;
+  padding: 35px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: .7rem;
+  font-weight: 300;
+  color: var(--color-text-main);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid var(--color-white);
+  &:hover{
+    background-color: var(--color-white);
+  }
+  svg{
+    color: var(--color-grey-low);
+  }
 }

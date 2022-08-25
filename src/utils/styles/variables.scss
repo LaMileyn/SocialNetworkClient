@@ -22,6 +22,7 @@
   --color-text-secondary: var(--color-grey-low);
   --dark-primary: rgba(213, 213, 213, 0.28);
   --box-shadow: rgba(179, 178, 178, 0.14);
+  --post-background : var(--color-light);
 }
 
 :root[data-theme="dark"] {
@@ -33,4 +34,5 @@
   --color-text-secondary: var(--color-grey-low);
   --dark-primary: #1b212b;
   --box-shadow: rgba(12, 12, 12, 0.14);
+  --post-background : #484c55;
 }

@@ -1,3 +1,6 @@
+.profilePage{
+  padding-bottom: 100px;
+}
 .top{
   height: 350px;
   &__background{
@@ -12,7 +15,7 @@
   width: 100%;
   display: flex;
   margin: 0 auto;
-  margin-top: -50px;
+  margin-top: -70px;
   gap: var(--block-gap);
   align-items: start;
   justify-content: space-between;

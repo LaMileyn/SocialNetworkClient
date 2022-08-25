@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect, useMemo, useRef, useState} from 'react';
 import styles from './MainLayout.module.scss';
 import {Outlet, Navigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../utils/hooks";
@@ -22,11 +22,34 @@ const MainLayout: FC = (props) => {
 
     // if (!socket) return <CircularProgress variant={"indeterminate"} color={"primary"}/>
 
+    const leftRef = useRef<HTMLDivElement>(null);
+
+    const [margin, setMargin] = useState<number>(0)
+    useEffect(() => {
+        if (leftRef.current) {
+            setMargin(leftRef.current?.children[0].clientWidth)
+        }
+
+        window.addEventListener("resize", resizeHand)
+        return () => window.removeEventListener("resize",resizeHand)
+    }, [])
+    function resizeHand(){
+        console.log("resize")
+        setMargin(leftRef!.current!.children[0].clientWidth)
+    }
+    console.log(margin)
     return (
         <>
             <div className={styles.centerLayout}>
-                <SideBar/>
-                <div className={styles.rightWrapper}>
+                <div ref={leftRef}>
+                    <SideBar/>
+                </div>
+                <div
+                    style={{
+                        marginLeft: margin + "px"
+                    }}
+                    className={styles.rightWrapper}
+                >
                     <Header/>
                     <Outlet/>
                 </div>

@@ -1,6 +1,11 @@
 .profileCenter{
   flex: 1;
-  height: 400px;
   background-color: var(--color-white);
   border-radius: var(--border-radius);
+}
+.postsBlock{
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--block-gap);
 }

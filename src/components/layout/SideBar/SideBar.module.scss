@@ -1,13 +1,13 @@
 .sidebar{
   height: 100vh;
-  //margin-top: calc( 0px - var(--header-height));
   display: flex;
   background-color: var(--color-white);
   flex-direction: column;
   box-shadow: -2px -7px 13px 0px var(--box-shadow);
-  position: relative;
+  position: fixed;
   z-index: 99;
-  width: 350px;
+  transition: 1s width ease-in-out;
+  width: 300px;
 }
 .header{
   height: var(--header-height);
@@ -73,4 +73,21 @@
 .navIcon{
   color: var(--color-grey-middle) !important;
   font-size: 30px !important;
+}
+
+@media screen and (max-width: 1640px){
+  .sidebar{
+    width: auto;
+    .list{
+      &__item{
+        a{
+          justify-content: center;
+          padding: 20px 35px 20px 35px;
+          span{
+            display: none;
+          }
+        }
+      }
+    }
+  }
 }
