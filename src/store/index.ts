@@ -1,8 +1,6 @@
 import {configureStore} from "@reduxjs/toolkit";
 import authSlice from "./auth/auth.slice";
 import usersSlice from "./users/users.slice";
-import followersRequestsSlice from "./followersRequests/followersRequests.slice";
-import followingRequestsSlice from "./followingRequests/followingRequests.slice";
 import profileSlice from "./profile/profile.slice";
 import themeSlice from "./theme/theme.slice";
 
@@ -11,8 +9,6 @@ const store = configureStore({
     reducer : {
         auth : authSlice,
         users : usersSlice,
-        followers : followersRequestsSlice,
-        following : followingRequestsSlice,
         profile : profileSlice,
         theme : themeSlice
     },

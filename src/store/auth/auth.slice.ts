@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {ServerError, UserDto} from "../../models";
+import {ServerError, UserDto} from "./../../models";
 import {checkAuth, loginMe, logout, registerMe} from "./auth.actions";
 
 interface SliceState {
