@@ -6,3 +6,14 @@
     object-fit: cover;
   }
 }
+.main{
+  max-width: var(--container-width);
+  padding: 0 20px;
+  width: 100%;
+  display: flex;
+  margin: 0 auto;
+  margin-top: -50px;
+  gap: var(--block-gap);
+  align-items: start;
+  justify-content: space-between;
+}
