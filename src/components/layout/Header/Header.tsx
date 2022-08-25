@@ -1,15 +1,29 @@
 import React, {FC} from 'react';
 import styles from './Header.module.scss';
 import {Link} from "react-router-dom";
-import {Avatar, Box, Divider, Menu, Tooltip, MenuItem, ListItemIcon} from "@mui/material";
+import {
+    Avatar,
+    Box,
+    Divider,
+    Menu,
+    Tooltip,
+    MenuItem,
+    ListItemIcon,
+    FormControlLabel,
+    styled,
+    Switch
+} from "@mui/material";
 import {Logout, Notifications, SearchRounded, Settings} from "@mui/icons-material";
 import {IconButton} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../../utils/hooks";
 import {logout} from "../../../store/auth/auth.actions";
+import {setTheme} from "../../../store/theme/theme.slice";
+
 
 const Header: FC = (props) => {
     const dispatch = useAppDispatch()
     const { user }  = useAppSelector( state => state.auth)
+    const theme = useAppSelector( state => state.theme)
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -100,6 +114,12 @@ const Header: FC = (props) => {
                                         <Avatar src={"/images/"+user?.userInfo?.profilePicture}/> {user?.userInfo?.username}
                                     </MenuItem>
                                     <Divider/>
+                                    <MenuItem sx={{ color : "var(--color-text-main)"}}>
+                                        <ListItemIcon sx={{ color : "var(--color-text-main)"}}>
+                                            <Switch checked={theme === "dark"} onChange={ () => dispatch(setTheme( theme === "dark" ? "light" : "dark"))}/>
+                                        </ListItemIcon>
+                                        Dark mode
+                                    </MenuItem>
                                     <MenuItem sx={{ color : "var(--color-text-main)"}}>
                                         <ListItemIcon sx={{ color : "var(--color-text-main)"}}>
                                             <Settings fontSize="small"/>

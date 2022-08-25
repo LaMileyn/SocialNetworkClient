@@ -15,7 +15,7 @@ const getTheme = () => {
 
 type themeState = string
 interface IAction {
-    payload : string
+    payload : "dark" | "light"
 }
 const initialState : themeState = getTheme()
 
@@ -23,8 +23,8 @@ const themeSlice = createSlice({
     name: "theme",
     initialState,
     reducers: {
-        set: (state,action : IAction ) => action.payload
+        setTheme: (state,action : IAction ) => action.payload
     },
 })
-export const { set } = themeSlice.actions
+export const { setTheme } = themeSlice.actions
 export default themeSlice.reducer
