@@ -1,7 +1,9 @@
 .container{
   max-width: 1400px;
   margin: 0 auto;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 300px;
+  padding: 20px;
   gap: var(--block-gap);
 }
 .leftPart > div{
@@ -9,7 +11,6 @@
 }
 .stories{
   margin-bottom: calc(var(--block-gap) + 1rem);
-  margin-top: var(--block-gap);
 }
 .post{
   margin-bottom: var(--block-gap);

@@ -11,9 +11,7 @@ const BlockHeaderBorder: FC<IProps> = ({children, icon}) => {
     return (
         <div className={styles.header}>
             {children}
-            <IconButton>
-                {icon}
-            </IconButton>
+            {icon}
         </div>
     );
 }

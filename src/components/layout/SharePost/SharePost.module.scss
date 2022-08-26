@@ -1,0 +1,36 @@
+.share{
+  background: var(--color-white);
+  border-radius: var(--border-radius);
+  padding: 20px;
+  padding-bottom: 10px;
+}
+.top{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--color-light);
+}
+.inputWrapper{
+  width: 100%;
+  border-radius: 9px;
+  background-color: var(--dark-primary);
+  padding: 10px 15px;
+  input{
+    border: none;
+    background: none;
+    width: 100%;
+    &::placeholder{
+      color: var(--color-grey-low);
+    }
+    color: white;
+  }
+}
+.bottom{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 55px;
+  padding-bottom: 0;
+}

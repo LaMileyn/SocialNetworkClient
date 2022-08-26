@@ -4,6 +4,7 @@ import BlockHeaderBorder from "../../../components/layout/BlockHeaderBorder/Bloc
 import {MoreHoriz} from "@mui/icons-material";
 import Tabs, {ITab} from "../../../components/layout/Tabs/Tabs";
 import Post from "../../../components/layout/Post/Post";
+import {IconButton} from "@mui/material";
 
 
 const tabList : ITab[] = [
@@ -22,9 +23,9 @@ const ProfileCenter : FC = (props) => {
 
     return (
         <div className={styles.profileCenter}>
-            <BlockHeaderBorder icon={<MoreHoriz style={{
+            <BlockHeaderBorder icon={<IconButton><MoreHoriz style={{
                 color: "var(--color-text-main)"
-            }} />}>
+            }} /></IconButton>}>
                 <Tabs activeTab={activeTab} setActiveTab={setActiveTab} tabList={tabList}/>
             </BlockHeaderBorder>
             <div className={styles.postsBlock}>
