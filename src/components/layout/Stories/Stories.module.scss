@@ -1,0 +1,37 @@
+.stories{
+  display: flex;
+  gap: var(--block-gap);
+  overflow: hidden;
+  & > div{
+    flex-basis: 130px;
+    height: 200px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: end;
+    border-radius: var(--border-radius);
+    flex-direction: column;
+    gap: .6rem;
+    padding: 20px;
+    text-align: center;
+  }
+}
+.addStory{
+  background-color: var(--color-white);
+  .author{
+    color: var(--color-text-main);
+  }
+}
+.addIcon{
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--post-background);
+  color: var(--color-primary);
+}
+.author{
+  color: white;
+}

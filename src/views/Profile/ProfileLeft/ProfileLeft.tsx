@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import styles from './ProfileLeft.module.scss';
 import {Avatar} from "@mui/material";
 import {
@@ -6,11 +6,33 @@ import {
     CheckCircleRounded,
     GroupOutlined,
     LocationOnOutlined,
-    MusicNoteOutlined,
+    MusicNoteOutlined, PhotoCamera,
     SettingsOutlined
 } from "@mui/icons-material";
+import {IUser} from "../../../models";
+import uploadService from "../../../services/upload.service";
 
-const ProfileLeft: FC = (props) => {
+
+interface IProps {
+    profile: IUser
+}
+
+const ProfileLeft: FC<IProps> = ({profile}) => {
+
+    const [file, setFile] = useState<string>("")
+
+    const handleChangeFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        try {
+            if (!event.target.files) return;
+            const formData = new FormData();
+            const file = event.target.files[0];
+            formData.append("file", file);
+            const {data} = await uploadService.sendToServer(formData)
+            setFile(data)
+        } catch (err) {
+            console.warn(err)
+        }
+    }
     return (
         <div className={styles.profileLeft}>
             <div className={styles.profileLeft__top}>
@@ -18,14 +40,23 @@ const ProfileLeft: FC = (props) => {
                     <CheckCircleRounded/>
                 </div>
                 <div className={styles.user}>
-                    <Avatar
-                        src={"https://kartinkin.net/uploads/posts/2021-07/1625762622_31-kartinkin-com-p-brutalnii-paren-art-art-krasivo-35.jpg"}
-                        sx={{
-                            width: 85,
-                            height: 85
-                        }}/>
-                    <span className={styles.user__fullName}>Jack Sherigan</span>
-                    <span className={styles.user__url}>@itisnowhere</span>
+                    <div className={styles.user__avatar}>
+                        <Avatar
+                            src={file
+                                ? "/images/" + file
+                                : "/images/" + profile.profilePicture ?? "https://kartinkin.net/uploads/posts/2021-07/1625762622_31-kartinkin-com-p-brutalnii-paren-art-art-krasivo-35.jpg"}
+                            sx={{
+                                width: 85,
+                                height: 85
+                            }}/>
+                        <label htmlFor={"filer"} className={styles.changeAvatar}>
+                            <PhotoCamera/>
+                            <input type="file" id="filer" accept={".png,.jpeg,.jpg"} hidden
+                                   onChange={handleChangeFile}/>
+                        </label>
+                    </div>
+                    <span className={styles.user__fullName}>{profile.username}</span>
+                    <span className={styles.user__url}>@{profile._id}</span>
                     <span className={styles.user__location}>
                     <LocationOnOutlined/>
                     New York, USA
@@ -42,7 +73,7 @@ const ProfileLeft: FC = (props) => {
                     </div>
                     <div className={styles.meta__item}>
                         <span className={styles.meta__title}>Friends</span>
-                        <span className={styles.meta__value}>245</span>
+                        <span className={styles.meta__value}>{profile.followers.length}</span>
                     </div>
                     <div className={styles.meta__item}>
                         <span className={styles.meta__title}>Music</span>

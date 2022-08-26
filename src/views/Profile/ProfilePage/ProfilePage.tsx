@@ -20,7 +20,7 @@ const ProfilePage : FC = (props) => {
         if (!profile || (profile && profile._id !== id) ) dispatch(getProfile(id))
     }, [params])
 
-    if (fetching) return <FullSectionLoader size={"large"}/>
+    if (!profile) return <FullSectionLoader size={"large"}/>
     return (
         <section className={styles.profilePage}>
             <div className={styles.top}>
@@ -30,7 +30,7 @@ const ProfilePage : FC = (props) => {
                 }
             </div>
             <div className={styles.main}>
-                <ProfileLeft/>
+                <ProfileLeft profile={profile}/>
                 <ProfileCenter/>
                 <ProfileRight/>
             </div>

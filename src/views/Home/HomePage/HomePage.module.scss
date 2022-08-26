@@ -1,0 +1,19 @@
+.container{
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  gap: var(--block-gap);
+}
+.leftPart > div{
+  margin-bottom: var(--block-gap);
+}
+.stories{
+  margin-bottom: calc(var(--block-gap) + 1rem);
+  margin-top: var(--block-gap);
+}
+.post{
+  margin-bottom: var(--block-gap);
+  padding: 20px;
+  background-color: var(--color-white);
+  border-radius: var(--border-radius);
+}
