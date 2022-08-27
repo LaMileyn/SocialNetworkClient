@@ -1,19 +1,19 @@
 import React, {FC, useState} from 'react';
 import styles from './SharePost.module.scss';
 import {Avatar, Button} from "@mui/material";
-import {useAppDispatch, useAppSelector} from "../../../utils/hooks";
+import {useAppDispatch, useAppSelector, useFile} from "../../../utils/hooks";
 import {
     CloseSharp,
     EmojiEmotionsOutlined,
-    PermMedia, Person, Tag,
+    PermMedia,  Tag,
 
 } from "@mui/icons-material";
 
 import cn from "classnames";
-import uploadService from "../../../services/upload.service";
 import {PostCreateModel} from "../../../models";
 import {createNewPost} from "../../../store/posts/posts.actions";
 import {Link} from "react-router-dom";
+import FullSectionLoader from "../FullSectionLoader/FullSectionLoader";
 
 const SharePost: FC = (props) => {
     const dispatch = useAppDispatch();
@@ -22,21 +22,9 @@ const SharePost: FC = (props) => {
 
 
     const [postText, setPostText] = useState<string>("")
+    const [handleChangeFile,loading,error] = useFile( (data) => setFile(data))
     const [file, setFile] = useState<string | null>(null);
 
-
-    const handleChangeFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
-        try {
-            const formData = new FormData();
-            if (!event.target.files) return;
-            const file = event.target.files[0];
-            formData.append("file", file);
-            const {data} = await uploadService.sendToServer(formData)
-            setFile(data)
-        } catch (err) {
-            console.warn(err)
-        }
-    }
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLTextAreaElement>) => {
         e.preventDefault();
         const newPost: PostCreateModel = {
@@ -63,8 +51,6 @@ const SharePost: FC = (props) => {
                               placeholder={"What`s on your mind, " + user?.userInfo.username + " ?"}
                               onKeyPress={ event => event.code === "Enter" && handleSubmit(event)}
                     />
-                    {/*<input value={postText} onChange={(event) => setPostText(event.currentTarget.value)} type="text"*/}
-                    {/*       placeholder={"What`s on your mind, " + user?.userInfo.username + " ?"} onKeyPress={ event => event.code === "Enter" && handleSubmit(event)}/>*/}
                 </div>
                 <Button
                     onClick={handleSubmit}
@@ -74,8 +60,9 @@ const SharePost: FC = (props) => {
                     })} variant={"contained"} sx={{bgcolor: "var(--color-primary)"}}>Create</Button>
             </div>
 
-            {
-                file && <div className={styles.photo}>
+            {   loading
+                ? <FullSectionLoader size={"small"} />
+                : file && <div className={styles.photo}>
                     <img src={`/images/${file}`} alt=""/>
                     <div className={styles.exitFile} onClick={() => setFile(null)}>
                         <p>Прикреплено 1 фото</p>
