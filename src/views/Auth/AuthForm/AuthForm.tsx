@@ -45,7 +45,7 @@ const AuthForm: FC<IProps> = ({isLogin}) => {
             username: "Дмитрий",
             password: "12345678",
             repeatPassword: "12345678",
-            rememberMe: true
+            rememberMe: false
         },
         mode: "onChange"
     })

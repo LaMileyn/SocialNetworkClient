@@ -37,7 +37,7 @@ const SharePost: FC = (props) => {
             console.warn(err)
         }
     }
-    const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLInputElement>) => {
+    const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLTextAreaElement>) => {
         e.preventDefault();
         const newPost: PostCreateModel = {
             user: user!.userInfo.id,
@@ -58,8 +58,13 @@ const SharePost: FC = (props) => {
                     <Avatar src={"/images/" + user?.userInfo.profilePicture}/>
                 </Link>
                 <div className={styles.inputWrapper}>
-                    <input value={postText} onChange={(event) => setPostText(event.currentTarget.value)} type="text"
-                           placeholder={"What`s on your mind, " + user?.userInfo.username + " ?"} onKeyPress={ event => event.code === "Enter" && handleSubmit(event)}/>
+                    <textarea value={postText}
+                              onChange={(event) => setPostText(event.currentTarget.value)}
+                              placeholder={"What`s on your mind, " + user?.userInfo.username + " ?"}
+                              onKeyPress={ event => event.code === "Enter" && handleSubmit(event)}
+                    />
+                    {/*<input value={postText} onChange={(event) => setPostText(event.currentTarget.value)} type="text"*/}
+                    {/*       placeholder={"What`s on your mind, " + user?.userInfo.username + " ?"} onKeyPress={ event => event.code === "Enter" && handleSubmit(event)}/>*/}
                 </div>
                 <Button
                     onClick={handleSubmit}

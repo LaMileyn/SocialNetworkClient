@@ -7,6 +7,7 @@ import {
     SendOutlined
 } from "@mui/icons-material";
 import {IPost, IUser} from "../../../models";
+import PostOptionsMenu from "./PostOptionsMenu/PostOptionsMenu";
 
 
 interface IProps {
@@ -39,9 +40,7 @@ const Post: FC<IProps> = ({post, isOwner}) => {
                         </div>
                         {   isOwner &&
                             <div className={styles.top__optionsMenu}>
-                                <IconButton>
-                                    <MoreVert style={{color : "var(--color-primary)"}}/>
-                                </IconButton>
+                                <PostOptionsMenu post={post}/>
                             </div>
                         }
 
