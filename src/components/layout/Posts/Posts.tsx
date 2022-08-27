@@ -1,11 +1,14 @@
 import React, {FC, useEffect, useState} from 'react';
 import styles from './Posts.module.scss'
 import Post from "../Post/Post";
-import {useAppSelector, useFetching} from "../../../utils/hooks";
-import {IPost} from "../../../models";
+import {useAppDispatch, useAppSelector, useFetching} from "../../../utils/hooks";
+import {IPost, IUser} from "../../../models";
 import postService from "../../../services/post-service";
 import FullSectionLoader from "../FullSectionLoader/FullSectionLoader";
 import SharePost from "../SharePost/SharePost";
+import {getPosts} from "../../../store/posts/posts.actions";
+import {TransitionGroup} from "react-transition-group";
+import {Collapse} from "@mui/material";
 
 
 interface IProps {
@@ -14,19 +17,16 @@ interface IProps {
 
 const Posts: FC<IProps> = ({userId}) => {
 
-    const [posts, setPosts] = useState<IPost[]>([]);
+    const dispatch = useAppDispatch();
+
+    const {posts, fetching} = useAppSelector(state => state.posts)
     const {user} = useAppSelector(state => state.auth)
-    const [fetchPosts, fetching, error] = useFetching(async () => {
-        let {data} = userId
-            ? await postService.getUserPosts(userId)
-            : await postService.getTimeLine()
-        setPosts((data as IPost[]).filter(el => el))
-    })
+
     useEffect(() => {
-        fetchPosts()
+        dispatch(getPosts())
     }, [user])
 
-    if (fetching) return <FullSectionLoader/>
+    if (fetching && !posts.length) return <FullSectionLoader/>
     return (
         <div className={styles.posts}>
             {
@@ -34,13 +34,17 @@ const Posts: FC<IProps> = ({userId}) => {
                     <p>No posts found yet..</p>
                 </div>
             }
-            {
-                posts.map((post) => (
-                    <div key={post._id} className={styles.post}>
-                        <Post post={post}/>
-                    </div>
-                ))
-            }
+            <TransitionGroup>
+                {
+                    posts.map((post) => (
+                        <Collapse key={post._id}>
+                            <div className={styles.post}>
+                                <Post post={post} isOwner={(post.user as IUser)._id === user?.userInfo.id}/>
+                            </div>
+                        </Collapse>
+                    ))
+                }
+            </TransitionGroup>
         </div>
     );
 }

@@ -1,23 +1,29 @@
 import React, {FC, useState} from 'react';
 import styles from './SharePost.module.scss';
-import {Avatar, Button, IconButton} from "@mui/material";
-import {useAppSelector, useFetching} from "../../../utils/hooks";
+import {Avatar, Button} from "@mui/material";
+import {useAppDispatch, useAppSelector} from "../../../utils/hooks";
 import {
     CloseSharp,
     EmojiEmotionsOutlined,
     PermMedia, Person, Tag,
 
 } from "@mui/icons-material";
-import postService from "../../../services/post-service";
+
 import cn from "classnames";
 import uploadService from "../../../services/upload.service";
-import FullSectionLoader from "../FullSectionLoader/FullSectionLoader";
+import {PostCreateModel} from "../../../models";
+import {createNewPost} from "../../../store/posts/posts.actions";
+import {Link} from "react-router-dom";
 
 const SharePost: FC = (props) => {
+    const dispatch = useAppDispatch();
+
     const {user} = useAppSelector(state => state.auth)
+
+
     const [postText, setPostText] = useState<string>("")
     const [file, setFile] = useState<string | null>(null);
-    const [fileFetch, isLoading, error] = useFetching(() => handleChangeFile)
+
 
     const handleChangeFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
         try {
@@ -31,47 +37,42 @@ const SharePost: FC = (props) => {
             console.warn(err)
         }
     }
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     const newPost = {
-    //         user: user.userInfo.id,
-    //         desc: description
-    //     }
-    //     if (file) newPost.img = file
-    //     try {
-    //         const {data} = await postService.createPost(newPost);
-    //         data.user = user.userInfo;
-    //         pushNewPost(data)
-    //         setFile(null)
-    //         setDescribtion("")
-    //     } catch (err) {
-    //         console.log(err)
-    //     }
-    //
-    // }
+    const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        const newPost: PostCreateModel = {
+            user: user!.userInfo.id,
+            desc: postText
+        }
+        if (file) newPost.img = file
+        dispatch(createNewPost(newPost))
+        setFile(null)
+        setPostText("");
+        setFile(null)
+    }
 
 
     return (
         <div className={styles.share}>
             <div className={styles.top}>
-                <Avatar src={""}/>
+                <Link to={`/profile/${user?.userInfo.id}`}>
+                    <Avatar src={"/images/" + user?.userInfo.profilePicture}/>
+                </Link>
                 <div className={styles.inputWrapper}>
                     <input value={postText} onChange={(event) => setPostText(event.currentTarget.value)} type="text"
-                           placeholder={"What`s on your mind, " + user?.userInfo.username + " ?"}/>
+                           placeholder={"What`s on your mind, " + user?.userInfo.username + " ?"} onKeyPress={ event => event.code === "Enter" && handleSubmit(event)}/>
                 </div>
                 <Button
-                    onClick={fileFetch}
+                    onClick={handleSubmit}
+                    type={"submit"}
                     className={cn({
                         [styles.active]: postText.length || file
                     })} variant={"contained"} sx={{bgcolor: "var(--color-primary)"}}>Create</Button>
             </div>
 
             {
-                isLoading
-                    ? <FullSectionLoader size={"small"}/>
-                    : file && <div className={styles.photo}>
+                file && <div className={styles.photo}>
                     <img src={`/images/${file}`} alt=""/>
-                    <div className={styles.exitFile} onClick={ () => setFile(null)}>
+                    <div className={styles.exitFile} onClick={() => setFile(null)}>
                         <p>Прикреплено 1 фото</p>
                         <CloseSharp/>
                     </div>

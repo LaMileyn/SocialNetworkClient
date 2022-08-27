@@ -6,7 +6,8 @@ export interface IPost {
     img : string,
     desc : string,
     likes : Array<IUser> | Array<string>,
-    views : number
+    views : number,
+    isFixed : boolean,
     createdAt : string,
     updatedAt : string
 }

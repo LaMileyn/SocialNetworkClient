@@ -15,7 +15,7 @@ class PostsApi {
         return api.put(`posts/${postId}/like`,{ userId })
     }
     createPost(post : PostCreateModel){
-        return api.post(`posts/`, post)
+        return api.post<IPost>(`posts/`, post)
     }
     updatePost(post : PostUpdateModel,postId : string){
         return api.post(`posts/${postId}`,post)

@@ -3,43 +3,59 @@ import styles from './Post.module.scss';
 import {Avatar, IconButton} from "@mui/material";
 import {
     AccessAlarm, CheckCircleRounded, Comment,
-    FavoriteRounded, RemoveRedEyeOutlined,
+    FavoriteRounded, MoreHoriz, MoreVert, RemoveRedEyeOutlined,
     SendOutlined
 } from "@mui/icons-material";
 import {IPost, IUser} from "../../../models";
 
 
-
 interface IProps {
-    post : IPost
+    post: IPost,
+    isOwner : boolean
 }
-const Post: FC<IProps> = ({ post }) => {
+
+const Post: FC<IProps> = ({post, isOwner}) => {
+
     return (
         <div className={styles.post}>
             <div className={styles.left}>
                 <Avatar
-                    src={"https://kartinkin.net/uploads/posts/2021-07/1625762622_31-kartinkin-com-p-brutalnii-paren-art-art-krasivo-35.jpg"}/>
+                    src={`/images/${(post.user as IUser).profilePicture}`}/>
             </div>
             <div className={styles.right}>
                 <div className={styles.right__top}>
                     <div className={styles.right__userInfo}>
                         <div className={styles.username}>{(post.user as IUser).username}</div>
                         <CheckCircleRounded/>
-                        <div className={styles.accountId}>@littleSociopat</div>
+                        <div className={styles.accountId}>@{(post.user as IUser)._id}</div>
                     </div>
-                    <div className={styles.right__timeCreated}>
-                        <AccessAlarm sx={{
-                            width: 20,
-                            height: 20
-                        }}/>
-                        {post.createdAt}
+                    <div className={styles.right__optionsAndTime}>
+                        <div className={styles.right__timeCreated}>
+                            <AccessAlarm sx={{
+                                width: 20,
+                                height: 20
+                            }}/>
+                            {post.createdAt.split("T")[0]}
+                        </div>
+                        {   isOwner &&
+                            <div className={styles.top__optionsMenu}>
+                                <IconButton>
+                                    <MoreVert style={{color : "var(--color-primary)"}}/>
+                                </IconButton>
+                            </div>
+                        }
+
                     </div>
+
                 </div>
                 <div className={styles.right__mainContent}>
                     <p>{post.desc}</p>
-                    <div className={styles.photos}>
-                        <img src={"https://kartinkin.net/uploads/posts/2021-07/1625762622_31-kartinkin-com-p-brutalnii-paren-art-art-krasivo-35.jpg"}/>
-                    </div>
+                    {   post.img &&
+                        <div className={styles.photos}>
+                            <img
+                                src={"/images/"+post.img}/>
+                        </div>
+                    }
                 </div>
                 <div className={styles.right__bottom}>
                     <div className={styles.iconItem}>
