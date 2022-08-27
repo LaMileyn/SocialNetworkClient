@@ -1,5 +1,5 @@
 import api from './index';
-import {IPost} from "../models";
+import {IPost, PostCreateModel, PostUpdateModel} from "../models";
 
 class PostsApi {
     getTimeLine(){
@@ -14,10 +14,10 @@ class PostsApi {
     likePost(postId : string ,userId : string){
         return api.put(`posts/${postId}/like`,{ userId })
     }
-    createPost(post : IPost){
+    createPost(post : PostCreateModel){
         return api.post(`posts/`, post)
     }
-    updatePost(post : IPost,postId : string){
+    updatePost(post : PostUpdateModel,postId : string){
         return api.post(`posts/${postId}`,post)
     }
     getUserPosts(userId : string){

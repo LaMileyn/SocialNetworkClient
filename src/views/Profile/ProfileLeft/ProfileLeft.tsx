@@ -49,9 +49,9 @@ const ProfileLeft: FC<IProps> = ({profile}) => {
                                 width: 85,
                                 height: 85
                             }}/>
-                        <label htmlFor={"filer"} className={styles.changeAvatar}>
+                        <label htmlFor={"filerr"} className={styles.changeAvatar}>
                             <PhotoCamera/>
-                            <input type="file" id="filer" accept={".png,.jpeg,.jpg"} hidden
+                            <input type="file" id="filerr" accept={".png,.jpeg,.jpg"} hidden
                                    onChange={handleChangeFile}/>
                         </label>
                     </div>

@@ -6,8 +6,14 @@ import {
     FavoriteRounded, RemoveRedEyeOutlined,
     SendOutlined
 } from "@mui/icons-material";
+import {IPost, IUser} from "../../../models";
 
-const Post: FC = (props) => {
+
+
+interface IProps {
+    post : IPost
+}
+const Post: FC<IProps> = ({ post }) => {
     return (
         <div className={styles.post}>
             <div className={styles.left}>
@@ -17,7 +23,7 @@ const Post: FC = (props) => {
             <div className={styles.right}>
                 <div className={styles.right__top}>
                     <div className={styles.right__userInfo}>
-                        <div className={styles.username}>John Ramsey</div>
+                        <div className={styles.username}>{(post.user as IUser).username}</div>
                         <CheckCircleRounded/>
                         <div className={styles.accountId}>@littleSociopat</div>
                     </div>
@@ -26,12 +32,11 @@ const Post: FC = (props) => {
                             width: 20,
                             height: 20
                         }}/>
-                        35 mins
+                        {post.createdAt}
                     </div>
                 </div>
                 <div className={styles.right__mainContent}>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium commodi corporis deserunt
-                        id ipsum labore non nostrum, porro quae quisquam, soluta suscipit ullam vitae voluptates.</p>
+                    <p>{post.desc}</p>
                     <div className={styles.photos}>
                         <img src={"https://kartinkin.net/uploads/posts/2021-07/1625762622_31-kartinkin-com-p-brutalnii-paren-art-art-krasivo-35.jpg"}/>
                     </div>
@@ -41,7 +46,7 @@ const Post: FC = (props) => {
                         <IconButton color={"warning"}>
                             <FavoriteRounded/>
                         </IconButton>
-                        <span>123</span>
+                        <span>{post.likes.length}</span>
                     </div>
                     <div className={styles.iconItem}>
                         <IconButton>
@@ -57,7 +62,7 @@ const Post: FC = (props) => {
                     </div>
                     <div className={styles.iconItem}>
                         <RemoveRedEyeOutlined/>
-                        <span>8</span>
+                        <span>{post.views}</span>
                     </div>
                 </div>
             </div>

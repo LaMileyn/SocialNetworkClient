@@ -3,8 +3,11 @@ import styles from './ProfileCenter.module.scss';
 import BlockHeaderBorder from "../../../components/layout/BlockHeaderBorder/BlockHeaderBorder";
 import {MoreHoriz} from "@mui/icons-material";
 import Tabs, {ITab} from "../../../components/layout/Tabs/Tabs";
-import Post from "../../../components/layout/Post/Post";
 import {IconButton} from "@mui/material";
+import Posts from "../../../components/layout/Posts/Posts";
+import {useAppSelector} from "../../../utils/hooks";
+import {IUser} from "../../../models";
+import SharePost from "../../../components/layout/SharePost/SharePost";
 
 
 const tabList : ITab[] = [
@@ -18,22 +21,26 @@ const tabList : ITab[] = [
     },
 ]
 
-const ProfileCenter : FC = (props) => {
+interface IProps {
+    profile : IUser
+}
+const ProfileCenter : FC<IProps> = ({profile}) => {
     const [activeTab,setActiveTab] = useState<"all" | "fixed">("all")
 
     return (
         <div className={styles.profileCenter}>
-            <BlockHeaderBorder icon={<IconButton><MoreHoriz style={{
-                color: "var(--color-text-main)"
-            }} /></IconButton>}>
-                <Tabs activeTab={activeTab} setActiveTab={setActiveTab} tabList={tabList}/>
-            </BlockHeaderBorder>
-            <div className={styles.postsBlock}>
-                {[...Array(5)].map( (el,index) =>{
-                    return(
-                        <Post key={index} />
-                    )
-                })}
+            <div className={styles.postCreateAre}>
+                    <SharePost/>
+            </div>
+            <div className={styles.postsArea}>
+                <BlockHeaderBorder icon={<IconButton><MoreHoriz style={{
+                    color: "var(--color-text-main)"
+                }} /></IconButton>}>
+                    <Tabs activeTab={activeTab} setActiveTab={setActiveTab} tabList={tabList}/>
+                </BlockHeaderBorder>
+                <div className={styles.postsBlock}>
+                    <Posts userId={profile._id}/>
+                </div>
             </div>
         </div>
     );

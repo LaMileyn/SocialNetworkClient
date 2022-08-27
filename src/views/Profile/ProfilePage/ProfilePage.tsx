@@ -31,7 +31,7 @@ const ProfilePage : FC = (props) => {
             </div>
             <div className={styles.main}>
                 <ProfileLeft profile={profile}/>
-                <ProfileCenter/>
+                <ProfileCenter profile={profile}/>
                 <ProfileRight/>
             </div>
         </section>

@@ -1,0 +1,22 @@
+.friend{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.right{
+  &__top{
+    color: var(--color-text-main);
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+    font-size: 16px;
+    margin-bottom: 3px;
+    svg{
+      color: var(--color-primary);
+    }
+  }
+  &__bottom{
+    color: var(--color-grey-low);
+    font-size: 13px;
+  }
+}

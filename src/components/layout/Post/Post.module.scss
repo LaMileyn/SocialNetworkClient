@@ -8,6 +8,7 @@
   border-top-left-radius: 0;
   padding: 20px;
   padding-bottom: 0;
+  width: 100%;
   &__top{
     display: flex;
     align-items: center;
@@ -70,7 +71,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
+  padding-bottom: 10px;
   border-left: 1px solid  var(--color-grey-middle);
   &:first-child{
     border: none;

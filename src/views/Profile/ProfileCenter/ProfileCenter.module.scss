@@ -1,11 +1,16 @@
 .profileCenter{
   flex: 1;
-  background-color: var(--color-white);
-  border-radius: var(--border-radius);
 }
 .postsBlock{
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: var(--block-gap);
+}
+.postCreateAre{
+  margin-bottom: var(--block-gap);
+}
+.postsArea{
+  background-color: var(--color-white);
+  border-radius: var(--border-radius);
 }

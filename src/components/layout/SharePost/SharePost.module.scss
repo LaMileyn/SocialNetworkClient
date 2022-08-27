@@ -10,7 +10,13 @@
   width: 100%;
   gap: 1rem;
   padding-bottom: 20px;
-  border-bottom: 1px solid var(--color-light);
+  button{
+    transform: scale(0);
+    transition: .3s all;
+    &.active{
+      transform: scale(1);
+    }
+  }
 }
 .inputWrapper{
   width: 100%;
@@ -24,12 +30,45 @@
     &::placeholder{
       color: var(--color-grey-low);
     }
-    color: white;
+    color: var(--color-text-main);
   }
+}
+.option{
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  color: var(--color-text-main);
+  cursor: pointer;
+  padding: 10px 15px;
+  transition: 100ms all;
+  border-radius: 10px;
+  &:hover{
+    background-color: var(--dark-primary)
+  }
+}
+.photo{
+  padding: 20px 0;
+  width: 100%;
+  img{
+    width: 100%;
+    max-height: 450px;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+  }
+
+}
+.exitFile{
+  color: var(--color-grey-low);
+  margin-top: 10px;
+  display: flex;
+  gap: .1rem;
+  align-items: center;
+  cursor: pointer;
 }
 .bottom{
   display: flex;
   justify-content: space-between;
+  border-top: 1px solid var(--color-light);
   align-items: center;
   padding: 15px 55px;
   padding-bottom: 0;

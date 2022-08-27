@@ -1,6 +1,26 @@
-.profileRight{
+.profileRight {
   flex-basis: 400px;
   background-color: var(--color-white);
   border-radius: var(--border-radius);
-  height: 400px;
+  @media screen and (max-width: 1555px) {
+    & {
+      display: none;
+    }
+  }
+}
+
+.friends {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--block-gap);
+}
+
+.bottom {
+  text-align: center;
+  padding-bottom: 5px;
+
+  button {
+    color: var(--color-primary) !important;
+  }
 }
