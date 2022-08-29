@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {createNewPost, getPosts, likePost} from "./posts.actions";
+import {createNewPost, deletePost, getPosts, likePost} from "./posts.actions";
 import {IPost, ServerError} from "../../models";
 
 interface SliceState {
@@ -50,6 +50,10 @@ const postsSlice = createSlice({
                 action.payload.liked
                     ? currPost.likes = (currPost.likes as string[]).filter( el => el !== action.payload.userId)
                     : (currPost.likes as string[]).push(action.payload.userId)
+            })
+            // delete post
+            .addCase(deletePost.fulfilled, (state, action : PayloadAction<string>) =>{
+                state.posts = state.posts.filter( post => post._id !== action.payload)
             })
 })
 

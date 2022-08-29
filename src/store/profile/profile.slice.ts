@@ -9,7 +9,7 @@ import {
     unFollowPerson,
     updateUser
 } from "./profile.actions";
-import {createNewPost} from "../posts/posts.actions";
+import {createNewPost, deletePost} from "../posts/posts.actions";
 
 
 interface SliceState {
@@ -61,8 +61,6 @@ const profileSlice = createSlice({
             .addCase(followPerson.rejected, (state) => {
                 state.fetching = false
             })
-
-
             // unfollow person
             .addCase(unFollowPerson.pending, (state) => {
                 state.fetching = true
@@ -118,6 +116,12 @@ const profileSlice = createSlice({
             })
             .addCase(cancelFollow.rejected, (state) => {
                 state.fetching = false
+            })
+
+            // post delete
+            .addCase(deletePost.fulfilled, (state, action : PayloadAction<string>) =>{
+                if (!state.profile) return;
+                state.profile.posts = ( state.profile.posts as string[] ).filter( el => el !== action.payload )
             })
 
 

@@ -11,7 +11,7 @@ import PostOptionsMenu from "./PostOptionsMenu/PostOptionsMenu";
 import {Link} from "react-router-dom";
 import ConfirmModal from "../Modal/ConfirmModal/ConfirmModal";
 import {useAppDispatch, useAppSelector} from "../../../utils/hooks";
-import {likePost} from "../../../store/posts/posts.actions";
+import {deletePost, likePost} from "../../../store/posts/posts.actions";
 
 
 interface IProps {
@@ -27,6 +27,7 @@ const Post: FC<IProps> = ({post, isOwner}) => {
     const [liked, setLiked] = useState<boolean>(false)
     useEffect(() => {
         setLiked((post.likes as string[]).includes(user!.userInfo!.id))
+        console.log(post.likes)
     }, [user, post])
     const postLikeHandler = () => {
         dispatch(likePost({
@@ -38,11 +39,12 @@ const Post: FC<IProps> = ({post, isOwner}) => {
         )
         setLiked(!liked)
     }
-
+    const postDeleteHandler = () =>{
+        dispatch(deletePost(post._id))
+    }
     return (
         <div className={styles.post}>
-            <ConfirmModal open={modalDelete} text={"Are you sure you want to delete this post?"} onConfirm={() => {
-            }} setOpen={setModalDelete}/>
+            <ConfirmModal open={modalDelete} text={"Are you sure you want to delete this post?"} onConfirm={postDeleteHandler} setOpen={setModalDelete}/>
             <div className={styles.left}>
                 <Link to={`/profile/${(post.user as IUser)._id}`}>
                     <Avatar

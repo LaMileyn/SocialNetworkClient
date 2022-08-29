@@ -31,3 +31,11 @@ export const likePost = createAsyncThunk("posts/like", async (params : { postId 
         return thunkApi.rejectWithValue(err.response.data)
     }
 })
+export const deletePost = createAsyncThunk("posts/delete", async (postId : string,thunkApi) =>{
+    try {
+        await postService.deletePost(postId)
+        return postId
+    }catch (err : any){
+        return thunkApi.rejectWithValue(err.response.data)
+    }
+})
