@@ -1,6 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {ServerError, UserDto} from "./../../models";
+import {IUser, ServerError, UserDto} from "./../../models";
 import {checkAuth, loginMe, logout, registerMe} from "./auth.actions";
+import {updateUser} from "../profile/profile.actions";
 
 interface SliceState {
     user: UserDto | null,
@@ -20,6 +21,13 @@ const authSlice = createSlice({
     reducers: {},
     extraReducers: (builder) =>
         builder
+            
+            //update profile
+            .addCase(updateUser.fulfilled, (state, action : PayloadAction<IUser>) =>{
+                if (action.payload._id === state.user?.userInfo?.id){
+                    state.user.userInfo.profilePicture = action.payload.profilePicture
+                }
+            })
             // login
             .addCase(loginMe.pending, (state) => {
                 state.fetching = true

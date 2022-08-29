@@ -75,7 +75,7 @@ const SharePost: FC = (props) => {
                     <label className={styles.option} htmlFor={"filer"}>
                         <PermMedia htmlColor={"tomato"} className={styles.shareIcon}/>
                         <span className={styles.options__text}>Фото или Видео</span>
-                        <input type="file" id="filer" accept={".png,.jpeg,.jpg"} hidden
+                        <input type="file" id="filer" accept={".png,.jpeg,.jpg,.gif"} hidden
                                onChange={handleChangeFile}/>
                     </label>
                 </div>

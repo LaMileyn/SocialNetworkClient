@@ -14,7 +14,7 @@ export const useFile = (cb: (data: string) => void) => {
             const file = event.target.files[0];
             formData.append("file", file);
             const {data} = await uploadService.sendToServer(formData)
-            cb(data)
+            await cb(data)
         } catch (err) {
             setError(err)
             setFileLoading(false)

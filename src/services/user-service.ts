@@ -1,13 +1,14 @@
 import $api from './index';
 import {IUser, UserAuthorizationModel, UserDto, UserRegistrationModel} from "../models";
+import {UpdateUserModel} from "../models/user.model";
 
 
 class UsersApi {
     getUser(userId : string) {
         return $api.get<IUser>(`users/${userId}`)
     }
-    updateUser(data : IUser){
-        return $api.put<string>(`users`, data)
+    updateUser(data : UpdateUserModel){
+        return $api.put<IUser>(`users`, data)
     }
     login(user : UserAuthorizationModel) {
         return $api.post<UserDto>(`users/login`, user)

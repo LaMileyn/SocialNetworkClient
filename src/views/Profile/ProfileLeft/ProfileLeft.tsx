@@ -10,7 +10,10 @@ import {
     SettingsOutlined
 } from "@mui/icons-material";
 import {IUser} from "../../../models";
-import uploadService from "../../../services/upload.service";
+import {useAppDispatch, useFile} from "../../../utils/hooks";
+import {updateUser} from "../../../store/profile/profile.actions";
+import {UpdateUserModel} from "../../../models/user.model";
+import ProfilePhotoModal from "../ProfilePhotoModal/ProfilePhotoModal";
 
 
 interface IProps {
@@ -19,20 +22,11 @@ interface IProps {
 
 const ProfileLeft: FC<IProps> = ({profile}) => {
 
-    const [file, setFile] = useState<string>("")
 
-    const handleChangeFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
-        try {
-            if (!event.target.files) return;
-            const formData = new FormData();
-            const file = event.target.files[0];
-            formData.append("file", file);
-            const {data} = await uploadService.sendToServer(formData)
-            setFile(data)
-        } catch (err) {
-            console.warn(err)
-        }
-    }
+
+    const [openedModel,setOpenedModel] = useState<boolean>(false)
+
+
     return (
         <div className={styles.profileLeft}>
             <div className={styles.profileLeft__top}>
@@ -41,19 +35,18 @@ const ProfileLeft: FC<IProps> = ({profile}) => {
                 </div>
                 <div className={styles.user}>
                     <div className={styles.user__avatar}>
+                        {/* modal */}
+                        <ProfilePhotoModal open={openedModel} setOpen={setOpenedModel}/>
+                        {/* modal */}
                         <Avatar
-                            src={file
-                                ? "/images/" + file
-                                : "/images/" + profile.profilePicture ?? "https://kartinkin.net/uploads/posts/2021-07/1625762622_31-kartinkin-com-p-brutalnii-paren-art-art-krasivo-35.jpg"}
+                            src={"/images/" + profile.profilePicture}
                             sx={{
                                 width: 85,
                                 height: 85
                             }}/>
-                        <label htmlFor={"filerr"} className={styles.changeAvatar}>
+                        <div className={styles.changeAvatar} onClick={ () => setOpenedModel(true)}>
                             <PhotoCamera/>
-                            <input type="file" id="filerr" accept={".png,.jpeg,.jpg"} hidden
-                                   onChange={handleChangeFile}/>
-                        </label>
+                        </div>
                     </div>
                     <span className={styles.user__fullName}>{profile.username}</span>
                     <span className={styles.user__url}>@{profile._id}</span>
@@ -69,11 +62,11 @@ const ProfileLeft: FC<IProps> = ({profile}) => {
                 <div className={styles.meta}>
                     <div className={styles.meta__item}>
                         <span className={styles.meta__title}>Posts</span>
-                        <span className={styles.meta__value}>124</span>
+                        <span className={styles.meta__value}>{profile.posts.length}</span>
                     </div>
                     <div className={styles.meta__item}>
                         <span className={styles.meta__title}>Friends</span>
-                        <span className={styles.meta__value}>{profile.followers.length}</span>
+                        <span className={styles.meta__value}>{profile?.followers.length}</span>
                     </div>
                     <div className={styles.meta__item}>
                         <span className={styles.meta__title}>Music</span>

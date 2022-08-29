@@ -1,0 +1,9 @@
+.modal{
+  position: absolute;
+  transform: translate(-50%,-50%);
+  top: 50%;
+  left: 50%;
+  background-color: var(--color-white);
+  border-radius: var(--border-radius);
+  max-width: 90%;
+}

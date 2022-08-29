@@ -1,3 +1,5 @@
+import {IPost} from "./post.model";
+
 export interface IUser {
     _id : string,
     username : string,
@@ -15,6 +17,7 @@ export interface IUser {
     followersRequests : Array<IUser> | Array<string>,
     followingRequests : Array<IUser> | Array<string>,
     isAdmin : boolean,
+    posts : IPost[] | string[],
     desc: string,
     createdAt : string,
     updatedAt : string
@@ -22,6 +25,19 @@ export interface IUser {
 export interface UserAuthorizationModel {
     email : string,
     password : string,
+}
+export interface UpdateUserModel {
+    username? : string,
+    email? : string,
+    location? : {
+        city : string,
+        country : string
+    },
+    profilePicture? : string,
+    coverPicture? : string,
+    desc?: string,
+    status? : string,
+
 }
 export interface UserRegistrationModel extends UserAuthorizationModel{
     username : string,

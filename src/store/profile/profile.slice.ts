@@ -1,6 +1,15 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {IUser, ServerError} from "../../models";
-import {acceptFriend, cancelFollow, followPerson, getProfile, rejectFriend, unFollowPerson} from "./profile.actions";
+import {IPost, IUser, ServerError} from "../../models";
+import {
+    acceptFriend,
+    cancelFollow,
+    followPerson,
+    getProfile,
+    rejectFriend,
+    unFollowPerson,
+    updateUser
+} from "./profile.actions";
+import {createNewPost} from "../posts/posts.actions";
 
 
 interface SliceState {
@@ -34,7 +43,13 @@ const profileSlice = createSlice({
                 state.fetching = false
                 state.error = action.payload
             })
-
+            // update profile
+            .addCase(updateUser.fulfilled, (state,action : PayloadAction<IUser>) =>{
+                state.profile = action.payload
+            })
+            .addCase(createNewPost.fulfilled, (state,action : PayloadAction<IPost>) =>{
+                (state?.profile?.posts as string[]).push(action.payload._id)
+            })
             // follow person
             .addCase(followPerson.pending, (state) => {
                 state.fetching = true

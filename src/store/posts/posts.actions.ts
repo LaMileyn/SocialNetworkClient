@@ -22,3 +22,12 @@ export const createNewPost = createAsyncThunk("posts/create", async (newPost : P
         return thunkApi.rejectWithValue(err.response.data)
     }
 })
+
+export const likePost = createAsyncThunk("posts/like", async (params : { postId : string, userId : string, liked : boolean },thunkApi) =>{
+    try {
+        const { data } = await postService.likePost(params.postId,params.userId)
+        return params
+    }catch (err : any){
+        return thunkApi.rejectWithValue(err.response.data)
+    }
+})

@@ -3,7 +3,7 @@ import styles from './HomePage.module.scss';
 import Stories from "../../../components/layout/Stories/Stories";
 import SharePost from "../../../components/layout/SharePost/SharePost";
 import HomeEvents from "../HomeEvents/HomeEvents";
-import HomePagePosts from "../../../components/layout/Posts/Posts";
+import Posts from "../../../components/layout/Posts/Posts";
 
 const HomePage: FC = (props) => {
 
@@ -18,7 +18,7 @@ const HomePage: FC = (props) => {
                     <div className={styles.share}>
                         <SharePost/>
                     </div>
-                    <HomePagePosts/>
+                    <Posts/>
                 </div>
                 <div className={styles.rightPart}>
                     <HomeEvents/>

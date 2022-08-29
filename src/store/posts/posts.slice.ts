@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {createNewPost, getPosts} from "./posts.actions";
+import {createNewPost, getPosts, likePost} from "./posts.actions";
 import {IPost, ServerError} from "../../models";
 
 interface SliceState {
@@ -42,6 +42,14 @@ const postsSlice = createSlice({
             .addCase(createNewPost.rejected, (state,action : PayloadAction<any>) =>{
                 state.fetching = false
                 state.error = action.payload
+            })
+            // like / dislike post
+            .addCase(likePost.fulfilled, (state,action : PayloadAction<{ postId : string, userId : string, liked : boolean }>) =>{
+                const currPost = state.posts.find( post => post._id === action.payload.postId);
+                if (!currPost) return;
+                action.payload.liked
+                    ? currPost.likes = (currPost.likes as string[]).filter( el => el !== action.payload.userId)
+                    : (currPost.likes as string[]).push(action.payload.userId)
             })
 })
 

@@ -1,27 +1,53 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import styles from './Post.module.scss';
 import {Avatar, IconButton} from "@mui/material";
 import {
     AccessAlarm, CheckCircleRounded, Comment,
-    FavoriteRounded, MoreHoriz, MoreVert, RemoveRedEyeOutlined,
+    FavoriteRounded, RemoveRedEyeOutlined,
     SendOutlined
 } from "@mui/icons-material";
 import {IPost, IUser} from "../../../models";
 import PostOptionsMenu from "./PostOptionsMenu/PostOptionsMenu";
+import {Link} from "react-router-dom";
+import ConfirmModal from "../Modal/ConfirmModal/ConfirmModal";
+import {useAppDispatch, useAppSelector} from "../../../utils/hooks";
+import {likePost} from "../../../store/posts/posts.actions";
 
 
 interface IProps {
     post: IPost,
-    isOwner : boolean
+    isOwner: boolean
 }
 
 const Post: FC<IProps> = ({post, isOwner}) => {
+    const dispatch = useAppDispatch();
+    const {user} = useAppSelector(state => state.auth)
+    const [modalDelete, setModalDelete] = useState<boolean>(false);
+    const [modalUpdate, setModalUpdate] = useState<boolean>(false);
+    const [liked, setLiked] = useState<boolean>(false)
+    useEffect(() => {
+        setLiked((post.likes as string[]).includes(user!.userInfo!.id))
+    }, [user, post])
+    const postLikeHandler = () => {
+        dispatch(likePost({
+                    postId: post._id,
+                    userId: user!.userInfo!.id,
+                    liked,
+                }
+            )
+        )
+        setLiked(!liked)
+    }
 
     return (
         <div className={styles.post}>
+            <ConfirmModal open={modalDelete} text={"Are you sure you want to delete this post?"} onConfirm={() => {
+            }} setOpen={setModalDelete}/>
             <div className={styles.left}>
-                <Avatar
-                    src={`/images/${(post.user as IUser).profilePicture}`}/>
+                <Link to={`/profile/${(post.user as IUser)._id}`}>
+                    <Avatar
+                        src={`/images/${(post.user as IUser).profilePicture}`}/>
+                </Link>
             </div>
             <div className={styles.right}>
                 <div className={styles.right__top}>
@@ -38,9 +64,10 @@ const Post: FC<IProps> = ({post, isOwner}) => {
                             }}/>
                             {post.createdAt.split("T")[0]}
                         </div>
-                        {   isOwner &&
+                        {isOwner &&
                             <div className={styles.top__optionsMenu}>
-                                <PostOptionsMenu post={post}/>
+                                <PostOptionsMenu post={post} openDeleteMenu={setModalDelete}
+                                                 openUpdateMenu={setModalUpdate}/>
                             </div>
                         }
 
@@ -49,17 +76,17 @@ const Post: FC<IProps> = ({post, isOwner}) => {
                 </div>
                 <div className={styles.right__mainContent}>
                     <p>{post.desc}</p>
-                    {   post.img &&
+                    {post.img &&
                         <div className={styles.photos}>
                             <img
-                                src={"/images/"+post.img}/>
+                                src={"/images/" + post.img}/>
                         </div>
                     }
                 </div>
                 <div className={styles.right__bottom}>
                     <div className={styles.iconItem}>
-                        <IconButton color={"warning"}>
-                            <FavoriteRounded/>
+                        <IconButton color={"warning"} onClick={postLikeHandler}>
+                            <FavoriteRounded style={{color: liked ? "red" : "var(--color-grey-middle)"}}/>
                         </IconButton>
                         <span>{post.likes.length}</span>
                     </div>
