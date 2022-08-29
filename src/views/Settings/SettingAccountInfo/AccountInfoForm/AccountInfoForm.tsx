@@ -4,7 +4,7 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {Button, TextField} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../../../utils/hooks";
 import {updateUser} from "../../../../store/profile/profile.actions";
-import {useNavigate} from "react-router-dom";
+
 
 
 interface Inputs {
@@ -18,19 +18,21 @@ interface IProps {
 
 const AccountInfoForm: FC<IProps> = ({ changeSavedAnimation, savedAnimation }) => {
 
-    const navigate = useNavigate()
     const dispatch = useAppDispatch();
-    const {currentUser} = useAppSelector(state => state.settings)
+    const { user } = useAppSelector(state => state.auth)
 
 
     const {register, setError, handleSubmit, formState: {errors}} = useForm<Inputs>({
         defaultValues: {
-            ...currentUser
+            email : user!.userInfo!.email,
+            username : user!.userInfo!.username,
         },
         mode: "onChange"
     })
     const onSubmit: SubmitHandler<Inputs> = async (data) =>{
-        dispatch(updateUser(data))
+        dispatch(updateUser({
+            ...data
+        }))
         changeSavedAnimation(true)
         setTimeout( () =>{
             changeSavedAnimation(false)

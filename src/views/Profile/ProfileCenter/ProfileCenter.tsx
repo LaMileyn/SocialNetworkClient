@@ -34,7 +34,7 @@ const ProfileCenter: FC<IProps> = ({profile}) => {
 
     return (
         <div className={styles.profileCenter}>
-            {   user?.userInfo?.id === profile._id &&
+            {   user?.userInfo?._id === profile._id &&
                 <div className={styles.postCreateAre}>
                     <SharePost/>
                 </div>

@@ -26,13 +26,13 @@ const Post: FC<IProps> = ({post, isOwner}) => {
     const [modalUpdate, setModalUpdate] = useState<boolean>(false);
     const [liked, setLiked] = useState<boolean>(false)
     useEffect(() => {
-        setLiked((post.likes as string[]).includes(user!.userInfo!.id))
+        setLiked((post.likes as string[]).includes(user!.userInfo!._id))
         console.log(post.likes)
     }, [user, post])
     const postLikeHandler = () => {
         dispatch(likePost({
                     postId: post._id,
-                    userId: user!.userInfo!.id,
+                    userId: user!.userInfo!._id,
                     liked,
                 }
             )

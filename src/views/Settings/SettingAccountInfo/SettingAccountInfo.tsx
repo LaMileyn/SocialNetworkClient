@@ -7,14 +7,13 @@ import {useAppDispatch, useAppSelector} from "../../../utils/hooks";
 import PhotoChangeModal from "../../../components/layout/Modal/PhotoChangeModal/PhotoChangeModal";
 import {UpdateUserModel} from "../../../models/user.model";
 import {updateUser} from "../../../store/profile/profile.actions";
-import {PhotoCamera} from "@mui/icons-material";
 import ChangePhotoHover from "../../../components/layout/ChangePhotoHover/ChangePhotoHover";
 
 const SettingAccountInfo: FC = (props) => {
 
     const dispatch = useAppDispatch()
     const [savedAnimation,setSavedAnimation] = useState<boolean>(false)
-    const { currentUser } = useAppSelector( state => state.settings)
+    const { user } = useAppSelector( state => state.auth)
     const [openChangeAvatar,setOpenChangeAvatar] = useState<boolean>(false)
 
     const handleChangeAvatar = async (file :string) => {
@@ -45,10 +44,10 @@ const SettingAccountInfo: FC = (props) => {
                     <div className={styles.user__avatar}>
                         <Avatar
                             sx={{ width : 150, height : 150}}
-                            src={'/images/' + currentUser?.profilePicture}/>
+                            src={'/images/' + user?.userInfo?.profilePicture}/>
                         <ChangePhotoHover onClick={ () => setOpenChangeAvatar(true)}/>
                     </div>
-                    <p>Change profile photo</p>
+                    <p onClick={ () => setOpenChangeAvatar(true)}>Change profile photo</p>
                 </div>
                 <div className={styles.form}>
                     <AccountInfoForm changeSavedAnimation={setSavedAnimation} savedAnimation={savedAnimation}/>

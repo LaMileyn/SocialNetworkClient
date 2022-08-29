@@ -1,10 +1,11 @@
 import React, {FC} from 'react';
 import styles from './SettingsWelcome.module.scss';
 import {
+    ArrowRightAlt,
     ArrowRightAltOutlined,
     CardTravelOutlined,
     HelpOutlined,
-    HomeOutlined,
+    HomeOutlined, KeyboardArrowRight,
     LogoutRounded,
     NotificationsOutlined,
     PasswordOutlined
@@ -53,7 +54,7 @@ const SettingsCategorys: ISettingsCategory[] = [
 const SettingsWelcome: FC = (props) => {
 
     const navigate = useNavigate()
-    const { currentUser } = useAppSelector( state => state.settings)
+    const { user } = useAppSelector( state => state.auth)
 
     return (
         <div className={styles.welcome}>
@@ -61,7 +62,7 @@ const SettingsWelcome: FC = (props) => {
                 <h2>Settings</h2>
             </div>
             {
-                !currentUser?.activated && <div className={styles.alertEmail}>
+                !user?.userInfo?.activated && <div className={styles.alertEmail}>
                     <Alert variant="outlined" severity="warning" sx={{ color : "var(--color-text-main)"}}>
                         Your account is not activated, check your email.
                     </Alert>
@@ -85,7 +86,7 @@ const SettingsWelcome: FC = (props) => {
                                                         <span>{link.text}</span>
                                                     </div>
                                                     <div className={styles.link__right}>
-                                                        <ArrowRightAltOutlined/>
+                                                        <KeyboardArrowRight/>
                                                     </div>
 
                                                 </div>

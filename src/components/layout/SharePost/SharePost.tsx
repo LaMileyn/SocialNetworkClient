@@ -28,7 +28,7 @@ const SharePost: FC = (props) => {
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLTextAreaElement>) => {
         e.preventDefault();
         const newPost: PostCreateModel = {
-            user: user!.userInfo.id,
+            user: user!.userInfo._id,
             desc: postText
         }
         if (file) newPost.img = file
@@ -42,7 +42,7 @@ const SharePost: FC = (props) => {
     return (
         <div className={styles.share}>
             <div className={styles.top}>
-                <Link to={`/profile/${user?.userInfo.id}`}>
+                <Link to={`/profile/${user?.userInfo._id}`}>
                     <Avatar src={"/images/" + user?.userInfo.profilePicture}/>
                 </Link>
                 <div className={styles.inputWrapper}>

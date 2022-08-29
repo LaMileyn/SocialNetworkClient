@@ -57,7 +57,7 @@ const ProfileLeft: FC<IProps> = ({profile}) => {
                                 width: 85,
                                 height: 85
                             }}/>
-                        {   profile._id === user?.userInfo?.id &&
+                        {   profile._id === user?.userInfo?._id &&
                             <ChangePhotoHover onClick={ () => setOpenedModel(true)}/>
                         }
                     </div>
@@ -102,7 +102,7 @@ const ProfileLeft: FC<IProps> = ({profile}) => {
                         Photos
                     </div>
                     {
-                        profile._id === user?.userInfo?.id &&
+                        profile._id === user?.userInfo?._id &&
                         <div className={styles.square}>
                             <SettingsOutlined/>
                             Settings

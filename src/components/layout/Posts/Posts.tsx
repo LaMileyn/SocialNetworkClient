@@ -42,7 +42,7 @@ const Posts: FC<IProps> = ({userId}) => {
                     posts.map((post) => (
                         <Collapse key={post._id}>
                             <div className={styles.post}>
-                                <Post post={post} isOwner={(post.user as IUser)._id === user?.userInfo.id}/>
+                                <Post post={post} isOwner={(post.user as IUser)._id === user?.userInfo._id}/>
                             </div>
                         </Collapse>
                     ))

@@ -1,24 +1,12 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC} from 'react';
 import styles from './SettingsPage.module.scss';
 import {Route,Routes,Outlet} from "react-router-dom";
 import SettingsWelcome from "../SettingsWelcome/SettingsWelcome";
 import SettingAccountInfo from "../SettingAccountInfo/SettingAccountInfo";
-import {useAppDispatch, useAppSelector} from "../../../utils/hooks";
-import {getCurrentUser} from "../../../store/settings/settings.actions";
-import FullSectionLoader from "../../../components/layout/FullSectionLoader/FullSectionLoader";
 
 
 const SettingsPage : FC = (props) => {
-    const dispatch = useAppDispatch()
-    const { fetching } = useAppSelector( state => state.settings)
-    const { currentUser } = useAppSelector( state => state.settings)
-    const { user } = useAppSelector( state => state.auth )
-    useEffect( () =>{
-        if (user?.userInfo.id === currentUser?._id) return;
-        dispatch(getCurrentUser(user!.userInfo!.id))
-    },[user,currentUser])
 
-    if (fetching) return <FullSectionLoader size={"large"}/>
     return (
         <section className={styles.settings}>
             <div className={styles.content}>

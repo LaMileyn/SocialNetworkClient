@@ -21,10 +21,9 @@ const authSlice = createSlice({
     reducers: {},
     extraReducers: (builder) =>
         builder
-            
             //update profile
             .addCase(updateUser.fulfilled, (state, action : PayloadAction<IUser>) =>{
-                if (action.payload._id === state.user?.userInfo?.id){
+                if (action.payload._id === state.user?.userInfo?._id){
                     // state.user.userInfo.profilePicture = action.payload.profilePicture
                     state.user.userInfo = {
                         ...state.user.userInfo,

@@ -16,7 +16,7 @@ const ProfilePage : FC = (props) => {
     const { user } = useAppSelector( state => state.auth)
 
     useEffect(() => {
-        const id =  params.id || user!.userInfo!.id
+        const id =  params.id || user!.userInfo!._id
         if (!profile || (profile && profile._id !== id) ) dispatch(getProfile(id))
     }, [params])
 

@@ -46,11 +46,12 @@ export interface UserRegistrationModel extends UserAuthorizationModel{
 export interface UserDto{
     accessToken : string,
     refreshToken : string,
-    userInfo : {
-        id : string,
-        email : string,
-        activated : boolean,
-        username : string,
-        profilePicture : string
-    }
+    userInfo : IUser
+    // userInfo : {
+    //     id : string,
+    //     email : string,
+    //     activated : boolean,
+    //     username : string,
+    //     profilePicture : string
+    // }
 }
