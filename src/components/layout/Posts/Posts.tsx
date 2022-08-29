@@ -23,7 +23,10 @@ const Posts: FC<IProps> = ({userId}) => {
     const {user} = useAppSelector(state => state.auth)
 
     useEffect(() => {
-        dispatch(getPosts())
+        userId
+            ? dispatch(getPosts(userId))
+            : dispatch(getPosts())
+
     }, [user])
 
     if (fetching && !posts.length) return <FullSectionLoader/>

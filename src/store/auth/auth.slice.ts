@@ -25,7 +25,11 @@ const authSlice = createSlice({
             //update profile
             .addCase(updateUser.fulfilled, (state, action : PayloadAction<IUser>) =>{
                 if (action.payload._id === state.user?.userInfo?.id){
-                    state.user.userInfo.profilePicture = action.payload.profilePicture
+                    // state.user.userInfo.profilePicture = action.payload.profilePicture
+                    state.user.userInfo = {
+                        ...state.user.userInfo,
+                        ...action.payload
+                    }
                 }
             })
             // login

@@ -8,6 +8,7 @@ import AuthPage from "../../views/Auth/AuthPage/AuthPage";
 import MainLayout from "../layout/MainLayout/MainLayout";
 import {RequireAuth} from "../../utils/hocs/RequiredAuth";
 import NotFoundPage from "../../views/NotFound/NotFoundPage/NotFoundPage";
+import SettingsPage from "../../views/Settings/SettingsPage/SettingsPage";
 
 
 const AppRouter: FC = (props) => {
@@ -29,6 +30,7 @@ const AppRouter: FC = (props) => {
                     <Route path=":id" element={<ProfilePage/>} />
                 </Route>
                 <Route path="friends/:id/*" element={<FriendsPage/>}/>
+                <Route path="settings/*" element={<SettingsPage/>}/>
             </Route>
             <Route path="*" element={<NotFoundPage/>}/>
         </Routes>

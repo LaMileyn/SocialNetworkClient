@@ -1,6 +1,5 @@
 import React, {FC} from 'react';
 import styles from './BlockHeaderBorder.module.scss'
-import {IconButton} from "@mui/material";
 
 interface IProps extends React.HTMLProps<HTMLDivElement> {
     icon?: JSX.Element,

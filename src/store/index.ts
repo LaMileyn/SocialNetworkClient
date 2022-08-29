@@ -4,6 +4,7 @@ import usersSlice from "./users/users.slice";
 import profileSlice from "./profile/profile.slice";
 import themeSlice from "./theme/theme.slice";
 import postsSlice from "./posts/posts.slice";
+import settingsSlice from "./settings/settings.slice";
 
 
 const store = configureStore({
@@ -12,7 +13,8 @@ const store = configureStore({
         users : usersSlice,
         profile : profileSlice,
         theme : themeSlice,
-        posts : postsSlice
+        posts : postsSlice,
+        settings : settingsSlice
     },
     middleware : (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck : false

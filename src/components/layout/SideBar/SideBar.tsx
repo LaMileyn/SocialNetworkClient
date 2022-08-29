@@ -6,7 +6,7 @@ import {
     Message,
     MoreHoriz,
     NoteAltOutlined,
-    Notifications, OtherHousesRounded, PersonOutlined
+    Notifications, OtherHousesRounded, PersonOutlined, SettingsOutlined
 } from "@mui/icons-material";
 import logo from './../../../assets/images/logoLarge.png'
 
@@ -48,9 +48,9 @@ const routes : IRoute[] = [
         title : "Profile"
     },
     {
-        to : "/more",
-        icon : <MoreHoriz className={styles.navIcon}/>,
-        title : "More"
+        to : "/settings",
+        icon : <SettingsOutlined className={styles.navIcon}/>,
+        title : "Settings"
     },
 ]
 const SideBar: FC = (props) => {

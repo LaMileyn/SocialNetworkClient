@@ -1,0 +1,21 @@
+.content{
+  padding: 20px;
+}
+.user{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  &__avatar{
+    position: relative;
+  }
+  p{
+    color: var(--color-grey-low);
+  }
+}
+.form{
+  padding: 20px;
+}
+.changesSaving{
+  margin: 20px;
+}

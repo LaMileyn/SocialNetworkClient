@@ -48,7 +48,8 @@ const profileSlice = createSlice({
                 state.profile = action.payload
             })
             .addCase(createNewPost.fulfilled, (state,action : PayloadAction<IPost>) =>{
-                (state?.profile?.posts as string[]).push(action.payload._id)
+                if (!state.profile) return;
+                (state.profile.posts as string[]).push(action.payload._id)
             })
             // follow person
             .addCase(followPerson.pending, (state) => {

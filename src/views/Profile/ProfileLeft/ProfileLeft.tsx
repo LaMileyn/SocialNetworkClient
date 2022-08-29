@@ -10,10 +10,11 @@ import {
     SettingsOutlined
 } from "@mui/icons-material";
 import {IUser} from "../../../models";
-import {useAppDispatch, useFile} from "../../../utils/hooks";
-import {updateUser} from "../../../store/profile/profile.actions";
+import {useAppDispatch, useAppSelector} from "../../../utils/hooks";
+import PhotoChangeModal from "../../../components/layout/Modal/PhotoChangeModal/PhotoChangeModal";
 import {UpdateUserModel} from "../../../models/user.model";
-import ProfilePhotoModal from "../ProfilePhotoModal/ProfilePhotoModal";
+import {updateUser} from "../../../store/profile/profile.actions";
+import ChangePhotoHover from "../../../components/layout/ChangePhotoHover/ChangePhotoHover";
 
 
 interface IProps {
@@ -22,9 +23,17 @@ interface IProps {
 
 const ProfileLeft: FC<IProps> = ({profile}) => {
 
+    const dispatch = useAppDispatch();
+    const { user } = useAppSelector( state => state.auth)
+    const [openedModel, setOpenedModel] = useState<boolean>(false)
 
-
-    const [openedModel,setOpenedModel] = useState<boolean>(false)
+    const handleChangeAvatar = async (file :string) => {
+        const newOne: UpdateUserModel = {
+            profilePicture: file
+        }
+        dispatch(updateUser(newOne))
+        setOpenedModel(false)
+    }
 
 
     return (
@@ -35,18 +44,22 @@ const ProfileLeft: FC<IProps> = ({profile}) => {
                 </div>
                 <div className={styles.user}>
                     <div className={styles.user__avatar}>
-                        {/* modal */}
-                        <ProfilePhotoModal open={openedModel} setOpen={setOpenedModel}/>
-                        {/* modal */}
+                        <PhotoChangeModal  headerText={"Profile photo change"}
+                                           bodyTextConfirm={"The selected area will be displayed on your page. " +
+                                               "If the image is oriented incorrectly, the photo can be rotated."}
+                                           bodyTextWelcome={"It will be easier for friends to get to know you if you upload your real photo. " +
+                                               "You can upload an image in JPG, GIF or PNG format."}
+                                           open={openedModel} setOpen={setOpenedModel}
+                                           onPhotoConfirm={handleChangeAvatar}/>
                         <Avatar
                             src={"/images/" + profile.profilePicture}
                             sx={{
                                 width: 85,
                                 height: 85
                             }}/>
-                        <div className={styles.changeAvatar} onClick={ () => setOpenedModel(true)}>
-                            <PhotoCamera/>
-                        </div>
+                        {   profile._id === user?.userInfo?.id &&
+                            <ChangePhotoHover onClick={ () => setOpenedModel(true)}/>
+                        }
                     </div>
                     <span className={styles.user__fullName}>{profile.username}</span>
                     <span className={styles.user__url}>@{profile._id}</span>
@@ -88,10 +101,13 @@ const ProfileLeft: FC<IProps> = ({profile}) => {
                         <CameraAltOutlined/>
                         Photos
                     </div>
-                    <div className={styles.square}>
-                        <SettingsOutlined/>
-                        Settings
-                    </div>
+                    {
+                        profile._id === user?.userInfo?.id &&
+                        <div className={styles.square}>
+                            <SettingsOutlined/>
+                            Settings
+                        </div>
+                    }
                 </div>
             </div>
         </div>
