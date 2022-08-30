@@ -17,7 +17,6 @@ export const getProfile = createAsyncThunk(
 
 export const updateUser = createAsyncThunk("profile/update", async (updatedData : UpdateUserModel,thunkApi) =>{
     try {
-        console.log(updatedData)
         const { data } = await userService.updateUser(updatedData);
         return data
     }catch (err: any){
