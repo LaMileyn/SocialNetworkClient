@@ -5,13 +5,14 @@ import {Logout, Settings} from "@mui/icons-material";
 import {logout} from "../../../../store/auth/auth.actions";
 import {useAppDispatch, useAppSelector} from "../../../../utils/hooks";
 import AppMenu from "../../Menu/AppMenu";
+import {useNavigate} from "react-router-dom";
 
 const HeaderProfileMenu: FC = (props) => {
 
     const {user} = useAppSelector(state => state.auth)
     const dispatch = useAppDispatch()
     const theme = useAppSelector(state => state.theme)
-
+    const navigate = useNavigate()
 
     return (
         <div>
@@ -19,7 +20,7 @@ const HeaderProfileMenu: FC = (props) => {
                 image={<Avatar sx={{width: 40, height: 40}} src={"/images/" + user?.userInfo?.profilePicture ?? ""}/>}
                 title={"Account settings"}>
                 <div>
-                    <MenuItem sx={{color: "var(--color-text-main)"}}>
+                    <MenuItem sx={{color: "var(--color-text-main)"}} onClick ={ () => navigate(`/profile/${user?.userInfo?._id}`)}>
                         <Avatar src={"/images/" + user?.userInfo?.profilePicture}/> {user?.userInfo?.username}
                     </MenuItem>
                     <Divider/>
@@ -30,7 +31,7 @@ const HeaderProfileMenu: FC = (props) => {
                         </ListItemIcon>
                         Dark mode
                     </MenuItem>
-                    <MenuItem sx={{color: "var(--color-text-main)"}}>
+                    <MenuItem sx={{color: "var(--color-text-main)"}} onClick ={ () => navigate(`settings`)}>
                         <ListItemIcon sx={{color: "var(--color-text-main)"}}>
                             <Settings fontSize="small"/>
                         </ListItemIcon>

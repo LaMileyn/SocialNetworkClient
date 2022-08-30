@@ -12,9 +12,9 @@ const HomePage: FC = (props) => {
         <section className={styles.home}>
             <div className={styles.container}>
                 <div className={styles.leftPart}>
-                    <div className={styles.stories}>
-                        <Stories/>
-                    </div>
+                    {/*<div className={styles.stories}>*/}
+                    {/*    <Stories/>*/}
+                    {/*</div>*/}
                     <div className={styles.share}>
                         <SharePost/>
                     </div>

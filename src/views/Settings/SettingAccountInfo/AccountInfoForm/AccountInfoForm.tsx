@@ -5,6 +5,7 @@ import {Alert, Button, Fade, TextField} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../../../../utils/hooks";
 import {updateUser} from "../../../../store/profile/profile.actions";
 import {ServerError} from "../../../../models";
+import {UpdateUserModel} from "../../../../models/user.model";
 
 
 
@@ -23,17 +24,17 @@ const AccountInfoForm: FC<IProps> = ({ changeSavedAnimation, savedAnimation }) =
     const { user } = useAppSelector(state => state.auth)
 
 
-    const {register, setError, handleSubmit, formState: {errors, isDirty}} = useForm<Inputs>({
+    const {register, setError, handleSubmit, formState: {errors, isDirty, touchedFields}} = useForm<Inputs>({
         defaultValues: {
             email : user!.userInfo!.email,
             username : user!.userInfo!.username,
         },
         mode: "onChange"
     })
+    console.log(touchedFields)
     const onSubmit: SubmitHandler<Inputs> = async (data) =>{
-        let res = await dispatch(updateUser({
-            ...data
-        }))
+
+        let res = await dispatch(updateUser(data))
         if (res.meta.requestStatus === "rejected"){
             let formError
             if (typeof res.payload  === "string") {
@@ -42,7 +43,6 @@ const AccountInfoForm: FC<IProps> = ({ changeSavedAnimation, savedAnimation }) =
                 formError = {type: "server", message: (res.payload as ServerError).message}
             }
             return setError("email", formError)
-            // setError("username", formError)
         }
         changeSavedAnimation(true)
         setTimeout( () =>{

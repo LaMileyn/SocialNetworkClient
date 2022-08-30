@@ -86,3 +86,9 @@
   gap: 1rem;
   color: var(--color-text-main);
 }
+
+@media screen and (max-width: 1210px){
+  .extraLinks{
+    display: none
+  }
+}
