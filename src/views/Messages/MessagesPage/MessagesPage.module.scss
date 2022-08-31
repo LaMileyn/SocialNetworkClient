@@ -1,0 +1,11 @@
+.section{
+  height: 100%;
+}
+.container{
+  max-width: var(--container-width);
+  margin: 0 auto;
+  display: grid;
+  height: 100%;
+  grid-template-columns: 520px auto;
+  padding: 20px;
+}

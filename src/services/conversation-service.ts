@@ -1,12 +1,13 @@
 import $api from './index';
 import {IConversation} from "../models";
+import {CreateConversationModel} from "../models/conversation.model";
 
 class ConversationsApi {
     async getConversations() {
         return $api.get<Array<IConversation>>("/conversations");
     }
 
-    async createConversation(data : IConversation) {
+    async createConversation(data : CreateConversationModel) {
         return $api.post(`/conversations`, data)
     }
 

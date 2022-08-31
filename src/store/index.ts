@@ -5,16 +5,20 @@ import profileSlice from "./profile/profile.slice";
 import themeSlice from "./theme/theme.slice";
 import postsSlice from "./posts/posts.slice";
 import settingsSlice from "./settings/settings.slice";
+import socketSlice from "./socket/socket.slice";
+import chatSlice from "./chat/chat.slice";
 
 
 const store = configureStore({
     reducer : {
-        auth : authSlice,
-        users : usersSlice,
-        profile : profileSlice,
-        theme : themeSlice,
-        posts : postsSlice,
-        settings : settingsSlice
+        auth     : authSlice,
+        users    : usersSlice,
+        profile  : profileSlice,
+        theme    : themeSlice,
+        posts    : postsSlice,
+        settings : settingsSlice,
+        socket   : socketSlice,
+        chat     : chatSlice
     },
     middleware : (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck : false

@@ -1,0 +1,13 @@
+.chat{
+  background-color: var(--dark-primary);
+  height: 100%;
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.body{
+  flex: 1;
+}

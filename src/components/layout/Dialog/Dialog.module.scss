@@ -1,0 +1,39 @@
+.dialog{
+  padding: 20px;
+  display: flex;
+  gap: 1rem;
+  cursor: pointer;
+  &:hover{
+    background-color: var(--dark-primary);
+  }
+}
+.right{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  &__top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__title{
+    color: var(--color-text-main);
+    font-size: 17px;
+  }
+  &__time{
+    color: var(--color-grey-low);
+    font-size: 13px;
+  }
+
+  &__bottom p{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    color: var(--color-grey-middle);
+    font-size: 14px;
+    font-weight: 400;
+  }
+}

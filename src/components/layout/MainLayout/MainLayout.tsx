@@ -4,27 +4,30 @@ import {Outlet, Navigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../utils/hooks";
 import Header from "../Header/Header";
 import SideBar from "../SideBar/SideBar";
+import {io} from "socket.io-client";
+import {setOnlineUsers, setSocket} from "../../../store/socket/socket.slice";
+import FullSectionLoader from "../FullSectionLoader/FullSectionLoader";
 
 
 const MainLayout: FC = (props) => {
-    // const dispatch = useAppDispatch()
-    // const {user} = useAppSelector(state => state.auth)
-    // const { data : { socket }} = useAppSelector(state => state.socket)
-    // useEffect(() => {
-    //     const socket = io("ws://localhost:5000");
-    //     dispatch(setSocket(socket))
-    //     socket.emit("addUser", user.userInfo.id);
-    //     socket.on("getUsers", (data) => {
-    //         dispatch(setOnlineUsers(data))
-    //     });
-    //
-    // }, [dispatch,user])
 
-    // if (!socket) return <CircularProgress variant={"indeterminate"} color={"primary"}/>
+    const dispatch = useAppDispatch()
+    const {user} = useAppSelector(state => state.auth)
+    const { socket } = useAppSelector(state => state.socket)
+
+    useEffect(() => {
+        const socket = io("ws://localhost:5000");
+        dispatch(setSocket(socket))
+        socket.emit("addUser", user?.userInfo?._id);
+        socket.on("getUsers", (data) => {
+            dispatch(setOnlineUsers(data))
+        });
+
+    }, [dispatch,user])
 
     const leftRef = useRef<HTMLDivElement>(null);
-
     const [margin, setMargin] = useState<number>(0)
+
     useEffect(() => {
         if (leftRef.current) {
             setMargin(leftRef.current?.children[0].clientWidth)
@@ -34,10 +37,10 @@ const MainLayout: FC = (props) => {
         return () => window.removeEventListener("resize",resizeHand)
     }, [])
     function resizeHand(){
-        console.log("resize")
         setMargin(leftRef!.current!.children[0].clientWidth)
     }
-    console.log(margin)
+
+    if (!socket) return <FullSectionLoader size={"large"}/>
     return (
         <>
             <div className={styles.centerLayout}>
