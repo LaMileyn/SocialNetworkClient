@@ -34,9 +34,10 @@ const MessagesChatData: FC<IProps> = (props) => {
     return (
         <div className={styles.chatData}>
             {
-                currentConversation && messages &&  messages[currentConversation._id].map( (message) =>{
+                // currentConversation && messages &&  messages[currentConversation._id]
+                [...Array(10)].map( (message) =>{
                     return(
-                        <Message message={message} key={message._id}/>
+                        <Message message={message} key={message}/>
                     )
                 })
             }

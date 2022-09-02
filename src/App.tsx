@@ -4,6 +4,7 @@ import {useAppDispatch, useAppSelector} from "./utils/hooks";
 import {checkAuth} from "./store/auth/auth.actions";
 import {CircularProgress} from "@mui/material";
 import AppRouter from "./components/routing/AppRouter";
+import FullSectionLoader from "./components/layout/FullSectionLoader/FullSectionLoader";
 
 const App = () => {
     const dispatch = useAppDispatch()
@@ -25,7 +26,7 @@ const App = () => {
     },[dispatch])
 
 
-    if ( loading ) return <CircularProgress color="primary"/>
+    if ( loading ) return <FullSectionLoader size={"large"}/>
     return (
         <div className="App">
             <AppRouter/>

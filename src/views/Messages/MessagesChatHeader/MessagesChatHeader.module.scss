@@ -9,7 +9,7 @@
     left: 20px;
     bottom: 0;
     height: 1px;
-    background: var(--color-white);
+    background: var(--color-light);
   }
 }
 .wrapper{
@@ -45,10 +45,22 @@
     height: 13px;
     border-radius: 50%;
     background-color: var(--color-green);
+    animation: statusScaling infinite 1.2s ease-in-out;
   }
 }
 .right{
   svg{
     color: var(--color-text-main);
+  }
+}
+@keyframes statusScaling {
+  0%{
+    transform: scale(.5);
+  }
+  50%{
+    transform: scale(1);
+  }
+  100%{
+    transform: scale(.5);
   }
 }

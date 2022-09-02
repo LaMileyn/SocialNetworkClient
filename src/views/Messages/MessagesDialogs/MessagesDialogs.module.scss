@@ -1,5 +1,5 @@
 .dialogs{
-  background-color: var(--color-white);
+  background-color: var(--dialogs-background);
   border-top-left-radius: var(--border-radius);
   border-bottom-left-radius: var(--border-radius);
   height: 100%;
@@ -10,7 +10,7 @@
 .empty{
   &__title{
     font-size: 19px;
-    color: var(--color-grey-low);
+    color: var(--color-grey-middle);
     text-align: center;
     margin-bottom: 6px;
   }

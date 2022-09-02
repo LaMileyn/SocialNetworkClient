@@ -1,0 +1,33 @@
+.container{
+  padding: 20px 20px;
+  cursor: pointer;
+  &:hover {
+    background-color: var(--color-message-hover);
+  }
+}
+.message{
+  position: relative;
+  display: flex;
+  gap: 1rem;
+}
+.right{
+  flex: 1;
+  &__top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  &__name{
+    font-size: 16px;
+    color: var(--color-red-low);
+  }
+  &__time{
+    font-size: 12px;
+    color: var(--color-grey-low);
+  }
+  &__text{
+    color: var(--color-grey-middle);
+    font-size: 14px;
+  }
+}
