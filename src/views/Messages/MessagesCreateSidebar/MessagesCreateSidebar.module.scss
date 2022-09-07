@@ -1,0 +1,127 @@
+.createBar{
+  background-color: var(--dialogs-background);
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  h4{
+    color: var(--color-primary);
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+}
+.header{
+  height: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+  position: relative;
+  border-bottom: 1px solid var(--color-grey-low);
+  span{
+    font-size: 18px;
+    color: var(--color-text-main);
+  }
+  svg{
+    color: var(--color-grey-middle);
+  }
+}
+.body{
+  flex: 1;
+}
+.top{
+  padding: 40px 20px;
+}
+.avatarAndTitle{
+  display: flex;
+  gap: 2rem;
+}
+.inputTitle{
+  position: relative;
+  width: 100%;
+  button{
+    position: absolute;
+    right: 0;
+    top: 50%;
+    color: var(--color-grey-middle);
+    transform: translateY(-50%);
+  }
+  input{
+    border: none;
+    height: 100%;
+    background: var(--color-light);
+    border-radius: var(--border-radius);
+    width: 100%;
+    color: var(--color-text-main);
+    padding: 7px 10px;
+    //border-bottom: 1px solid var(--color-grey-middle);
+
+  }
+}
+// search
+.search{
+  padding: 20px;
+}
+.inputWrapper{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: none;
+  border-bottom: 1px solid var(--color-grey-middle);
+  button{
+    color: var(--color-grey-middle);
+  }
+  input{
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    background-color: transparent;
+    color: var(--color-text-main);
+  }
+}
+.stack{
+  margin-right: 10px;
+}
+.chip{
+  cursor: pointer;
+}
+.chipCloseBtn{
+  width: 15px !important;
+  height: 15px !important;
+  margin-left: 10px;
+}
+.chipCloseIcon{
+  width: 15px !important;
+  height: 15px !important;
+}
+// search
+.emptyFriends{
+  padding-top: 80px;
+  text-align: center;
+  color: var(--color-grey-middle);
+  font-size: 14px;
+}
+
+// footer
+.footer{
+  height: 72px;
+  border-top: 1px solid var(--color-grey-low);
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  svg{
+    color: var(--color-grey-low);
+  }
+  &__buttons{
+    display: flex;
+    gap: 1rem;
+  }
+}
+
+// footer
+
+

@@ -10,7 +10,17 @@
 .postCreateAre{
   margin-bottom: var(--block-gap);
 }
-.postsArea{
+.postsArea, .friendActionBar {
   background-color: var(--color-white);
   border-radius: var(--border-radius);
+}
+
+.friendActionBar{
+  margin-bottom: var(--block-gap);
+
+  &__btns{
+    display: flex;
+    gap: 1rem;
+    padding: 20px;
+  }
 }

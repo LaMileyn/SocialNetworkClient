@@ -9,6 +9,7 @@ import {CreateConversationModel} from "../../models/conversation.model";
 export const getAllConversations = createAsyncThunk("chat/getConversations", async (_, {rejectWithValue}) => {
     try {
         const {data} = await conversationService.getConversations();
+        console.log(data)
         return data
     } catch (err : any) {
         return rejectWithValue(err.response.data)

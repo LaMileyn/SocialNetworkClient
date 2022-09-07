@@ -6,7 +6,7 @@ import {
     CheckCircleRounded,
     GroupOutlined,
     LocationOnOutlined,
-    MusicNoteOutlined, PhotoCamera,
+    MusicNoteOutlined,
     SettingsOutlined
 } from "@mui/icons-material";
 import {IUser} from "../../../models";

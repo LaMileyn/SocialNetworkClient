@@ -1,10 +1,12 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import styles from './MessagesPage.module.scss';
 import MessagesDialogs from "../MessagesDialogs/MessagesDialogs";
 import MessagesChat from "../MessagesChat/MessagesChat";
 import {useAppDispatch, useAppSelector} from "../../../utils/hooks";
 import {IUser} from "../../../models";
 import {addTypingMan, deleteTypingMan} from "../../../store/chat/chat.slice";
+import MessagesCreateSidebar from "../MessagesCreateSidebar/MessagesCreateSidebar";
+import {getAllConversations} from "../../../store/chat/chat.actions";
 
 const MessagesPage : FC = (props) => {
 
@@ -19,14 +21,18 @@ const MessagesPage : FC = (props) => {
         dispatch(deleteTypingMan({room,userId}))
     })
 
+    useEffect( () =>{
+        dispatch(getAllConversations())
+    },[dispatch])
+
     return (
         <section className={styles.section}>
             <div className={styles.container}>
                 <div className={styles.left}>
                     {
                         dialogCreating
-                            ? <MessagesDialogs/>
-                            : <MessagesDialogs/>
+                            ? <MessagesCreateSidebar setDialogCreating={setDialogCreating}/>
+                            : <MessagesDialogs setDialogCreating={setDialogCreating}/>
                     }
 
                 </div>

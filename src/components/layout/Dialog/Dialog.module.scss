@@ -3,8 +3,26 @@
   display: flex;
   gap: 1rem;
   cursor: pointer;
+  position: relative;
   &:hover{
     background-color: var(--dark-primary);
+  }
+  &:after{
+    content: "";
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 2px;
+    background-color: var(--color-primary);
+    transition: 0.3s all;
+    top: 0;
+    transform: scaleY(0);
+  }
+  &.active{
+    background-color: var(--dark-primary);
+    &:after{
+      transform: scaleY(1);
+    }
   }
 }
 .right{

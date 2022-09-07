@@ -1,28 +1,26 @@
-import React, {FC, useEffect} from 'react';
+import React, {Dispatch, FC, SetStateAction, useEffect} from 'react';
 import styles from './MessagesDialogs.module.scss';
 import MessagesDialogsHeader from "../MessagesDialogsHeader/MessagesDialogsHeader";
 import Dialog from "../../../components/layout/Dialog/Dialog";
 import {useAppDispatch, useAppSelector} from "../../../utils/hooks";
-import {getAllConversations} from "../../../store/chat/chat.actions";
 import FullSectionLoader from "../../../components/layout/FullSectionLoader/FullSectionLoader";
 
 interface IProps {
+    setDialogCreating : Dispatch<SetStateAction<boolean>>
 }
 
-const MessagesDialogs: FC<IProps> = (props) => {
+const MessagesDialogs: FC<IProps> = ({ setDialogCreating }) => {
 
     const dispatch = useAppDispatch();
     const { conversations : { data, fetching }} = useAppSelector( state => state.chat)
 
-    useEffect( () =>{
-        dispatch(getAllConversations())
-    },[dispatch])
+
 
 
     if (fetching) return <FullSectionLoader size={"small"}/>;
     return (
         <div className={styles.dialogs}>
-            <MessagesDialogsHeader/>
+            <MessagesDialogsHeader setDialogCreating={setDialogCreating}/>
             <div className={styles.dialodsItems}>
                 {
                     data && data.length === 0 &&
@@ -33,7 +31,7 @@ const MessagesDialogs: FC<IProps> = (props) => {
                 }
                 {
                     data && data.map( (el) =>{
-                        return <Dialog key={el._id}/>
+                        return <Dialog dialog={el} key={el._id}/>
                     })
                 }
             </div>

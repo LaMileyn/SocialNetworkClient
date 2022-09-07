@@ -162,10 +162,6 @@ const chatSlice = createSlice({
             state.messages.fetching = false
         })
 
-
-        .addCase(createConversation.pending, (state) => {
-            state.conversations.fetching = true
-        })
         .addCase(createConversation.fulfilled, (state, action) => {
             if (!state.conversations.data) state.conversations.data = []
             state.conversations.data.push(action.payload);
