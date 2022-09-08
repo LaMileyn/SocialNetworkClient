@@ -4,6 +4,7 @@ import messageService from "../../services/message-service";
 import {IConversation, IMessage} from "../../models";
 import {CreateMessageModel} from "../../models/message.model";
 import {CreateConversationModel} from "../../models/conversation.model";
+import {addNewMessage, deleteChatMessages, updateMessage} from "./chat.slice";
 
 
 export const getAllConversations = createAsyncThunk("chat/getConversations", async (_, {rejectWithValue}) => {
@@ -28,15 +29,15 @@ export const getMessages = createAsyncThunk("chat/getMessages", async (conversat
 })
 export const createMessage = createAsyncThunk("chat/createMessage", async (params : {
     message : CreateMessageModel
-}, {rejectWithValue}) => {
+}, {rejectWithValue, dispatch}) => {
     try {
-        const {  message} = params;
+        const { message} = params;
         const {data} = await messageService.createMessage(message);
-        return {
+        dispatch(addNewMessage({
             conversation: message.conversation as IConversation,
             message: data,
             fromMe : true
-        }
+        }))
     } catch (err : any) {
         return rejectWithValue(err.response.data)
     }
@@ -53,14 +54,14 @@ export const createConversation = createAsyncThunk("chat/createConversation", as
 
 export const deleteMessages = createAsyncThunk("chat/delete/message", async (params : {
     messages : IMessage[]
-}, {rejectWithValue}) => {
+}, {rejectWithValue,dispatch}) => {
     try {
         const { messages } = params;
         await messageService.deleteMessages(messages)
-        return {
+        dispatch(deleteChatMessages({
             messages,
             fromMe : true
-        }
+        }))
     } catch (err : any) {
         return rejectWithValue(err.response.data)
     }
@@ -68,15 +69,15 @@ export const deleteMessages = createAsyncThunk("chat/delete/message", async (par
 
 export const updateOurMessage = createAsyncThunk("chat/update/message", async (params : {
     id : string, newOne : CreateMessageModel, isLast : boolean
-}, {rejectWithValue}) => {
+}, {rejectWithValue,dispatch}) => {
     try {
         const { isLast, newOne, id} = params;
-        const updatedMessage = await messageService.updateMessage(id, newOne)
-        return {
-            updatedMessage,
+        const { data } = await messageService.updateMessage(id, newOne)
+        dispatch(updateMessage({
+            updatedMessage : data,
             isLast,
             fromMe : true
-        }
+        }))
     } catch (err : any) {
         return rejectWithValue(err.response.data)
     }

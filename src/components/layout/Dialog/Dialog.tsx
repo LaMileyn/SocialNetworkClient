@@ -1,7 +1,7 @@
 import React, {FC, useMemo} from 'react';
 import styles from './Dialog.module.scss';
 import {Avatar} from "@mui/material";
-import {IConversation, IUser} from "../../../models";
+import {IConversation, IMessage, IUser} from "../../../models";
 import {useAppDispatch, useAppSelector} from "../../../utils/hooks";
 import cn from "classnames";
 import {changeConversation} from "../../../store/chat/chat.slice";
@@ -42,12 +42,10 @@ const Dialog: FC<IProps> = ({ dialog }) => {
                             ? dialog.title
                             : dialogPartner?.username
                     }</span>
-                    <span className={styles.right__time}>{dialog.lastMessage ? (dialog.lastMessage as string).split("T")[0] : ""}</span>
+                    <span className={styles.right__time}>10:15 AM</span>
                 </div>
                 <div className={styles.right__bottom}>
-                    <p>Вы: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, beatae cumque deleniti
-                        doloremque hic ipsa, iure natus nesciunt praesentium quibusdam quidem repellat similique ut
-                        veritatis.</p>
+                    <p>"Cписок сообщений пуст"</p>
                 </div>
             </div>
         </div>

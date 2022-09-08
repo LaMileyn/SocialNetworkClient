@@ -77,7 +77,7 @@ const chatSlice = createSlice({
 
             action.payload.fromMe && chatSlice.caseReducers.sortConversationsByUpdated(state)
         },
-        deleteMessages: (state, action: PayloadAction<{ messages: IMessage[], fromMe: boolean }>) => {
+        deleteChatMessages: (state, action: PayloadAction<{ messages: IMessage[], fromMe: boolean }>) => {
             const messages = action.payload.messages;
             const conversationId = messages[0].conversation as string;
             state.messages.data[conversationId] = state.messages.data[conversationId]!.filter(el => !messages.find(curr => curr._id === el._id))
@@ -177,7 +177,7 @@ export const {
     addTypingMan, deleteTypingMan,
     addNewMessage, addToSelectedMessages,
     changeMessageEditing, setEditingMessageData, changeConversation,
-    updateMessage, deleteMessages,
+    updateMessage, deleteChatMessages,
     sortConversationsByUpdated
 } = chatSlice.actions;
 export default chatSlice.reducer;

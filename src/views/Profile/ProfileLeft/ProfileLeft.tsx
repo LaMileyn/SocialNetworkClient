@@ -1,6 +1,6 @@
-import React, {FC, useState} from 'react';
+import React, {FC} from 'react';
 import styles from './ProfileLeft.module.scss';
-import {Avatar} from "@mui/material";
+
 import {
     CameraAltOutlined,
     CheckCircleRounded,
@@ -10,32 +10,16 @@ import {
     SettingsOutlined
 } from "@mui/icons-material";
 import {IUser} from "../../../models";
-import {useAppDispatch, useAppSelector} from "../../../utils/hooks";
-import PhotoChangeModal from "../../../components/layout/Modal/PhotoChangeModal/PhotoChangeModal";
-import {UpdateUserModel} from "../../../models/user.model";
-import {updateUser} from "../../../store/profile/profile.actions";
-import ChangePhotoHover from "../../../components/layout/ChangePhotoHover/ChangePhotoHover";
+import {useAppSelector} from "../../../utils/hooks";
 import {Link} from "react-router-dom";
-
-
+import ProfileChangeAvatar from "../ProfileChangeAvatar/ProfileChangeAvatar";
 interface IProps {
     profile: IUser
 }
 
 const ProfileLeft: FC<IProps> = ({profile}) => {
 
-    const dispatch = useAppDispatch();
-    const {user} = useAppSelector(state => state.auth)
-    const [openedModel, setOpenedModel] = useState<boolean>(false)
-
-    const handleChangeAvatar = async (file: string) => {
-        const newOne: UpdateUserModel = {
-            profilePicture: file
-        }
-        dispatch(updateUser(newOne))
-        setOpenedModel(false)
-    }
-
+    const {user} = useAppSelector(state => state.auth);
 
     return (
         <div className={styles.profileLeft}>
@@ -44,24 +28,7 @@ const ProfileLeft: FC<IProps> = ({profile}) => {
                     <CheckCircleRounded/>
                 </div>
                 <div className={styles.user}>
-                    <div className={styles.user__avatar}>
-                        <PhotoChangeModal headerText={"Profile photo change"}
-                                          bodyTextConfirm={"The selected area will be displayed on your page. " +
-                                              "If the image is oriented incorrectly, the photo can be rotated."}
-                                          bodyTextWelcome={"It will be easier for friends to get to know you if you upload your real photo. " +
-                                              "You can upload an image in JPG, GIF or PNG format."}
-                                          open={openedModel} setOpen={setOpenedModel}
-                                          onPhotoConfirm={handleChangeAvatar}/>
-                        <Avatar
-                            src={"/images/" + profile.profilePicture}
-                            sx={{
-                                width: 85,
-                                height: 85
-                            }}/>
-                        {profile._id === user?.userInfo?._id &&
-                            <ChangePhotoHover onClick={() => setOpenedModel(true)}/>
-                        }
-                    </div>
+                    <ProfileChangeAvatar profile={profile} user={user}/>
                     <span className={styles.user__fullName}>{profile.username}</span>
                     <span className={styles.user__url}>@{profile._id}</span>
                     <span className={styles.user__location}>

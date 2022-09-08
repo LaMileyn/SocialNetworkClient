@@ -1,8 +1,8 @@
 .header{
-  height: 75px;
+  min-height: 92px;
   display: flex;
   align-items: inherit;
-  padding: 15px 20px;
+  padding: 20px 20px;
 }
 .field{
   border-radius: var(--border-radius);

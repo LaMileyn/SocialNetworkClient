@@ -12,7 +12,7 @@ import ProfileRight from "../ProfileRight/ProfileRight";
 const ProfilePage : FC = (props) => {
     const dispatch = useAppDispatch();
     const params = useParams();
-    const { profile, fetching } = useAppSelector( state => state.profile)
+    const { profile } = useAppSelector( state => state.profile)
     const { user } = useAppSelector( state => state.auth)
 
     useEffect(() => {

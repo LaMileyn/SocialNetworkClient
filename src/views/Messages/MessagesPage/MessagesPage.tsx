@@ -11,8 +11,10 @@ import {getAllConversations} from "../../../store/chat/chat.actions";
 const MessagesPage : FC = (props) => {
 
     const [dialogCreating,setDialogCreating] = useState<boolean>(false)
-    const { socket } = useAppSelector( state => state.socket )
+
     const dispatch = useAppDispatch();
+    const { socket } = useAppSelector( state => state.socket )
+    const { data } = useAppSelector( state => state.chat.conversations )
 
     socket.off("typing").on("typing", (room : string, user : IUser) => {
         dispatch(addTypingMan({room,user}))
@@ -22,7 +24,7 @@ const MessagesPage : FC = (props) => {
     })
 
     useEffect( () =>{
-        dispatch(getAllConversations())
+        if ( !data ) dispatch(getAllConversations())
     },[dispatch])
 
     return (

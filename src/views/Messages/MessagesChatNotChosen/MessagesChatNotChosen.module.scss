@@ -1,0 +1,11 @@
+.notChosen{
+  p{
+    margin-top: 30px;
+    color: var(--color-text-main);
+    font-size: 21px;
+    text-align: center;
+    span{
+      color: var(--color-primary);
+    }
+  }
+}
