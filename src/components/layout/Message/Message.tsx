@@ -6,7 +6,7 @@ import cn from 'classnames'
 
 interface IProps {
     message: IMessage,
-    isOwner : boolean
+    isOwner : boolean,
 }
 
 const Message: FC<IProps> = ({message, isOwner}) => {

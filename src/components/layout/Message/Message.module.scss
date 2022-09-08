@@ -12,6 +12,22 @@
 }
 .right{
   flex: 1;
+  padding: 10px;
+  background-color: var(--color-white);
+  border-radius: var(--border-radius);
+  border-top-left-radius: 0;
+  position: relative;
+  &:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -10px;
+    width: 0;
+    height: 0;
+    background-color: transparent;
+    border-top: 10px solid var(--color-white);
+    border-left: 10px solid transparent;
+  }
   &__top{
     display: flex;
     justify-content: space-between;

@@ -38,6 +38,7 @@ export const createMessage = createAsyncThunk("chat/createMessage", async (param
             message: data,
             fromMe : true
         }))
+        return data
     } catch (err : any) {
         return rejectWithValue(err.response.data)
     }

@@ -48,8 +48,11 @@ const MessagesChatFooter: FC<IProps> = ({currentConversation, sender}) => {
             setIsTyping(false)
             socket.emit("stop-typing", currentConversation._id, sender._id)
             setIsSendBtnDisabled(true)
-            await dispatch(createMessage({message: newMessage}));
-            socket.emit("message-room", newMessage)
+            const result = await dispatch(createMessage({message: newMessage}));
+            if (result.meta.requestStatus === "fulfilled"){
+                console.log(result.payload)
+                socket.emit("message-room", result.payload)
+            }
             setMessageText("")
             setIsSendBtnDisabled(false)
         }
