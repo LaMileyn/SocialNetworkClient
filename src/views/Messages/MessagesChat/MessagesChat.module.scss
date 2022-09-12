@@ -1,17 +1,19 @@
 .chat{
   background-color: var(--chat-body-background);
-  height: 90vh;
+  height: 100%;
   border-top-right-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  flex: 1;
   background-size: contain;
 }
 .noChat{
   height: 100%;
   display: grid;
   place-items: center;
+  flex: 1;
   background-color: var(--chat-background);
 }
 .body{

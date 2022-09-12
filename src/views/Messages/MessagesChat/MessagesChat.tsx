@@ -1,4 +1,4 @@
-import React, {Dispatch, FC, SetStateAction, useState} from 'react';
+import React, {Dispatch, FC, SetStateAction} from 'react';
 import styles from './MessagesChat.module.scss';
 import MessagesChatHeader from "../MessagesChatHeader/MessagesChatHeader";
 import MessagesChatData from "../MessagesChatData/MessagesChatData";

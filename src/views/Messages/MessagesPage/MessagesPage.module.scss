@@ -4,8 +4,10 @@
 .container{
   max-width: var(--container-width);
   margin: 0 auto;
-  display: grid;
+  display: flex;
   height: 100%;
-  grid-template-columns: 520px auto;
   padding: 20px;
+}
+.sideBar{
+  flex-basis: 520px;
 }
