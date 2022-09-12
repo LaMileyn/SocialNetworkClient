@@ -166,7 +166,8 @@ const chatSlice = createSlice({
             if (!state.conversations.data) state.conversations.data = []
             state.conversations.data.push(action.payload);
             chatSlice.caseReducers.sortConversationsByUpdated(state)
-            if (state.conversations.currentConversation) state.conversations.currentConversation = action.payload;
+            state.conversations.currentConversation = action.payload
+            // if (state.conversations.currentConversation) state.conversations.currentConversation = action.payload;
             state.messages.data[action.payload._id] = []
         })
 

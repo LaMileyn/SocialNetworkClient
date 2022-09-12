@@ -1,4 +1,4 @@
-import React, {FC, useMemo, useState} from 'react';
+import React, {FC, memo, useMemo, useState} from 'react';
 import styles from './ProfileCenter.module.scss';
 import BlockHeaderBorder from "../../../components/layout/BlockHeaderBorder/BlockHeaderBorder";
 import {MoreHoriz} from "@mui/icons-material";
@@ -54,7 +54,6 @@ const ProfileCenter: FC<IProps> = ({profile}) => {
         return res;
     },[profile])
     console.log(friendStatus)
-    console.log(profile)
     return (
         <div className={styles.profileCenter}>
             {   user?.userInfo?._id === profile._id ?

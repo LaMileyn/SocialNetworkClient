@@ -12,7 +12,7 @@ class ConversationsApi {
     }
 
     async getConversationWithUser(userId : string) {
-        return $api.get(`/conversations/${userId}`)
+        return $api.get<IConversation>(`/conversations/${userId}`)
     }
 
 }

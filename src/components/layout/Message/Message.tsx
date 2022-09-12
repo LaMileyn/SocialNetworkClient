@@ -3,6 +3,8 @@ import {IMessage, IUser} from "../../../models";
 import styles from './Message.module.scss';
 import {Avatar} from "@mui/material";
 import cn from 'classnames'
+import {getFormattedAMPMDate} from "../../../utils/functions";
+
 
 interface IProps {
     message: IMessage,
@@ -19,7 +21,7 @@ const Message: FC<IProps> = ({message, isOwner}) => {
                         <div className={cn(styles.right__name, {
                             [styles.right__name_owner] : isOwner
                         })}>{ (message.sender as IUser).username}</div>
-                        <div className={styles.right__time}>10:35 PM</div>
+                        <div className={styles.right__time}>{ getFormattedAMPMDate(message.updatedAt)}</div>
                     </div>
                     <div className={styles.right__text}>
                         <p>{message.text}</p>

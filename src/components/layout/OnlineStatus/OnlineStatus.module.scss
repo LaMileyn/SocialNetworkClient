@@ -1,0 +1,23 @@
+.circleStatus{
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  &.online{
+    background-color: var(--color-green);
+    animation: statusScaling infinite 1.2s ease-in-out;
+  }
+  &.offline{
+    background-color: #dbbc2f;
+  }
+}
+@keyframes statusScaling {
+  0%{
+    transform: scale(.5);
+  }
+  50%{
+    transform: scale(1);
+  }
+  100%{
+    transform: scale(.5);
+  }
+}

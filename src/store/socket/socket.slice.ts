@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Socket} from "socket.io-client";
+import {OnlineUserModel} from "../../models/user.model";
 
 
 // interface ServerToClientEvents {
@@ -14,7 +15,7 @@ import {Socket} from "socket.io-client";
 
 type SliceState = {
     socket : any | null,
-    onlineUsers : string[],
+    onlineUsers : OnlineUserModel[],
     fetching : boolean,
     error : any
 }
@@ -33,7 +34,7 @@ const socketSlice = createSlice({
         setSocket: (state, action : PayloadAction<any>) => {
             state.socket = action.payload;
         },
-        setOnlineUsers: (state, action: PayloadAction<string[]>) => {
+        setOnlineUsers: (state, action: PayloadAction<OnlineUserModel[]>) => {
             state.onlineUsers = action.payload
         }
     },

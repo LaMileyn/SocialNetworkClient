@@ -39,7 +39,7 @@ const MessagesPage : FC = (props) => {
 
                 </div>
                 <div className={styles.right}>
-                    <MessagesChat/>
+                    <MessagesChat setDialogCreating={setDialogCreating}/>
                 </div>
             </div>
         </section>

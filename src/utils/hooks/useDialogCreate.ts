@@ -4,7 +4,7 @@ import conversationService from "../../services/conversation-service";
 import {changeConversation} from "../../store/chat/chat.slice";
 import {createConversation} from "../../store/chat/chat.actions";
 import {CreateConversationModel} from "../../models/conversation.model";
-import {IUser} from "../../models";
+import {IUser, UserDto} from "../../models";
 import {useAppDispatch} from "./useAppSelDis";
 
 export const useDialogCreate = () =>{
@@ -14,19 +14,20 @@ export const useDialogCreate = () =>{
     const [isLoading,setIsLoading] = useState<boolean>(false);
     const [error,setError] = useState<any>();
 
-    async function getData(user : IUser,currentUser : IUser,shouldNavigate = true){
+    async function getData(user : IUser,currentUser : UserDto,shouldNavigate = true){
         try {
             setIsLoading(true)
             const { data } = await conversationService.getConversationWithUser(user._id);
-            if (data.length > 0){
-                await dispatch(changeConversation(data[0]))
+            console.log(data)
+            if (data){
+                await dispatch(changeConversation(data))
                 shouldNavigate && navigate("/messages")
             }else{
                 const newConversation : CreateConversationModel = {
-                    members : [user._id,currentUser._id], // currentUser is me
+                    members : [user._id,currentUser.userInfo._id], // currentUser is me
                     isGroupChat : false,
                     admins : [],
-                    creator : currentUser._id,
+                    creator : currentUser.userInfo._id,
                     image : "",
                     title : "",
                 }

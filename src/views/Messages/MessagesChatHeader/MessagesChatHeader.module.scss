@@ -20,7 +20,7 @@
     flex-direction: column;
     gap: .3rem;
   }
-  &__title{
+  &__title a{
     color: var(--color-text-main);
   }
   &__members{
@@ -33,27 +33,14 @@
     color: var(--color-grey-low);
     font-size: 13px;
   }
-  &__circleStatus{
-    width: 13px;
-    height: 13px;
-    border-radius: 50%;
-    background-color: var(--color-green);
-    animation: statusScaling infinite 1.2s ease-in-out;
-  }
+
 }
 .right{
+  button{
+    color: var(--color-grey-low);
+  }
   svg{
-    color: var(--color-text-main);
-  }
-}
-@keyframes statusScaling {
-  0%{
-    transform: scale(.5);
-  }
-  50%{
-    transform: scale(1);
-  }
-  100%{
-    transform: scale(.5);
+    color: var(--color-grey-middle);
+    font-size: 29px;
   }
 }

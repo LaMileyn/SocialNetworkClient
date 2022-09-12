@@ -55,3 +55,7 @@ export interface UserDto{
     //     profilePicture : string
     // }
 }
+export interface OnlineUserModel {
+    socketId : string,
+    userId : string
+}

@@ -52,4 +52,4 @@ const Posts: FC<IProps> = ({userId}) => {
     );
 }
 
-export default Posts;
+export default React.memo(Posts);

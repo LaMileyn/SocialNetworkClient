@@ -27,7 +27,7 @@
   --box-shadow: rgba(179, 178, 178, 0.14);
   --post-background : var(--color-light);
   --chat-background : #ffffff;
-  // #577d8e54
+  --chat-body-background : #577d8e17;
   --dialogs-background : var(--dark-primary);
 }
 
@@ -43,5 +43,6 @@
   --box-shadow: rgba(12, 12, 12, 0.14);
   --post-background : #484c55;
   --chat-background : var(--dark-primary);
+  --chat-body-background : var(--chat-background);
   --dialogs-background : var(--color-white);
 }

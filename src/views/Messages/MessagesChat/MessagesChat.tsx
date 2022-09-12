@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {Dispatch, FC, SetStateAction, useState} from 'react';
 import styles from './MessagesChat.module.scss';
 import MessagesChatHeader from "../MessagesChatHeader/MessagesChatHeader";
 import MessagesChatData from "../MessagesChatData/MessagesChatData";
@@ -9,9 +9,10 @@ import {useAppSelector} from "../../../utils/hooks";
 import MessagesChatNotChosen from "../MessagesChatNotChosen/MessagesChatNotChosen";
 
 interface IProps {
+    setDialogCreating : Dispatch<SetStateAction<boolean>>
 }
 
-const MessagesChat: FC<IProps> = (props) => {
+const MessagesChat: FC<IProps> = ({ setDialogCreating}) => {
 
     const theme = useAppSelector( state => state.theme)
     const {  currentConversation, previousConversation  } = useAppSelector( state => state.chat.conversations )
@@ -20,13 +21,13 @@ const MessagesChat: FC<IProps> = (props) => {
 
 
     if (!currentConversation) return <div className={styles.noChat}>
-        <MessagesChatNotChosen/>
+        <MessagesChatNotChosen setDialogCreating={setDialogCreating}/>
     </div>
     return (
         <div className={styles.chat} style = {{
             backgroundImage : `url(${ theme == "dark" ? chatBackgroundDark : chatBackgroundLight})`
         }}>
-            <MessagesChatHeader/>
+            <MessagesChatHeader currentConversation={currentConversation} user={user}/>
             <div className={styles.body}>
                 <MessagesChatData/>
             </div>
