@@ -5,7 +5,8 @@ import {IConversation, IMessage, IUser} from "../../../models";
 import {useAppDispatch, useAppSelector} from "../../../utils/hooks";
 import cn from "classnames";
 import {changeConversation} from "../../../store/chat/chat.slice";
-import {getFormattedAMPMDate} from "../../../utils/functions";
+import {getFormattedAMPMDate, getTypingPeopleText} from "../../../utils/functions";
+
 
 interface IProps {
     dialog : IConversation
@@ -17,6 +18,7 @@ const Dialog: FC<IProps> = ({ dialog }) => {
     const { user } = useAppSelector( state => state.auth )
     const {conversations : { currentConversation }, messages : { typingPeople }} = useAppSelector(state => state.chat)
 
+
     const dialogPartner = useMemo(() => {
         return (dialog.members as IUser[]).find( member => member._id !== user?.userInfo?._id)
     }, [dialog])
@@ -25,7 +27,12 @@ const Dialog: FC<IProps> = ({ dialog }) => {
         if (currentConversation?._id === dialog._id) return;
         dispatch(changeConversation(dialog))
     }
+    const typingMessage = useMemo(() => {
+        if (typingPeople[dialog._id] && typingPeople[dialog._id].length > 0) return getTypingPeopleText(typingPeople[dialog._id])
+    }, [typingPeople, dialog])
 
+
+    const lastMessage = (dialog.lastMessage as IMessage);
     return (
         <div className={cn(styles.dialog, {
             [styles.active]: currentConversation?._id === dialog._id
@@ -46,7 +53,15 @@ const Dialog: FC<IProps> = ({ dialog }) => {
                     <span className={styles.right__time}>{getFormattedAMPMDate(dialog.updatedAt)}</span>
                 </div>
                 <div className={styles.right__bottom}>
-                    <p>Вы: Cписок сообщений пуст</p>
+                    {typingMessage && <div className={styles.typingBlock}>
+                        <p>{typingMessage}</p>
+                    </div> }
+                    {!typingMessage && <p>{ dialog.lastMessage
+                        ? lastMessage._id === user?.userInfo?._id
+                            ? `Вы: ${lastMessage.text}`
+                            : `${(lastMessage.sender as IUser).username}: ${lastMessage.text}`
+                        : "Cписок сообщений пуст"
+                    }</p>}
                 </div>
             </div>
         </div>
