@@ -54,4 +54,4 @@ const Dialog: FC<IProps> = ({dialog}) => {
     );
 }
 
-export default Dialog;
+export default React.memo(Dialog);

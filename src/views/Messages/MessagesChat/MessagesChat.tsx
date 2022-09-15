@@ -15,7 +15,7 @@ interface IProps {
 const MessagesChat: FC<IProps> = ({ setDialogCreating}) => {
 
     const theme = useAppSelector( state => state.theme)
-    const {  currentConversation, previousConversation  } = useAppSelector( state => state.chat.conversations )
+    const {  currentConversation  } = useAppSelector( state => state.chat.conversations )
     const { user } = useAppSelector( state => state.auth )
 
 
@@ -23,6 +23,7 @@ const MessagesChat: FC<IProps> = ({ setDialogCreating}) => {
     if (!currentConversation) return <div className={styles.noChat}>
         <MessagesChatNotChosen setDialogCreating={setDialogCreating}/>
     </div>
+
     return (
         <div className={styles.chat} style = {{
             backgroundImage : `url(${ theme == "dark" ? chatBackgroundDark : chatBackgroundLight})`

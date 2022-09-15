@@ -2,7 +2,7 @@ import React, {Dispatch, FC, SetStateAction, useEffect} from 'react';
 import styles from './MessagesDialogs.module.scss';
 import MessagesDialogsHeader from "../MessagesDialogsHeader/MessagesDialogsHeader";
 import Dialog from "../../../components/layout/Dialog/Dialog";
-import {useAppDispatch, useAppSelector} from "../../../utils/hooks";
+import {useAppSelector} from "../../../utils/hooks";
 import FullSectionLoader from "../../../components/layout/FullSectionLoader/FullSectionLoader";
 
 interface IProps {
@@ -11,7 +11,6 @@ interface IProps {
 
 const MessagesDialogs: FC<IProps> = ({ setDialogCreating }) => {
 
-    const dispatch = useAppDispatch();
     const { conversations : { data, fetching }} = useAppSelector( state => state.chat)
 
 

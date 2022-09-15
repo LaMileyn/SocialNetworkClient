@@ -79,6 +79,7 @@ export const updateOurMessage = createAsyncThunk("chat/update/message", async (p
             isLast,
             fromMe : true
         }))
+        return data
     } catch (err : any) {
         return rejectWithValue(err.response.data)
     }

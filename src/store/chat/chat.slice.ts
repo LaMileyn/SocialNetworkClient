@@ -57,7 +57,10 @@ const chatSlice = createSlice({
         },
         addNewMessage: (state, action: PayloadAction<{ conversation: IConversation, message: IMessage, fromMe: boolean }>) => {
 
-            state.messages.data[action.payload.conversation._id].push(action.payload.message);
+            state.messages.data[action.payload.conversation._id].push({
+                ...action.payload.message,
+                conversation : action.payload.conversation._id
+            });
 
             if (state.conversations.currentConversation) {
                 state.conversations.currentConversation = {
@@ -126,6 +129,10 @@ const chatSlice = createSlice({
             if (!state.messages.selectedMessages) state.messages.selectedMessages = []
             state.messages.selectedMessages.push(action.payload)
         },
+        removeFromSelectedMessages: (state,action : PayloadAction<string>) =>{
+            if(!state.messages.selectedMessages) return;
+            state.messages.selectedMessages = state.messages.selectedMessages.filter( mess => mess._id !== action.payload)
+        },
         changeConversation: (state, action: PayloadAction<IConversation>) => {
             state.conversations.previousConversation = state.conversations.currentConversation
             state.conversations.currentConversation = action.payload
@@ -183,6 +190,7 @@ export const {
     changeMessageEditing, setEditingMessageData, changeConversation,
     updateMessage, deleteChatMessages,
     sortConversationsByUpdated,
+    removeFromSelectedMessages,
     clearSelectedMessages
 } = chatSlice.actions;
 export default chatSlice.reducer;

@@ -6,6 +6,7 @@ import {IConversation, IMessage, IUser, UserDto} from "../../../models";
 import {useAppDispatch, useAppSelector} from "../../../utils/hooks";
 import {CreateMessageModel} from "../../../models/message.model";
 import {createMessage, updateOurMessage} from "../../../store/chat/chat.actions";
+import {changeMessageEditing} from "../../../store/chat/chat.slice";
 
 interface IProps {
     currentConversation: IConversation,
@@ -20,9 +21,13 @@ const MessagesChatFooter: FC<IProps> = ({currentConversation, sender}) => {
     const [messageText, setMessageText] = useState("");
     const [messageEditText, setMessageEditText] = useState("");
     const [isSendBtnDisabled, setIsSendBtnDisabled] = useState(false);
+    const [isEmoji, setIsEmoji] = useState(false)
     const [isTyping, setIsTyping] = useState(false); // am i typing
     const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
-    const [isEmoji, setIsEmoji] = useState(false)
+
+    useEffect( () =>{
+        setMessageEditText(messageEditingData?.text ?? "")
+    },[messageEditingData])
 
     const typingHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         setMessageText(e.currentTarget.value);
@@ -49,15 +54,14 @@ const MessagesChatFooter: FC<IProps> = ({currentConversation, sender}) => {
             socket.emit("stop-typing", currentConversation._id, sender._id)
             setIsSendBtnDisabled(true)
             const result = await dispatch(createMessage({message: newMessage}));
-            if (result.meta.requestStatus === "fulfilled"){
-                console.log(result.payload)
+            if (result.meta.requestStatus === "fulfilled") {
                 socket.emit("message-room", result.payload)
             }
             setMessageText("")
             setIsSendBtnDisabled(false)
         }
     }
-    const handleUpdateMessage = () => {
+    const handleUpdateMessage = async () => {
         if (messageEditText.length > 0) {
             const newOne: CreateMessageModel = {
                 updated: true,
@@ -66,8 +70,13 @@ const MessagesChatFooter: FC<IProps> = ({currentConversation, sender}) => {
                 conversation: currentConversation
             }
             const isLast = (currentConversation.lastMessage as IMessage)._id === messageEditingData?._id;
-            dispatch(updateOurMessage({newOne, isLast, id: messageEditingData!._id}))
-            socket.emit("message-update", newOne)
+            const result = await dispatch(updateOurMessage({newOne, isLast, id: messageEditingData!._id}))
+            if (result.meta.requestStatus === "fulfilled") {
+                socket.emit("message-update", {
+                    ...result.payload as IMessage,
+                    conversation : currentConversation
+                })
+            }
         }
     }
     const inputKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -86,7 +95,7 @@ const MessagesChatFooter: FC<IProps> = ({currentConversation, sender}) => {
                     <Edit/>
                     Message Editing
                 </span>
-                    <IconButton>
+                    <IconButton onClick={ () => dispatch(changeMessageEditing(false))}>
                         <Close/>
                     </IconButton>
                 </div>
@@ -101,7 +110,7 @@ const MessagesChatFooter: FC<IProps> = ({currentConversation, sender}) => {
                     <div className={styles.inputWrapper}>
                         <input type="text"
                                onKeyPress={inputKeyPress}
-                               value={messageText}
+                               value={ messageEditing ? messageEditText : messageText}
                                onChange={
                                    messageEditing
                                        ? (e) => setMessageEditText(e.currentTarget.value)

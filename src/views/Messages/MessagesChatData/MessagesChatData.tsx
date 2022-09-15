@@ -6,7 +6,7 @@ import styles from './MessagesChatData.module.scss';
 import {IConversation, IMessage, IUser} from "../../../models";
 import {TransitionGroup} from "react-transition-group";
 import {Collapse} from "@mui/material";
-import {addNewMessage, updateMessage} from "../../../store/chat/chat.slice";
+import {addNewMessage, clearSelectedMessages, deleteChatMessages, updateMessage} from "../../../store/chat/chat.slice";
 
 
 interface IProps {
@@ -35,6 +35,7 @@ const MessagesChatData: FC<IProps> = (props) => {
             socket.emit("leave-room", previousConversation?._id)
             socket.emit("join-room", currentConversation._id)
         }
+        dispatch(clearSelectedMessages())
     }, [currentConversation])
 
     socket.off("room-messages").on("room-messages", ( data : IMessage) => {
@@ -47,6 +48,25 @@ const MessagesChatData: FC<IProps> = (props) => {
             conversation : data.conversation as IConversation,
             message : data,
             fromMe : false
+        }))
+    })
+    socket.off("room-message-update").on("room-message-update",(data : IMessage) =>{
+        const isLast = (currentConversation?.lastMessage as IMessage)._id === data._id;
+        console.log(data)
+        dispatch(updateMessage({
+             fromMe : false,
+             isLast,
+             updatedMessage : data
+        }))
+    })
+    socket.off("room-message-delete").on("room-message-delete", (data : {
+        messagesToDelete : IMessage[],
+        conversation : IConversation,
+        sender : IUser
+    }) =>{
+        dispatch(deleteChatMessages({
+             messages : data.messagesToDelete,
+             fromMe : false
         }))
     })
 
