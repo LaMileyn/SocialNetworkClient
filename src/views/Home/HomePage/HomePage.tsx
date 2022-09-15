@@ -6,8 +6,6 @@ import HomeEvents from "../HomeEvents/HomeEvents";
 import Posts from "../../../components/layout/Posts/Posts";
 
 const HomePage: FC = (props) => {
-
-
     return (
         <section className={styles.home}>
             <div className={styles.container}>

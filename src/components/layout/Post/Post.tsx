@@ -12,6 +12,7 @@ import {Link} from "react-router-dom";
 import ConfirmModal from "../Modal/ConfirmModal/ConfirmModal";
 import {useAppDispatch, useAppSelector} from "../../../utils/hooks";
 import {deletePost, likePost} from "../../../store/posts/posts.actions";
+import PostIcons from "./PostIcons/PostIcons";
 
 
 interface IProps {
@@ -24,26 +25,14 @@ const Post: FC<IProps> = ({post, isOwner}) => {
     const {user} = useAppSelector(state => state.auth)
     const [modalDelete, setModalDelete] = useState<boolean>(false);
     const [modalUpdate, setModalUpdate] = useState<boolean>(false);
-    const [liked, setLiked] = useState<boolean>(false)
-    useEffect(() => {
-        setLiked((post.likes as string[]).includes(user!.userInfo!._id))
-    }, [user, post])
-    const postLikeHandler = () => {
-        dispatch(likePost({
-                    postId: post._id,
-                    userId: user!.userInfo!._id,
-                    liked,
-                }
-            )
-        )
-        setLiked(!liked)
-    }
-    const postDeleteHandler = () =>{
+
+    const postDeleteHandler = () => {
         dispatch(deletePost(post._id))
     }
     return (
         <div className={styles.post}>
-            <ConfirmModal open={modalDelete} text={"Are you sure you want to delete this post?"} onConfirm={postDeleteHandler} setOpen={setModalDelete}/>
+            <ConfirmModal open={modalDelete} text={"Are you sure you want to delete this post?"}
+                          onConfirm={postDeleteHandler} setOpen={setModalDelete}/>
             <div className={styles.left}>
                 <Link to={`/profile/${(post.user as IUser)._id}`}>
                     <Avatar
@@ -53,7 +42,9 @@ const Post: FC<IProps> = ({post, isOwner}) => {
             <div className={styles.right}>
                 <div className={styles.right__top}>
                     <div className={styles.right__userInfo}>
-                        <div className={styles.username}>{(post.user as IUser).username}</div>
+                        <Link to={`/profile/${(post.user as IUser)._id}`}>
+                            <div className={styles.username}>{(post.user as IUser).username}</div>
+                        </Link>
                         <CheckCircleRounded/>
                         <div className={styles.accountId}>@{(post.user as IUser)._id}</div>
                     </div>
@@ -84,33 +75,10 @@ const Post: FC<IProps> = ({post, isOwner}) => {
                         </div>
                     }
                 </div>
-                <div className={styles.right__bottom}>
-                    <div className={styles.iconItem}>
-                        <IconButton color={"warning"} onClick={postLikeHandler}>
-                            <FavoriteRounded style={{color: liked ? "red" : "var(--color-grey-middle)"}}/>
-                        </IconButton>
-                        <span>{post.likes.length}</span>
-                    </div>
-                    <div className={styles.iconItem}>
-                        <IconButton>
-                            <Comment/>
-                        </IconButton>
-                        <span>8</span>
-                    </div>
-                    <div className={styles.iconItem}>
-                        <IconButton>
-                            <SendOutlined/>
-                        </IconButton>
-                        <span>19</span>
-                    </div>
-                    <div className={styles.iconItem}>
-                        <RemoveRedEyeOutlined/>
-                        <span>{post.views}</span>
-                    </div>
-                </div>
+                <PostIcons post={post} user={user}/>
             </div>
         </div>
     );
 }
 
-export default Post;
+export default React.memo(Post);

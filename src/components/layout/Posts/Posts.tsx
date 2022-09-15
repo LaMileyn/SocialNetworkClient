@@ -1,11 +1,9 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect} from 'react';
 import styles from './Posts.module.scss'
 import Post from "../Post/Post";
 import {useAppDispatch, useAppSelector, useFetching} from "../../../utils/hooks";
-import {IPost, IUser} from "../../../models";
-import postService from "../../../services/post-service";
+import {IUser} from "../../../models";
 import FullSectionLoader from "../FullSectionLoader/FullSectionLoader";
-import SharePost from "../SharePost/SharePost";
 import {getPosts} from "../../../store/posts/posts.actions";
 import {TransitionGroup} from "react-transition-group";
 import {Collapse} from "@mui/material";
@@ -30,6 +28,7 @@ const Posts: FC<IProps> = ({userId}) => {
     }, [user])
 
     if (fetching && !posts.length) return <FullSectionLoader/>
+
     return (
         <div className={styles.posts}>
             {

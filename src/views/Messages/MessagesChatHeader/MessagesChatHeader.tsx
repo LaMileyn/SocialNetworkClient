@@ -4,10 +4,10 @@ import {Avatar, IconButton} from "@mui/material";
 import {MoreHoriz, Phone, SearchRounded} from "@mui/icons-material";
 import {IConversation, IUser, UserDto} from "../../../models";
 import {Link} from "react-router-dom";
-import cn from "classnames";
 import {getUserOnlineStatus} from "../../../utils/functions";
 import {useAppSelector} from "../../../utils/hooks";
 import OnlineStatus from "../../../components/layout/OnlineStatus/OnlineStatus";
+import HeaderRightIcons from "./HeaderRightIcons/HeaderRightIcons";
 
 interface IProps {
     currentConversation: IConversation,
@@ -17,13 +17,13 @@ interface IProps {
 const MessagesChatHeader: FC<IProps> = ({currentConversation, user}) => {
 
     const { onlineUsers } = useAppSelector( state => state.socket)
+    const { selectedMessages } = useAppSelector( state => state.chat.messages )
 
     const currentCompanion = useMemo(() => { // if 1 vs 1 dialog
         if (currentConversation) {
             return (currentConversation.members as IUser[]).find(member => member._id !== user?.userInfo?._id)
         }
     }, [currentConversation])
-
     const isCompanionOnline = useMemo(() => { // if 1 vs 1 dialog
         return getUserOnlineStatus(onlineUsers, currentCompanion!._id)
     }, [onlineUsers, currentCompanion])
@@ -35,10 +35,10 @@ const MessagesChatHeader: FC<IProps> = ({currentConversation, user}) => {
                 <div className={styles.left}>
                     {
                         currentConversation.isGroupChat
-                            ? <Avatar src={"https://placepic.ru/wp-content/uploads/2021/02/kinopoisk_ru_Brad_Pi-41.jpg"}
+                            ? <Avatar src={`/images/${currentConversation.image}`}
                                       sx={{borderRadius: 2, width: 40, height: 40}}/>
                             : <Link to={`/profile/${currentCompanion!.username}`}>
-                                <Avatar src={"https://placepic.ru/wp-content/uploads/2021/02/kinopoisk_ru_Brad_Pi-41.jpg"}
+                                <Avatar src={`/images/${currentCompanion?.profilePicture}`}
                                         sx={{borderRadius: 2, width: 40, height: 40}}/>
                             </Link>
                     }
@@ -58,15 +58,7 @@ const MessagesChatHeader: FC<IProps> = ({currentConversation, user}) => {
                     </div>
                 </div>
                 <div className={styles.right}>
-                    <IconButton>
-                        <Phone/>
-                    </IconButton>
-                    <IconButton>
-                        <SearchRounded/>
-                    </IconButton>
-                    <IconButton>
-                        <MoreHoriz/>
-                    </IconButton>
+                    <HeaderRightIcons/>
                 </div>
             </div>
         </div>

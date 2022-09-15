@@ -1,0 +1,21 @@
+.square{
+  flex-basis: calc( (100% / 2) - var(--block-gap) / 2 ) ;
+  padding: 35px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: .7rem;
+  font-weight: 300;
+  color: var(--color-text-main);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid var(--color-white);
+  &:hover{
+    background-color: var(--color-white);
+  }
+  svg{
+    color: var(--color-grey-low);
+  }
+}

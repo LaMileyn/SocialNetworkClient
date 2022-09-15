@@ -1,4 +1,4 @@
-import React, {Dispatch, FC, SetStateAction} from 'react';
+import React, { FC } from 'react';
 import styles from './ChangePhotoHover.module.scss';
 import {PhotoCamera} from "@mui/icons-material";
 

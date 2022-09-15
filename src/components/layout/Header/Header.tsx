@@ -3,9 +3,11 @@ import styles from './Header.module.scss';
 import {Link} from "react-router-dom";
 import {Notifications, SearchRounded} from "@mui/icons-material";
 import {IconButton} from "@mui/material";
-import { useAppSelector} from "../../../utils/hooks";
+import {useAppSelector} from "../../../utils/hooks";
 
 import HeaderProfileMenu from "./HeaderProfileMenu/HeaderProfileMenu";
+
+
 
 
 const Header: FC = (props) => {

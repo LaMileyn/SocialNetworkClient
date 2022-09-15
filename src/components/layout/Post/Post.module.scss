@@ -43,11 +43,7 @@
     font-weight: 300;
   }
 
-  &__bottom{
-    display: flex;
-    padding-top: 20px;
-    justify-content: space-between;
-  }
+
 
 }
 .username{
@@ -71,24 +67,3 @@
   }
 }
 
-.iconItem{
-  flex-basis: calc(100% / 4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 10px;
-  border-left: 1px solid  var(--color-grey-middle);
-  &:first-child{
-    border: none;
-  }
-  &:last-child{
-    gap: 10px;
-  }
-  svg{
-    color: var(--color-grey-middle);
-    font-size: 25px;
-  }
-  span{
-    color: var(--color-text-main);
-  }
-}

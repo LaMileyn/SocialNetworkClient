@@ -4,8 +4,6 @@ import {Avatar, Button} from "@mui/material";
 import {useAppDispatch, useAppSelector, useFile} from "../../../utils/hooks";
 import {
     CloseSharp,
-    EmojiEmotionsOutlined,
-    PermMedia,  Tag,
 
 } from "@mui/icons-material";
 
@@ -14,6 +12,7 @@ import {PostCreateModel} from "../../../models";
 import {createNewPost} from "../../../store/posts/posts.actions";
 import {Link} from "react-router-dom";
 import FullSectionLoader from "../FullSectionLoader/FullSectionLoader";
+import SharePostBottom from "./SharePostBottom/SharePostBottom";
 
 const SharePost: FC = (props) => {
     const dispatch = useAppDispatch();
@@ -71,30 +70,7 @@ const SharePost: FC = (props) => {
                 </div>
             }
             <div className={styles.bottom}>
-                <div className={styles.bottom__button}>
-                    <label className={styles.option} htmlFor={"filer"}>
-                        <PermMedia htmlColor={"tomato"} className={styles.shareIcon}/>
-                        <span className={styles.options__text}>Фото или Видео</span>
-                        <input type="file" id="filer" accept={".png,.jpeg,.jpg,.gif"} hidden
-                               onChange={handleChangeFile}/>
-                    </label>
-                </div>
-                <div className={styles.bottom__button}>
-                    <label className={styles.option} htmlFor={"filer"}>
-                        <Tag htmlColor={"var(--color-primary)"} className={styles.shareIcon}/>
-                        <span className={styles.options__text}>Tag Friends</span>
-                        <input type="file" id="filer" accept={".png,.jpeg,.jpg"} hidden
-                               onChange={handleChangeFile}/>
-                    </label>
-                </div>
-                <div className={styles.bottom__button}>
-                    <label className={styles.option} htmlFor={"filer"}>
-                        <EmojiEmotionsOutlined htmlColor={"yellow"} className={styles.shareIcon}/>
-                        <span className={styles.options__text}>Feeling/Activity</span>
-                        <input type="file" id="filer" accept={".png,.jpeg,.jpg"} hidden
-                               onChange={handleChangeFile}/>
-                    </label>
-                </div>
+                <SharePostBottom handleChangeFile={handleChangeFile}/>
             </div>
         </div>
     );

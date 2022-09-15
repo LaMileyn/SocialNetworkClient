@@ -25,6 +25,7 @@ const sliderData: ISliderData[] = [
     },
     {id: "anim3", title: "You know about everything you talk", subtitle: "A balanced surfing is a good business"},
 ]
+
 const AuthSlider: FC = (props) => {
     const animRef = useRef<HTMLDivElement>(null)
     const [currentIndex, setCurrentIndex] = useState<number>(2);

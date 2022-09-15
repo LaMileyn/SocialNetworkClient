@@ -2,17 +2,15 @@ import React, {FC} from 'react';
 import styles from './ProfileLeft.module.scss';
 
 import {
-    CameraAltOutlined,
     CheckCircleRounded,
-    GroupOutlined,
     LocationOnOutlined,
-    MusicNoteOutlined,
-    SettingsOutlined
+
 } from "@mui/icons-material";
 import {IUser} from "../../../models";
 import {useAppSelector} from "../../../utils/hooks";
-import {Link} from "react-router-dom";
 import ProfileChangeAvatar from "../ProfileChangeAvatar/ProfileChangeAvatar";
+import Meta from "./Meta/Meta";
+import Squares from "./Squares/Squares";
 interface IProps {
     profile: IUser
 }
@@ -40,45 +38,9 @@ const ProfileLeft: FC<IProps> = ({profile}) => {
                     enim facilis fuga ratione voluptatibus? Autem impedit porro quae voluptatem voluptatum.
                 </span>
                 </div>
-                <div className={styles.meta}>
-                    <div className={styles.meta__item}>
-                        <span className={styles.meta__title}>Posts</span>
-                        <span className={styles.meta__value}>{profile.posts.length}</span>
-                    </div>
-                    <div className={styles.meta__item}>
-                        <span className={styles.meta__title}>Friends</span>
-                        <span className={styles.meta__value}>{profile?.followers.length}</span>
-                    </div>
-                    <div className={styles.meta__item}>
-                        <span className={styles.meta__title}>Music</span>
-                        <span className={styles.meta__value}>3456</span>
-                    </div>
-                </div>
+                <Meta profile={profile}/>
             </div>
-            <div className={styles.profileLeft__bottom}>
-                <div className={styles.bottomSquares}>
-                    <div className={styles.square}>
-                        <GroupOutlined/>
-                        Friends
-                    </div>
-                    <div className={styles.square}>
-                        <MusicNoteOutlined/>
-                        Music
-                    </div>
-                    <div className={styles.square}>
-                        <CameraAltOutlined/>
-                        Photos
-                    </div>
-                    {
-                        profile._id === user?.userInfo?._id &&
-                        <Link to={"/settings"} className={styles.square}>
-                            <SettingsOutlined/>
-                            Settings
-                        </Link>
-
-                    }
-                </div>
-            </div>
+            <Squares profile={profile} user={user}/>
         </div>
     );
 }

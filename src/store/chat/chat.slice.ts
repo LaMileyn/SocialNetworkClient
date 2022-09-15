@@ -130,6 +130,9 @@ const chatSlice = createSlice({
             state.conversations.previousConversation = state.conversations.currentConversation
             state.conversations.currentConversation = action.payload
         },
+        clearSelectedMessages: (state) => {
+            state.messages.selectedMessages = []
+        },
         changeMessageEditing: (state, action: PayloadAction<boolean>) => {
             state.messages.messageEditing = action.payload
         },
@@ -179,6 +182,7 @@ export const {
     addNewMessage, addToSelectedMessages,
     changeMessageEditing, setEditingMessageData, changeConversation,
     updateMessage, deleteChatMessages,
-    sortConversationsByUpdated
+    sortConversationsByUpdated,
+    clearSelectedMessages
 } = chatSlice.actions;
 export default chatSlice.reducer;
