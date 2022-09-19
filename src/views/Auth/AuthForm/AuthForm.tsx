@@ -36,7 +36,7 @@ const AuthForm: FC<IProps> = ({isLogin}) => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const location = useLocation()
-    const { fetching } = useAppSelector( state => state.auth)
+    const {fetching} = useAppSelector(state => state.auth)
     const [showPassword, setShowPassword] = useState<boolean>(false)
     const {from: {pathname}} = location.state as LocationState || {from: {pathname: "/"}};
     const {register, setError, clearErrors, handleSubmit, formState: {errors}} = useForm<Inputs>({
@@ -51,22 +51,25 @@ const AuthForm: FC<IProps> = ({isLogin}) => {
     })
 
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
+
         const res = isLogin
             ? await dispatch(loginMe(data))
             : await dispatch(registerMe(data))
         if (res.meta.requestStatus === "rejected") {
             let formError
-            if (typeof res.payload  === "string") {
+            if (typeof res.payload === "string") {
                 formError = {type: "server", message: "Ошибка сервера.. Попробуй позже"}
-            }else{
+            } else {
                 formError = {type: "server", message: (res.payload as ServerError).message}
             }
-            setError("password", formError)
             setError("email", formError)
-            setError("username", formError)
-            setError("repeatPassword", formError)
+            setError("password", formError)
+            if (!isLogin) {
+                setError("username", formError)
+                setError("repeatPassword", formError)
+            }
 
-        }else{
+        } else {
             navigate(pathname, {replace: true}) // navigate person to place he was redirected to auth
         }
 
@@ -82,7 +85,6 @@ const AuthForm: FC<IProps> = ({isLogin}) => {
                 </Fade>
             }
             <TextField className={styles.field}
-
                        required
                        {...register("email", {required: true})}
                        label={"Email"}
@@ -164,8 +166,8 @@ const AuthForm: FC<IProps> = ({isLogin}) => {
                 className={styles.acceptButton}
                 disabled={fetching}
             >
-                { fetching ? "" : isLogin ? "Log In" : "Sign Up" }
-                { fetching && <CircularProgress variant={"indeterminate"} size={25} color={"primary"}/>}
+                {fetching ? "" : isLogin ? "Log In" : "Sign Up"}
+                {fetching && <CircularProgress variant={"indeterminate"} size={25} color={"primary"}/>}
             </Button>
         </form>
     );

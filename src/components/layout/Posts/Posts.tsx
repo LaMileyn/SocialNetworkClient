@@ -1,7 +1,7 @@
 import React, {FC, useEffect} from 'react';
 import styles from './Posts.module.scss'
 import Post from "../Post/Post";
-import {useAppDispatch, useAppSelector, useFetching} from "../../../utils/hooks";
+import {useAppDispatch, useAppSelector} from "../../../utils/hooks";
 import {IUser} from "../../../models";
 import FullSectionLoader from "../FullSectionLoader/FullSectionLoader";
 import {getPosts} from "../../../store/posts/posts.actions";
