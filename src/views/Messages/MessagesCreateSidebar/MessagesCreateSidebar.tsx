@@ -17,11 +17,12 @@ interface IProps {
 const MessagesCreateSidebar: FC<IProps> = ({setDialogCreating}) => {
     const dispatch = useAppDispatch()
 
+    const [chatAvatar, setChatAvatar] = useState<string>("");
     const [newChatName, setNewChatName] = useState<string>("");
+
     const [peopleSearchValue, setPeopleSearchValue] = useState<string>("");
     const [friends, setFriends] = useState<IUser[]>([])
     const [selectedPeople, setSelectedPeople] = useState<IUser[]>([]);
-    const [chatAvatar, setChatAvatar] = useState<string>("");
 
     const [handleChangeAvatar, fetchingChatAvatar, errorChatAvatar] = useFile(data => setChatAvatar(data))
     const [dialogCreate,isLoading, dialogCreateError ] = useDialogCreate()
@@ -82,7 +83,6 @@ const MessagesCreateSidebar: FC<IProps> = ({setDialogCreating}) => {
             </div>
             <div className={styles.body}>
                 <div className={styles.top}>
-                    {/*<h4>Chat avatar and title</h4>*/}
                     <div className={styles.avatarAndTitle}>
                         <IconButton color="primary" aria-label="upload picture" component="label"
                                     sx={{bgcolor: blue[100], width: 62, height: 62}}>

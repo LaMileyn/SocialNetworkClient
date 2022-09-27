@@ -4,7 +4,6 @@ import usersSlice from "./users/users.slice";
 import profileSlice from "./profile/profile.slice";
 import themeSlice from "./theme/theme.slice";
 import postsSlice from "./posts/posts.slice";
-import settingsSlice from "./settings/settings.slice";
 import socketSlice from "./socket/socket.slice";
 import chatSlice from "./chat/chat.slice";
 
@@ -16,7 +15,6 @@ const store = configureStore({
         profile  : profileSlice,
         theme    : themeSlice,
         posts    : postsSlice,
-        settings : settingsSlice,
         socket   : socketSlice,
         chat     : chatSlice
     },
