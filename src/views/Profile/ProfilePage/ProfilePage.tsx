@@ -7,6 +7,7 @@ import FullSectionLoader from "../../../components/layout/FullSectionLoader/Full
 import ProfileLeft from "../ProfileLeft/ProfileLeft";
 import ProfileCenter from "../ProfileCenter/ProfileCenter";
 import ProfileRight from "../ProfileRight/ProfileRight";
+import ProfileBackground from "../ProfileBackground/ProfileBackground";
 
 
 const ProfilePage : FC = (props) => {
@@ -23,12 +24,7 @@ const ProfilePage : FC = (props) => {
     if (!profile) return <FullSectionLoader size={"large"}/>
     return (
         <section className={styles.profilePage}>
-            <div className={styles.top}>
-                { profile
-                    ? <img className={styles.top__background} src="https://i.ytimg.com/vi/Jzw9f774wag/maxresdefault.jpg" alt=""/>
-                    : <img src="https://i.ytimg.com/vi/Jzw9f774wag/maxresdefault.jpg" alt=""/>
-                }
-            </div>
+            <ProfileBackground profile={profile}/>
             <div className={styles.main}>
                 <ProfileLeft profile={profile}/>
                 <ProfileCenter profile={profile}/>

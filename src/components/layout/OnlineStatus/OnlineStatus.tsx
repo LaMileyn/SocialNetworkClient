@@ -9,10 +9,10 @@ interface IProps extends React.HTMLProps<HTMLSpanElement>{
 
 const OnlineStatus: FC<IProps> = ({ isPersonOnline }) => {
     return (
-        <span className={cn(styles.circleStatus, {
+        <div className={cn(styles.circleStatus, {
             [styles.online] : isPersonOnline,
             [styles.offline] : !isPersonOnline,
-        })}></span>
+        })}></div>
     );
 }
 

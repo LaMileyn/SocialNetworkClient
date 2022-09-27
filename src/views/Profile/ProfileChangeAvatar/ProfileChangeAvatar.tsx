@@ -22,8 +22,8 @@ const ProfileChangeAvatar: FC<IProps> = ({ profile, user }) => {
         const newOne: UpdateUserModel = {
             profilePicture: file
         }
-        dispatch(updateUser(newOne))
         setOpenedModel(false)
+        dispatch(updateUser(newOne))
     }, [])
 
     return (

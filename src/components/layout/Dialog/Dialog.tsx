@@ -5,8 +5,9 @@ import {IConversation, IUser} from "../../../models";
 import {useAppDispatch, useAppSelector} from "../../../utils/hooks";
 import cn from "classnames";
 import {changeConversation} from "../../../store/chat/chat.slice";
-import {getFormattedAMPMDate} from "../../../utils/functions";
+import {getFormattedAMPMDate, getUserOnlineStatus} from "../../../utils/functions";
 import DialogMessage from "./DialogMessage/DialogMessage";
+import OnlineStatus from "../OnlineStatus/OnlineStatus";
 
 
 interface IProps {
@@ -18,6 +19,7 @@ const Dialog: FC<IProps> = ({dialog}) => {
     const dispatch = useAppDispatch();
 
     const {user} = useAppSelector(state => state.auth)
+    const {onlineUsers} = useAppSelector(state => state.socket)
     const {conversations: {currentConversation}, messages: {typingPeople}} = useAppSelector(state => state.chat)
 
 
@@ -29,7 +31,11 @@ const Dialog: FC<IProps> = ({dialog}) => {
         if (currentConversation?._id === dialog._id) return;
         dispatch(changeConversation(dialog))
     }
+    const isCompanionOnline = useMemo(() => {
+        return getUserOnlineStatus(onlineUsers, dialogPartner!._id)
+    }, [onlineUsers, dialogPartner])
 
+    console.log(isCompanionOnline)
     return (
         <div className={cn(styles.dialog, {
             [styles.active]: currentConversation?._id === dialog._id
@@ -40,15 +46,19 @@ const Dialog: FC<IProps> = ({dialog}) => {
                     sx={{borderRadius: 2, width: 50, height: 50}}/>
             <div className={styles.right}>
                 <div className={styles.right__top}>
-                    <span className={styles.right__title}>{
-                        dialog.isGroupChat
-                            ? dialog.title
-                            : dialogPartner?.username
-                    }</span>
+                    <div>
+                        <div className={styles.right__title}>{
+                            dialog.isGroupChat
+                                ? dialog.title
+                                : dialogPartner?.username
+                        }
+                        </div>
+                        { isCompanionOnline && !dialog.isGroupChat &&<OnlineStatus isPersonOnline={isCompanionOnline}/> }
+                    </div>
                     <span className={styles.right__time}>{getFormattedAMPMDate(dialog.updatedAt)}</span>
                 </div>
                 <div className={styles.right__bottom}>
-                    <DialogMessage  user={user} dialog={dialog} typingPeople={typingPeople}/>
+                    <DialogMessage user={user} dialog={dialog} typingPeople={typingPeople}/>
                 </div>
             </div>
         </div>

@@ -1,6 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IConversation, IMessage, IUser} from "../../models";
 import {createConversation, getAllConversations, getMessages} from "./chat.actions";
+import {isPendingAction, isRejectedAction} from "../index";
 
 
 type StateSlice = {
@@ -171,7 +172,6 @@ const chatSlice = createSlice({
         .addCase(getMessages.rejected, (state) => {
             state.messages.fetching = false
         })
-
         .addCase(createConversation.fulfilled, (state, action) => {
             if (!state.conversations.data) state.conversations.data = []
             state.conversations.data.push(action.payload);
@@ -182,6 +182,8 @@ const chatSlice = createSlice({
         })
 
 
+
+
 })
 
 export const {
@@ -189,7 +191,6 @@ export const {
     addNewMessage, addToSelectedMessages,
     changeMessageEditing, setEditingMessageData, changeConversation,
     updateMessage, deleteChatMessages,
-    sortConversationsByUpdated,
     removeFromSelectedMessages,
     clearSelectedMessages
 } = chatSlice.actions;

@@ -29,6 +29,14 @@
     border-radius: 50%;
     object-fit: cover;
   }
+  &.largePhoto{
+    border-radius: var(--border-radius);
+    width: 90%;
+    height: 300px;
+    img{
+      border-radius: var(--border-radius);
+    }
+  }
 }
 .activeButtons{
   display: flex;

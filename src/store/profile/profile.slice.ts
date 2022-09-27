@@ -10,6 +10,7 @@ import {
     updateUser
 } from "./profile.actions";
 import {createNewPost, deletePost} from "../posts/posts.actions";
+import {isPendingAction, isRejectedAction} from "../index";
 
 
 interface SliceState {
@@ -18,111 +19,67 @@ interface SliceState {
     error: ServerError | null
 }
 
-const initialState : SliceState = {
-    profile : null,
-    fetching : false,
-    error : null
+const initialState: SliceState = {
+    profile: null,
+    fetching: false,
+    error: null
 }
 
 
 const profileSlice = createSlice({
-    name : "profile",
+    name: "profile",
     initialState,
-    reducers : {},
-    extraReducers : (builder) =>
+    reducers: {},
+    extraReducers: (builder) =>
         builder
-            // get profile
-            .addCase(getProfile.pending, (state) =>{
-                state.fetching = true
-            })
-            .addCase(getProfile.fulfilled, (state,action : PayloadAction<IUser>) =>{
+            .addCase(getProfile.fulfilled, (state, action: PayloadAction<IUser>) => {
                 state.fetching = false
                 state.profile = action.payload
             })
-            .addCase(getProfile.rejected, (state,action : PayloadAction<any>) =>{
-                state.fetching = false
-                state.error = action.payload
-            })
-            // update profile
-            .addCase(updateUser.fulfilled, (state,action : PayloadAction<IUser>) =>{
+            .addCase(updateUser.fulfilled, (state, action: PayloadAction<IUser>) => {
                 state.profile = action.payload
             })
-            .addCase(createNewPost.fulfilled, (state,action : PayloadAction<IPost>) =>{
+            .addCase(createNewPost.fulfilled, (state, action: PayloadAction<IPost>) => {
                 if (!state.profile) return;
                 (state.profile.posts as string[]).push(action.payload._id)
             })
-            // follow person
-            .addCase(followPerson.pending, (state) => {
-                state.fetching = true
-            })
-            .addCase(followPerson.fulfilled, (state, action : PayloadAction<string>) => {
+            .addCase(followPerson.fulfilled, (state, action: PayloadAction<string>) => {
                 state.fetching = false;
-                ( state.profile!.followersRequests as Array<string> ).push(action.payload)
+                (state.profile!.followersRequests as Array<string>).push(action.payload)
             })
-            .addCase(followPerson.rejected, (state) => {
+            .addCase(unFollowPerson.fulfilled, (state, action: PayloadAction<string>) => {
                 state.fetching = false
+                state.profile!.followers = (state.profile!.followers as Array<string>).filter(id => id !== action.payload);
             })
-            // unfollow person
-            .addCase(unFollowPerson.pending, (state) => {
-                state.fetching = true
-            })
-            .addCase(unFollowPerson.fulfilled, (state, action : PayloadAction<string>) => {
+            .addCase(acceptFriend.fulfilled, (state, action: PayloadAction<string>) => {
                 state.fetching = false
-                state.profile!.followers =  (state.profile!.followers as Array<string>).filter( id => id !== action.payload);
-            })
-            .addCase(unFollowPerson.rejected, (state) => {
-                state.fetching = false
-            })
-            // accept person
-
-            .addCase(acceptFriend.pending, (state) => {
-                state.fetching = true
-            })
-            .addCase(acceptFriend.fulfilled, (state, action : PayloadAction<string>) => {
-                state.fetching = false
-                if (state.profile){
+                if (state.profile) {
                     (state.profile.followers as Array<string>).push(action.payload);
-                    state.profile.followingRequests = (state.profile.followingRequests as Array<string>).filter( id => id !== action.payload)
+                    state.profile.followingRequests = (state.profile.followingRequests as Array<string>).filter(id => id !== action.payload)
                 }
             })
-            .addCase(acceptFriend.rejected, (state) => {
+            .addCase(rejectFriend.fulfilled, (state, action: PayloadAction<string>) => {
                 state.fetching = false
-            })
-
-
-            // reject person
-            .addCase(rejectFriend.pending, (state) => {
-                state.fetching = true
-            })
-            .addCase(rejectFriend.fulfilled, (state, action : PayloadAction<string>) => {
-                state.fetching = false
-                if (state.profile){
-                    state.profile.followingRequests = (state.profile.followingRequests as Array<string>).filter( id => id !== action.payload)
+                if (state.profile) {
+                    state.profile.followingRequests = (state.profile.followingRequests as Array<string>).filter(id => id !== action.payload)
                 }
             })
-            .addCase(rejectFriend.rejected, (state) => {
+            .addCase(cancelFollow.fulfilled, (state, action: PayloadAction<string>) => {
                 state.fetching = false
-            })
-
-
-            //cancel follow requests
-            .addCase(cancelFollow.pending, (state) => {
-                state.fetching = true
-            })
-            .addCase(cancelFollow.fulfilled, (state, action : PayloadAction<string>) => {
-                state.fetching = false
-                if (state.profile){
-                    state.profile.followersRequests = (state.profile.followersRequests as Array<string>).filter( id => id !== action.payload)
+                if (state.profile) {
+                    state.profile.followersRequests = (state.profile.followersRequests as Array<string>).filter(id => id !== action.payload)
                 }
             })
-            .addCase(cancelFollow.rejected, (state) => {
-                state.fetching = false
-            })
-
-            // post delete
-            .addCase(deletePost.fulfilled, (state, action : PayloadAction<string>) =>{
+            .addCase(deletePost.fulfilled, (state, action: PayloadAction<string>) => {
                 if (!state.profile) return;
-                state.profile.posts = ( state.profile.posts as string[] ).filter( el => el !== action.payload )
+                state.profile.posts = (state.profile.posts as string[]).filter(el => el !== action.payload)
+            })
+            .addMatcher(isPendingAction, (state, action) => {
+                state.fetching = true
+            })
+            .addMatcher(isRejectedAction, (state, action : PayloadAction<any>) => {
+                state.fetching = true
+                state.error = action.payload
             })
 
 

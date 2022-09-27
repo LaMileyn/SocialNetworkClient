@@ -1,4 +1,4 @@
-import {configureStore} from "@reduxjs/toolkit";
+import {AnyAction, AsyncThunk, configureStore} from "@reduxjs/toolkit";
 import authSlice from "./auth/auth.slice";
 import usersSlice from "./users/users.slice";
 import profileSlice from "./profile/profile.slice";
@@ -27,4 +27,15 @@ const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
 
-export default store
+type GenericAsyncThunk = AsyncThunk<unknown, unknown, any>
+
+type PendingAction = ReturnType<GenericAsyncThunk['pending']>
+type RejectedAction = ReturnType<GenericAsyncThunk['rejected']>
+
+export function isPendingAction(action: AnyAction): action is PendingAction {
+    return action.type.endsWith('/pending');
+}
+export function isRejectedAction(action: AnyAction): action is RejectedAction {
+    return action.type.endsWith('/rejected');
+}
+export default store;

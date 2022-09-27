@@ -10,13 +10,13 @@ import {useAppSelector} from "../../../../utils/hooks";
 
 
 interface IProps {
-    currentConversation : IConversation,
-    user : UserDto | null
+    currentConversation: IConversation,
+    user: UserDto | null
 }
 
-const HeaderNotSelectedMessages: FC<IProps> = ({ currentConversation, user }) => {
+const HeaderNotSelectedMessages: FC<IProps> = ({currentConversation, user}) => {
 
-    const { onlineUsers } = useAppSelector( state => state.socket)
+    const {onlineUsers} = useAppSelector(state => state.socket)
 
     const currentCompanion = useMemo(() => {
         if (currentConversation) {
@@ -51,7 +51,7 @@ const HeaderNotSelectedMessages: FC<IProps> = ({ currentConversation, user }) =>
                     </div>}
                     {!currentConversation.isGroupChat && <div className={styles.left__status}>
                         <OnlineStatus isPersonOnline={isCompanionOnline}/>
-                        { isCompanionOnline ? "online" : "offline"}
+                        {isCompanionOnline ? "online" : "offline"}
                     </div>}
                 </div>
             </div>

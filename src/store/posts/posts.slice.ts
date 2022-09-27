@@ -1,6 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {createNewPost, deletePost, getPosts, likePost} from "./posts.actions";
 import {IPost, ServerError} from "../../models";
+import {isPendingAction, isRejectedAction} from "../index";
 
 interface SliceState {
     posts : IPost[],
@@ -19,31 +20,14 @@ const postsSlice = createSlice({
     reducers : {},
     extraReducers : builder =>
         builder
-            // get posts
-            .addCase(getPosts.pending, (state) =>{
-                state.fetching = true
-            })
             .addCase(getPosts.fulfilled, (state, action :PayloadAction<IPost[]>) =>{
                 state.fetching = false
                 state.posts = action.payload.filter( el => el)
-            })
-            .addCase(getPosts.rejected, (state,action : PayloadAction<any>) =>{
-                state.fetching = false
-                state.error = action.payload
-            })
-            // create post
-            .addCase(createNewPost.pending, (state) =>{
-                state.fetching = true
             })
             .addCase(createNewPost.fulfilled, (state, action :PayloadAction<IPost>) =>{
                 state.fetching = false
                 state.posts = [action.payload,...state.posts]
             })
-            .addCase(createNewPost.rejected, (state,action : PayloadAction<any>) =>{
-                state.fetching = false
-                state.error = action.payload
-            })
-            // like / dislike post
             .addCase(likePost.fulfilled, (state,action : PayloadAction<{ postId : string, userId : string, liked : boolean }>) =>{
                 const currPost = state.posts.find( post => post._id === action.payload.postId);
                 if (!currPost) return;
@@ -51,9 +35,15 @@ const postsSlice = createSlice({
                     ? currPost.likes = (currPost.likes as string[]).filter( el => el !== action.payload.userId)
                     : (currPost.likes as string[]).push(action.payload.userId)
             })
-            // delete post
             .addCase(deletePost.fulfilled, (state, action : PayloadAction<string>) =>{
                 state.posts = state.posts.filter( post => post._id !== action.payload)
+            })
+            .addMatcher(isPendingAction, (state, action) => {
+                state.fetching = true
+            })
+            .addMatcher(isRejectedAction, (state, action : PayloadAction<any>) => {
+                state.fetching = true
+                state.error = action.payload
             })
 })
 

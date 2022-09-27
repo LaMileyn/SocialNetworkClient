@@ -6,6 +6,7 @@ import {Close} from "@mui/icons-material";
 import AppModal from "../AppModal/AppModal";
 import {useFile} from "../../../../utils/hooks";
 import FullSectionLoader from "../../FullSectionLoader/FullSectionLoader";
+import cn from "classnames";
 
 interface IProps {
     headerText : string,
@@ -13,9 +14,10 @@ interface IProps {
     bodyTextWelcome : string,
     open : boolean,
     setOpen : Dispatch<SetStateAction<boolean>>,
-    onPhotoConfirm : (file : string) => Promise<void>
+    onPhotoConfirm : (file : string) => Promise<void>,
+    isLargePhoto? : boolean
 }
-const PhotoChangeModal : FC<IProps> = ({ headerText, setOpen, open, onPhotoConfirm, bodyTextConfirm, bodyTextWelcome }) => {
+const PhotoChangeModal : FC<IProps> = ({ headerText, setOpen, open, onPhotoConfirm, bodyTextConfirm, bodyTextWelcome, isLargePhoto = false }) => {
 
 
     const [file, setFile] = useState<string>("")
@@ -51,7 +53,9 @@ const PhotoChangeModal : FC<IProps> = ({ headerText, setOpen, open, onPhotoConfi
                                     : <p>{bodyTextWelcome}</p>
                             }
                             {file &&
-                                <div className={styles.selectedPhoto}>
+                                <div className={cn(styles.selectedPhoto , {
+                                    [styles.largePhoto] : isLargePhoto
+                                })}>
                                     <img src={`/images/${file}`} alt=""/>
                                 </div>
                             }
