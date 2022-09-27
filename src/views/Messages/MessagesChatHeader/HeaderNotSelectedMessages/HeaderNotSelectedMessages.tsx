@@ -35,7 +35,7 @@ const HeaderNotSelectedMessages: FC<IProps> = ({ currentConversation, user }) =>
                     currentConversation.isGroupChat
                         ? <Avatar src={`/images/${currentConversation.image}`}
                                   sx={{borderRadius: 2, width: 40, height: 40}}/>
-                        : <Link to={`/profile/${currentCompanion!.username}`}>
+                        : <Link to={`/profile/${currentCompanion!._id}`}>
                             <Avatar src={`/images/${currentCompanion?.profilePicture}`}
                                     sx={{borderRadius: 2, width: 40, height: 40}}/>
                         </Link>

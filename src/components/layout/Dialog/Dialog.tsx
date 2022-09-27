@@ -14,6 +14,7 @@ interface IProps {
 }
 
 const Dialog: FC<IProps> = ({dialog}) => {
+
     const dispatch = useAppDispatch();
 
     const {user} = useAppSelector(state => state.auth)

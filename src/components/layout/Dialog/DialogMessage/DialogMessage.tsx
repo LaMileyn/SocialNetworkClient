@@ -32,4 +32,4 @@ const DialogMessage: FC<IProps> = ( {dialog, typingPeople, user }) => {
     );
 }
 
-export default DialogMessage;
+export default React.memo(DialogMessage);

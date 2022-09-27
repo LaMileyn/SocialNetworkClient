@@ -21,4 +21,4 @@ const MessagesDialogsHeader: FC<IProps> = ({ setDialogCreating }) => {
     );
 }
 
-export default MessagesDialogsHeader;
+export default React.memo(MessagesDialogsHeader);
