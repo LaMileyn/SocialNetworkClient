@@ -3,7 +3,7 @@ import styles from './Friends.module.scss';
 import {Outlet, useParams} from 'react-router-dom'
 import {useAppDispatch} from "../../../utils/hooks";
 import FriendsNavigation from "../FriendsNavigation/FriendsNavigation";
-import {getCurrentUser, getFollowersRequests} from "../../../store/friends/friends.actions";
+import {getCurrentUser, getFollowersRequests, getFollowingRequests} from "../../../store/friends/friends.actions";
 
 const FriendsPage: FC = (props) => {
 
@@ -14,6 +14,7 @@ const FriendsPage: FC = (props) => {
     useEffect(() => {
         if (id) dispatch(getCurrentUser(id))
         dispatch(getFollowersRequests())
+        dispatch(getFollowingRequests())
     }, [id])
 
     return (

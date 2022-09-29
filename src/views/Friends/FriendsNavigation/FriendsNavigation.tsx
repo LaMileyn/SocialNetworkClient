@@ -11,7 +11,8 @@ const FriendsNavigation: FC<IProps> = (props) => {
 
     const {id} = useParams();
     const navigate = useNavigate()
-    const currentUser = useAppSelector(state => state.friends.currentUser)
+
+    const { currentUser, followersRequests } = useAppSelector(state => state.friends)
 
 
 
@@ -43,6 +44,7 @@ const FriendsNavigation: FC<IProps> = (props) => {
                         <li className={styles.list__item}>
                             <NavLink to={`/friends/requests`} className={({isActive}) => isActive ? styles.active : null}>
                                 <span>Requests</span>
+                                { followersRequests.length > 0 && <span className={styles.notific}>{followersRequests.length}</span>}
                             </NavLink>
                         </li>
                         <li className={styles.list__item}>

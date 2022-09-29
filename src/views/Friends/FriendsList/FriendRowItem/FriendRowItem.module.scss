@@ -4,6 +4,7 @@
   gap: 1rem;
 }
 .right{
+  position: relative;
   &__username{
     color: var(--color-primary);
     font-size: 17px;

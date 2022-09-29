@@ -3,18 +3,23 @@ import styles from './FriendRowItem.module.scss';
 import {IUser} from "../../../../models";
 import {Avatar} from "@mui/material";
 import FriendRowActions from "./FriendRowActions/FriendRowActions";
+import {Link} from "react-router-dom";
 
 interface IProps {
-    user : IUser
+    user: IUser
 }
 
-const FriendRowItem: FC<IProps> = ({ user }) => {
+const FriendRowItem: FC<IProps> = ({user}) => {
 
     return (
         <div className={styles.user}>
-            <Avatar src={`/images/${user.profilePicture}`} sx={{ width : 85, height: 85}}/>
+            <Link to={`/profile/${user._id}`}>
+                <Avatar src={`/images/${user.profilePicture}`} sx={{width: 85, height: 85}}/>
+            </Link>
             <div className={styles.right}>
-                <div className={styles.right__username}>{user.username}</div>
+                <Link to={`/profile/${user._id}`}>
+                    <div className={styles.right__username}>{user.username}</div>
+                </Link>
                 <FriendRowActions user={user}/>
             </div>
         </div>

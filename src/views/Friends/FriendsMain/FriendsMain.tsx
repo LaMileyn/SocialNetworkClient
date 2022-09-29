@@ -17,7 +17,7 @@ interface IProps {
 const FriendsMain: FC<IProps> = (props) => {
 
     const dispatch = useAppDispatch();
-    const {id} = useParams();
+    const {id : paramsId} = useParams();
 
     const [activeTab, setActiveTab] = useState<string>("all")
     const [searchFriendsValue, setSearchFriendsValue] = useState<string>("")
@@ -43,7 +43,8 @@ const FriendsMain: FC<IProps> = (props) => {
         setActiveTab("all")
         dispatch(getUsers({
             search: debouncedSearchText,
-            isFriend: true
+            isFriend: true,
+            id :  paramsId ? paramsId :me!.userInfo!._id
         }))
     }, [debouncedSearchText])
 
@@ -54,7 +55,7 @@ const FriendsMain: FC<IProps> = (props) => {
         const extraTabsForMe: ITab[] = [
             {tabText: "Online friends", secondaryText: ( onlineFriends?.length.toString() || "0" ), value: "online"}
         ]
-        return id ? tabs : tabs.concat(extraTabsForMe)
+        return paramsId ? tabs : tabs.concat(extraTabsForMe)
     }, [friendsList, onlineUsers])
 
     const filteredFriends = useMemo(() => {

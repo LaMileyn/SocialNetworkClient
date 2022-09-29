@@ -34,7 +34,7 @@ const Post: FC<IProps> = ({post, isOwner}) => {
             <ConfirmModal open={modalDelete} text={"Are you sure you want to delete this post?"}
                           onConfirm={postDeleteHandler} setOpen={setModalDelete}/>
             <div className={styles.left}>
-                <Link to={`/profile/${(post.user as IUser)._id}`}>
+                <Link to={ (post.user as IUser)._id === user?.userInfo?._id ? "/profile" : `/profile/${(post.user as IUser)._id}`}>
                     <Avatar
                         src={`/images/${(post.user as IUser).profilePicture}`}/>
                 </Link>

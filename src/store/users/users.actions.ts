@@ -7,17 +7,15 @@ interface IGetAllParams {
     search : string,
     isFriends : boolean
 }
-export const getUsers = createAsyncThunk("friends/get", async (params : { search : string,isFriend : boolean }, {rejectWithValue}) => {
+export const getUsers = createAsyncThunk("friends/get", async (params : { search : string,isFriend : boolean, id :string }, {rejectWithValue}) => {
     try {
-        const {data} = await userService.allUsers(params.search, params.isFriend)
+        const {data} = await userService.allUsers(params.search, params.isFriend,params.id)
         return data
     } catch (err : any) {
         return rejectWithValue(err.response.data)
     }
 })
 
-
-// friends actions
 export const getCurrentUser = createAsyncThunk("users/currentUser", async (id: string, {rejectWithValue}) => {
     try {
         const {data} = await userService.getUser(id)
@@ -27,21 +25,15 @@ export const getCurrentUser = createAsyncThunk("users/currentUser", async (id: s
     }
 })
 
-// export const getFriends = createAsyncThunk("users/get", async (id: string, {rejectWithValue}) => {
-//     try {
-//         const {data} = await userService.getFriends(id)
-//         return data
-//     } catch (err: any) {
-//         return rejectWithValue(err.response.data)
-//     }
-// })
-
-export const unFollowFriend = createAsyncThunk("users/unfollowFriend", async (userToUnfollowId: string, {
+export const unFollowFriend = createAsyncThunk("users/unfollowFriend", async (params : { userToUnfollowId: string, myId : string}, {
     rejectWithValue
 }) => {
     try {
-        await userService.unFollow(userToUnfollowId)
-        return userToUnfollowId;
+        await userService.unFollow(params.userToUnfollowId)
+        return {
+            userToUnfollowId : params.userToUnfollowId,
+            myId : params.myId
+        };
     } catch (err: any) {
         return rejectWithValue(err.response.data)
     }
@@ -49,10 +41,13 @@ export const unFollowFriend = createAsyncThunk("users/unfollowFriend", async (us
 
 export const cancelFollow = createAsyncThunk(
     "users/cancelFollow",
-    async (id: string, {rejectWithValue}) => {
+    async (params : { userToCancelId: string, myId : string }, {rejectWithValue}) => {
         try {
-            await userService.cancelFollowRequest(id)
-            return id
+            await userService.cancelFollowRequest(params.userToCancelId)
+            return {
+                userToCancelId : params.userToCancelId,
+                myId : params.myId
+            }
         } catch (err: any) {
             return rejectWithValue(err.response.data)
         }
@@ -60,32 +55,41 @@ export const cancelFollow = createAsyncThunk(
 
 export const followPerson = createAsyncThunk(
     "users/followPerson",
-    async (person: IUser, {rejectWithValue}) => {
+    async ( params : {personToFollow: IUser, myId : string}, {rejectWithValue}) => {
         try {
-            await userService.follow(person._id)
-            return person
+            await userService.follow(params.personToFollow._id)
+            return {
+                myId : params.myId,
+                personToFollowId : params.personToFollow._id
+            }
         } catch (err: any) {
             return rejectWithValue(err.response.data)
         }
     })
 
-export const acceptFriendship = createAsyncThunk("users/acceptFriend", async (userToAccept: IUser, {
+export const acceptFriendship = createAsyncThunk("users/acceptFriend", async (params : {userToAccept: IUser, myId : string} , {
     rejectWithValue
 }) => {
     try {
-        await userService.acceptFriendship(userToAccept._id)
-        return userToAccept
+        await userService.acceptFriendship(params.userToAccept._id)
+        return{
+            userToAcceptId : params.userToAccept._id,
+            myId : params.myId
+        }
     } catch (err: any) {
         return rejectWithValue(err.response.data)
     }
 })
-//rejectFriend
-export const rejectFriendship = createAsyncThunk("users/rejectFriend", async (userToRejectId: string, {
+
+export const rejectFriendship = createAsyncThunk("users/rejectFriend", async (params : { userToRejectId: string, myId : string}, {
     rejectWithValue
 }) => {
     try {
-        await userService.rejectFriendship(userToRejectId)
-        return userToRejectId
+        await userService.rejectFriendship(params.userToRejectId)
+        return {
+            myId : params.myId,
+            userToRejectId : params.userToRejectId
+        }
     } catch (err: any) {
         return rejectWithValue(err.response.data)
     }

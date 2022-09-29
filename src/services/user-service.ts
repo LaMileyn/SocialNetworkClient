@@ -47,8 +47,8 @@ class UsersApi {
         return $api.put<string>(`users/friends/cancelFollowRequest/${receiverId}`)
     }
 
-    allUsers(search : string,isFriend : boolean) {
-        return $api.get<Array<IUser>>(`users?search=${search}&isFriend=${isFriend}`)
+    allUsers(search : string,isFriend : boolean, id : string) {
+        return $api.get<Array<IUser>>(`users/all/${id}?search=${search}&isFriend=${isFriend}`)
     }
 
     userFollowersRequests() {

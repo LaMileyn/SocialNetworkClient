@@ -11,6 +11,7 @@ import NotFoundPage from "../../views/NotFound/NotFoundPage/NotFoundPage";
 import SettingsPage from "../../views/Settings/SettingsPage/SettingsPage";
 import FriendsMain from "../../views/Friends/FriendsMain/FriendsMain";
 import FriendsRequests from "../../views/Friends/FriendsRequests/FriendsRequests";
+import FriendsFind from "../../views/Friends/FriendsFind/FriendsFind";
 
 
 const AppRouter: FC = (props) => {
@@ -33,12 +34,12 @@ const AppRouter: FC = (props) => {
                 <Route path="friends/:id/" element={<FriendsPage/>}>
                    <Route index element={<FriendsMain/>}/>
                    <Route path="requests" element={<FriendsRequests/>}/>
-                   <Route path="find" element={<div>Find friends</div>}/>
+                   <Route path="find" element={<FriendsFind/>}/>
                 </Route>
                 <Route path="friends/" element={<FriendsPage/>}>
                     <Route index element={<FriendsMain/>}/>
                     <Route path="requests" element={<FriendsRequests/>}/>
-                    <Route path="find" element={<div>Find friends</div>}/>
+                    <Route path="find" element={<FriendsFind/>}/>
                 </Route>
                 <Route path="settings/*" element={<SettingsPage/>}/>
             </Route>

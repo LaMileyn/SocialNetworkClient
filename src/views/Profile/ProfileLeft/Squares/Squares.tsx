@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import styles from "./Squares.module.scss";
 import {CameraAltOutlined, GroupOutlined, MusicNoteOutlined, SettingsOutlined} from "@mui/icons-material";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {IUser, UserDto} from "../../../../models";
 import SquaresItem from "../SquaresItem/SquaresItem";
 
@@ -16,10 +16,12 @@ export interface ISquare {
     onClick? : () => void
 }
 const Squares: FC<IProps> = ({ profile, user }) => {
+
+    const {id} = useParams()
     const navigate = useNavigate();
 
     const squares : ISquare[] = [
-        { text : "Friends", icon : <GroupOutlined/> },
+        { text : "Friends", icon : <GroupOutlined/>, onClick : () => navigate(id ? "/friends/" + profile._id : "/friends" ) },
         { text : "Music", icon : <MusicNoteOutlined/> },
         { text : "Photos", icon : <CameraAltOutlined/> },
     ]

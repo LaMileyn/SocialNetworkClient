@@ -8,6 +8,7 @@ import {
     getUsers
 } from "./users.actions"
 import {IUser, ServerError} from "../../models";
+import {isFullfilledAction, isPendingAction, isRejectedAction} from "../index";
 
 
 interface SliceState {
@@ -28,76 +29,75 @@ const usersSlice = createSlice({
     reducers: {},
     extraReducers: (builder) =>
         builder
-            .addCase(getUsers.pending, (state) => {
-                state.fetching = true
-            })
             .addCase(getUsers.fulfilled, (state, action: PayloadAction<IUser[]>) => {
-                state.fetching = false;
                 state.users = action.payload
             })
-            .addCase(getUsers.rejected, (state, action: PayloadAction<any>) => {
-                state.fetching = false;
-                state.error = action.payload
+            .addCase(unFollowFriend.fulfilled, (state, action: PayloadAction<{
+                userToUnfollowId : string,
+                myId : string
+            }>) => {
+                if (!state.users) return;
+                const currentUser = state.users.find(u => u._id === action.payload.userToUnfollowId)
+                if (currentUser) {
+                    currentUser.followers = (currentUser.followers as string[]).filter( id => id !== action.payload.myId)
+                }
+                // state.users = state.users!.filter(user => user._id !== action.payload);
             })
-            // unFollow
-            .addCase(unFollowFriend.pending, (state) => {
+            .addCase(followPerson.fulfilled, (state, action: PayloadAction<{
+                myId : string,
+                personToFollowId : string
+            }>) => {
+                if (!state.users) return;
+                const currentUser = state.users.find(u => u._id === action.payload.personToFollowId)
+                if (currentUser) {
+                    (currentUser.followersRequests as string[]).push(action.payload.myId)
+                }
+                // state.users = state.users!.filter(user => user._id !== action.payload._id)
+            })
+            .addCase(acceptFriendship.fulfilled, (state, action: PayloadAction<{
+                userToAcceptId : string,
+                myId : string
+            }>) => {
+                if (!state.users) return;
+                const currentUser = state.users.find(u => u._id === action.payload.userToAcceptId)
+                if (currentUser) {
+                    currentUser.followingRequests = (currentUser.followingRequests as string[]).filter( id => id !== action.payload.myId);
+                    (currentUser.followers as string[]).push(action.payload.myId)
+                }
+                // state.users = state.users!.filter( person => person._id !== action.payload._id);
+            })
+            .addCase(rejectFriendship.fulfilled, (state, action: PayloadAction<{
+                myId : string,
+                userToRejectId : string
+            }>) => {
+                if (!state.users) return;
+                const currentUser = state.users.find(u => u._id === action.payload.userToRejectId)
+                if (currentUser) {
+                    currentUser.followingRequests = (currentUser.followingRequests as string[]).filter( id => id !== action.payload.myId);
+                }
+                // state.users = state.users!.filter( person => person._id !== action.payload);
+            })
+            .addCase(cancelFollow.fulfilled, (state, action: PayloadAction<{
+                userToCancelId: string, myId : string
+            }>) => {
+                if (!state.users) return;
+                const currentUser = state.users.find(u => u._id === action.payload.userToCancelId)
+                if (currentUser) {
+                    currentUser.followersRequests = (currentUser.followersRequests as string[]).filter( id => id !== action.payload.myId)
+                }
+                // state.users = state.users!.filter(person => person._id !== action.payload);
+            })
+
+
+            .addMatcher(isPendingAction, (state, action) => {
                 state.fetching = true
             })
-            .addCase(unFollowFriend.fulfilled, (state, action: PayloadAction<string>) => {
-                state.fetching = false
-                state.users = state.users!.filter(user => user._id !== action.payload);
-            })
-            .addCase(unFollowFriend.rejected, (state, action: PayloadAction<any>) => {
-                state.fetching = false
-                state.error = action.payload
-            })
-            // followPerson
-            .addCase(followPerson.pending, (state) => {
+            .addMatcher(isRejectedAction, (state, action: PayloadAction<any>) => {
                 state.fetching = true
-            })
-            .addCase(followPerson.fulfilled, (state, action: PayloadAction<IUser>) => {
-                state.fetching = false
-                state.users = state.users!.filter(user => user._id !== action.payload._id)
-            })
-            .addCase(followPerson.rejected, (state, action: PayloadAction<any>) => {
-                state.fetching = false
                 state.error = action.payload
             })
-            // accept
-            .addCase(acceptFriendship.pending, (state) => {
-                state.fetching = true
-            })
-            .addCase(acceptFriendship.fulfilled, (state, action : PayloadAction<IUser>) => {
+            .addMatcher(isFullfilledAction, (state, action: PayloadAction<any>) => {
                 state.fetching = false
-                state.users = state.users!.filter( person => person._id !== action.payload._id);
-            })
-            .addCase(acceptFriendship.rejected, (state, action : PayloadAction<any>) => {
-                state.fetching = false
-                state.error = action.payload
-            })
-            // reject
-            .addCase(rejectFriendship.pending, (state) => {
-                state.fetching = true
-            })
-            .addCase(rejectFriendship.fulfilled, (state, action : PayloadAction<string>) => {
-                state.fetching = false
-                state.users = state.users!.filter( person => person._id !== action.payload);
-            })
-            .addCase(rejectFriendship.rejected, (state, action : PayloadAction<any>) => {
-                state.fetching = false
-                state.error = action.payload
-            })
-            // cancelFollow
-            .addCase(cancelFollow.pending, (state) => {
-                state.fetching = true
-            })
-            .addCase(cancelFollow.fulfilled, (state, action: PayloadAction<string>) => {
-                state.fetching = false
-                state.users = state.users!.filter(person => person._id !== action.payload);
-            })
-            .addCase(cancelFollow.rejected, (state, action: PayloadAction<any>) => {
-                state.fetching = false
-                state.error = action.payload
             })
 })
 
