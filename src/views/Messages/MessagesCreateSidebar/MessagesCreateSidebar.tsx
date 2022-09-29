@@ -47,6 +47,7 @@ const MessagesCreateSidebar: FC<IProps> = ({setDialogCreating}) => {
         }));
         setDialogCreating(false)
     },[selectedPeople,newChatName,user])
+
     const dialogCreateHandler = useCallback( async () => {
         await dialogCreate(selectedPeople[0], user, false)
         setDialogCreating(false)

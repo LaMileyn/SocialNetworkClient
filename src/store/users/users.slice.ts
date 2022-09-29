@@ -1,5 +1,12 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {getAllUsers, unFollowFriend, followPerson, acceptFriendship, rejectFriendship, cancelFollow} from "./users.actions"
+import {
+    unFollowFriend,
+    followPerson,
+    acceptFriendship,
+    rejectFriendship,
+    cancelFollow,
+    getUsers
+} from "./users.actions"
 import {IUser, ServerError} from "../../models";
 
 
@@ -21,14 +28,14 @@ const usersSlice = createSlice({
     reducers: {},
     extraReducers: (builder) =>
         builder
-            .addCase(getAllUsers.pending, (state) => {
+            .addCase(getUsers.pending, (state) => {
                 state.fetching = true
             })
-            .addCase(getAllUsers.fulfilled, (state, action: PayloadAction<IUser[]>) => {
+            .addCase(getUsers.fulfilled, (state, action: PayloadAction<IUser[]>) => {
                 state.fetching = false;
                 state.users = action.payload
             })
-            .addCase(getAllUsers.rejected, (state, action: PayloadAction<any>) => {
+            .addCase(getUsers.rejected, (state, action: PayloadAction<any>) => {
                 state.fetching = false;
                 state.error = action.payload
             })

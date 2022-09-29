@@ -9,6 +9,7 @@ import MainLayout from "../layout/MainLayout/MainLayout";
 import {RequireAuth} from "../../utils/hocs/RequiredAuth";
 import NotFoundPage from "../../views/NotFound/NotFoundPage/NotFoundPage";
 import SettingsPage from "../../views/Settings/SettingsPage/SettingsPage";
+import FriendsMain from "../../views/Friends/FriendsMain/FriendsMain";
 
 
 const AppRouter: FC = (props) => {
@@ -24,12 +25,20 @@ const AppRouter: FC = (props) => {
                 <Route index element={<Navigate to={"/feed"}/>}/>
                 <Route path="feed" element={<HomePage/>}/>
                 <Route path="messages" element={<MessagesPage/>}/>
-                <Route path="profile/:id/" element={<ProfilePage/>}/>
                 <Route path="profile/">
                     <Route index element={<ProfilePage/>} />
                     <Route path=":id" element={<ProfilePage/>} />
                 </Route>
-                <Route path="friends/:id/*" element={<FriendsPage/>}/>
+                <Route path="friends/:id/" element={<FriendsPage/>}>
+                   <Route index element={<FriendsMain/>}/>
+                   <Route path="requests" element={<div>Friends Requests</div>}/>
+                   <Route path="find" element={<div>Find friends</div>}/>
+                </Route>
+                <Route path="friends/" element={<FriendsPage/>}>
+                    <Route index element={<FriendsMain/>}/>
+                    <Route path="requests" element={<div>Friends Requests</div>}/>
+                    <Route path="find" element={<div>Find friends</div>}/>
+                </Route>
                 <Route path="settings/*" element={<SettingsPage/>}/>
             </Route>
             <Route path="*" element={<NotFoundPage/>}/>

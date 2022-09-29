@@ -1,0 +1,14 @@
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.friendAction {
+  color: var(--color-primary);
+  cursor: pointer;
+  font-size: 15px;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

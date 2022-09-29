@@ -1,0 +1,13 @@
+.user{
+  padding: 20px;
+  display: flex;
+  gap: 1rem;
+}
+.right{
+  &__username{
+    color: var(--color-primary);
+    font-size: 17px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+}

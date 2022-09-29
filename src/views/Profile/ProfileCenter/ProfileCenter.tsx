@@ -1,11 +1,8 @@
-import React, {FC, useMemo, useState} from 'react';
+import React, {FC} from 'react';
 import styles from './ProfileCenter.module.scss';
 import BlockHeaderBorder from "../../../components/layout/BlockHeaderBorder/BlockHeaderBorder";
-import {MoreHoriz} from "@mui/icons-material";
-import Tabs, {ITab} from "../../../components/layout/Tabs/Tabs";
-import {Button, IconButton} from "@mui/material";
-import Posts from "../../../components/layout/Posts/Posts";
-import {useAppDispatch, useAppSelector, useDialogCreate} from "../../../utils/hooks";
+import {Button} from "@mui/material";
+import {useAppSelector, useDialogCreate} from "../../../utils/hooks";
 import {IUser} from "../../../models";
 import SharePost from "../../../components/layout/SharePost/SharePost";
 import ProfileCenterRequestButton from "./ProfileCenterRequestButton/ProfileCenterRequestButton";

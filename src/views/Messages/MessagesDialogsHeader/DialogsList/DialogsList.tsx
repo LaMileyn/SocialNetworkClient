@@ -2,13 +2,19 @@ import React, {FC} from 'react';
 import styles from "../../MessagesDialogs/MessagesDialogs.module.scss";
 import Dialog from "../../../../components/layout/Dialog/Dialog";
 import {IConversation} from "../../../../models";
+import {useAppSelector} from "../../../../utils/hooks";
+import FullSectionLoader from "../../../../components/layout/FullSectionLoader/FullSectionLoader";
 
 
 interface IProps {
-    dialogs: IConversation[] | null
+
 }
 
-const DialogsList: FC<IProps> = ({ dialogs }) => {
+const DialogsList: FC<IProps> = () => {
+
+    const { conversations : { data : dialogs, fetching }} = useAppSelector( state => state.chat)
+
+    if (fetching) return <FullSectionLoader size={"small"}/>
     return (
         <div className={styles.dialodsItems}>
             {

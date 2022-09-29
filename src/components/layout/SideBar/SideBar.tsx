@@ -6,7 +6,7 @@ import {
     Message,
     MoreHoriz,
     NoteAltOutlined,
-    Notifications, OtherHousesRounded, PersonOutlined, SettingsOutlined
+    Notifications, OtherHousesRounded, PersonOutline, PersonOutlined, SettingsOutlined
 } from "@mui/icons-material";
 import logo from './../../../assets/images/logoLarge.png'
 
@@ -23,9 +23,9 @@ const routes : IRoute[] = [
         title : "Feed"
     },
     {
-        to : "/explore",
-        icon : <ExploreOffOutlined className={styles.navIcon}/>,
-        title : "Explore"
+        to : "/friends",
+        icon : <PersonOutline className={styles.navIcon}/>,
+        title : "Friends"
     },
     {
         to : "/notifications",

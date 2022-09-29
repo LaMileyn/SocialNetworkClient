@@ -1,0 +1,21 @@
+.inputWrapper{
+  width: 100%;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--color-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  input{
+    width: 100%;
+    background: none;
+    border: none;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 30px;
+    color: var(--color-text-main);
+    height: 100%;
+  }
+  svg{
+    color: var(--color-grey-low);
+  }
+}

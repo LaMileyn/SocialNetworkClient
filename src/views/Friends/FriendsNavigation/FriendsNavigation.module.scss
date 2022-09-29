@@ -1,0 +1,74 @@
+.nav {
+  border-radius: var(--border-radius);
+  background-color: var(--color-white);
+}
+
+.friendInfo {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  cursor: pointer;
+  padding: 20px;
+  border-bottom: 1px solid var(--color-light);
+  transition: .1s all ease-out;
+
+  &:hover {
+    background-color: rgba(179, 178, 178, 0.14);
+  }
+}
+
+.right {
+  &__username {
+    color: var(--color-primary);
+    font-size: 16px;
+  }
+
+  &__text {
+    color: var(--color-grey-low);
+    font-size: 14px;
+    margin-top: 3px;
+  }
+}
+
+.list {
+  margin: 5px 0;
+
+  li {
+    a {
+      padding: 20px 0 20px 35px;
+      position: relative;
+      cursor: pointer;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      transition: .3s all;
+      gap: 25px;
+      color: var(--color-text-main);
+
+      &.active {
+        background-color: rgba(179, 178, 178, 0.14);
+      }
+
+      &:hover {
+        background-color: rgba(179, 178, 178, 0.14);
+      }
+
+      &:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        height: 100%;
+        top: 0;
+        width: 2px;
+        background-color: var(--color-primary);
+        transform: scaleY(0);
+        transition: .1s all ease-out;
+      }
+
+      &.active:before {
+        transform: scaleY(1);
+      }
+    }
+  }
+}

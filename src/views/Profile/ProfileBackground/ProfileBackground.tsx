@@ -29,7 +29,7 @@ const ProfileBackground: FC<IProps> = ({ profile }) => {
     return (
         <div className={styles.top} onClick={ () => setOpenedModal(true)} >
             { profile
-                ? <img className={styles.top__background}  src={`/images/${profile.coverPicture}` || "https://i.ytimg.com/vi/Jzw9f774wag/maxresdefault.jpg"} alt=""/>
+                ? <img className={styles.top__background}  src={profile.coverPicture ? `/images/${profile.coverPicture}` : "https://i.ytimg.com/vi/Jzw9f774wag/maxresdefault.jpg"} alt=""/>
                 : <img src="https://i.ytimg.com/vi/Jzw9f774wag/maxresdefault.jpg" alt=""/>
             }
             <div onClick={ (e) => e.stopPropagation()}>

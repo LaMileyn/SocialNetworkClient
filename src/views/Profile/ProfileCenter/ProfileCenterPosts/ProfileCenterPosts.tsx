@@ -26,7 +26,7 @@ interface IProps {
 const ProfileCenterPosts: FC<IProps> = (props) => {
 
     const {id} = useParams();
-    const [activeTab, setActiveTab] = useState<"all" | "fixed">("all")
+    const [activeTab, setActiveTab] = useState<string>("all")
 
     return (
         <div className={styles.postsArea}>

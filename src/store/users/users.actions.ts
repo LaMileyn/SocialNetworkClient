@@ -7,17 +7,14 @@ interface IGetAllParams {
     search : string,
     isFriends : boolean
 }
-export const getAllUsers = createAsyncThunk(
-    "users/usersAll/get",
-    async (params : IGetAllParams, {rejectWithValue}) => {
-        try {
-            const { search, isFriends } = params
-            const {data} = await userService.allUsers(search,isFriends)
-            return data
-        } catch (err : any) {
-            return rejectWithValue(err.response.data)
-        }
-    })
+export const getUsers = createAsyncThunk("friends/get", async (params : { search : string,isFriend : boolean }, {rejectWithValue}) => {
+    try {
+        const {data} = await userService.allUsers(params.search, params.isFriend)
+        return data
+    } catch (err : any) {
+        return rejectWithValue(err.response.data)
+    }
+})
 
 
 // friends actions
@@ -84,19 +81,6 @@ export const followPerson = createAsyncThunk(
             return rejectWithValue(err.response.data)
         }
     })
-// following actions
-
-
-// followers actions
-// export const getFollowersRequests = createAsyncThunk("users/getFollowers", async (_, {rejectWithValue}) => {
-//     try {
-//         const {data} = await userService.userFollowersRequests()
-//         return data
-//     } catch (err: any) {
-//         return rejectWithValue(err.response.data)
-//     }
-// })
-
 
 export const acceptFriendship = createAsyncThunk("users/acceptFriend", async (userToAccept: IUser, {
     rejectWithValue

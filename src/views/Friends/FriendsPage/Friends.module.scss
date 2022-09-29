@@ -1,0 +1,10 @@
+
+.wrapper{
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: auto 400px;
+  gap: var(--block-gap);
+  align-items: start;
+}

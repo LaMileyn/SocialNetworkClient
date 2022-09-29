@@ -1,33 +1,24 @@
 import React, {Dispatch, FC, SetStateAction} from 'react';
 import styles from './Tabs.module.scss';
-import cn from "classnames"
+import Tab from "./Tab/Tab";
 
 export interface ITab {
     tabText : string,
     secondaryText? : string,
-    value : "all" | "fixed"
+    value : string
 
 }
 interface IProps {
     tabList : ITab[],
-    activeTab : "all" | "fixed",
-    setActiveTab : Dispatch<SetStateAction<"all" | "fixed">>
+    activeTab : string,
+    setActiveTab : Dispatch<SetStateAction<string>>
 
 }
 const Tabs : FC<IProps> = ({tabList,activeTab,setActiveTab}) => {
     return (
         <ul className={styles.tabs}>
             {tabList.map( tab =>{
-                return (
-                    <li className={cn(styles.tab,{
-                        [styles.activeTab] : tab.value == activeTab
-                    })} onClick={ () => {
-                        setActiveTab(tab.value)
-                    }}>
-                        <span className={styles.tab__mainText}>{tab.tabText}</span>
-                        <span className={styles.tab__secondaryText}>{tab.secondaryText}</span>
-                    </li>
-                )
+                return <Tab key={tab.tabText} tab={tab} setActiveTab={setActiveTab} activeTab={activeTab} />
             })}
         </ul>
     );

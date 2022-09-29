@@ -1,0 +1,13 @@
+.extra{
+  border-radius: var(--border-radius);
+  background-color: var(--color-white);
+  margin-bottom: var(--block-gap);
+}
+.extraTitle{
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+  span{
+    color: var(--color-grey-low);
+  }
+}

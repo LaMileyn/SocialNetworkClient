@@ -2,7 +2,6 @@ import './utils/styles/main.scss'
 import {useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "./utils/hooks";
 import {checkAuth} from "./store/auth/auth.actions";
-import {CircularProgress} from "@mui/material";
 import AppRouter from "./components/routing/AppRouter";
 import FullSectionLoader from "./components/layout/FullSectionLoader/FullSectionLoader";
 
