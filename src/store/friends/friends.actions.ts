@@ -19,3 +19,13 @@ export const getFollowersRequests = createAsyncThunk("friends/getFollowersReques
         return rejectWithValue(err.response.data)
     }
 })
+export const getFollowingRequests = createAsyncThunk(
+    "users/getRequestsFollowing",
+    async (_, {rejectWithValue}) => {
+        try {
+            const {data} = await userService.userFollowingRequests()
+            return data
+        } catch (err: any) {
+            return rejectWithValue(err.response.data)
+        }
+    })

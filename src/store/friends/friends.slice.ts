@@ -1,12 +1,13 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IUser} from "../../models";
-import {getCurrentUser, getFollowersRequests} from "./friends.actions";
+import {getCurrentUser, getFollowersRequests, getFollowingRequests} from "./friends.actions";
 import {isFullfilledAction, isPendingAction, isRejectedAction, RootState} from "../index";
 
 
 type FriendsState = {
     currentUser : IUser | null,
-    followersRequests : IUser[]
+    followersRequests : IUser[],
+    followingRequests : IUser[],
     fetching : boolean,
     error : any
 
@@ -15,6 +16,7 @@ type FriendsState = {
 const initialState = {
     currentUser : null,
     followersRequests : [],
+    followingRequests : [],
     fetching : false,
     error : null
 } as FriendsState
@@ -32,6 +34,9 @@ const friendsSlice = createSlice({
             })
             .addCase(getFollowersRequests.fulfilled, (state,action : PayloadAction<IUser[]>) =>{
                 state.followersRequests = action.payload
+            })
+            .addCase(getFollowingRequests.fulfilled, (state,action : PayloadAction<IUser[]>) =>{
+                state.followingRequests = action.payload
             })
             // matchers
             .addMatcher(isPendingAction, (state, action) => {

@@ -13,7 +13,7 @@ const FriendsList: FC<IProps> = ({data}) => {
         <div className={styles.list}>
             {
                 data.length === 0 && <div className={styles.empty}>
-                    <p>#No friends found</p>
+                    <p>#No users found</p>
                 </div>
             }
             {

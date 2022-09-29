@@ -47,13 +47,12 @@ const FriendsMain: FC<IProps> = (props) => {
         }))
     }, [debouncedSearchText])
 
-    const tabList: ITab[] | undefined = useMemo(() => {
-        if (!friendsList) return;
+    const tabList: ITab[] = useMemo(() => {
         const tabs: ITab[] = [
-            {tabText: "All friends", secondaryText: friendsList.length.toString(), value: "all"}
+            {tabText: "All friends", secondaryText: ( friendsList?.length.toString() || "0" ), value: "all"}
         ]
         const extraTabsForMe: ITab[] = [
-            {tabText: "Online friends", secondaryText: onlineFriends.length.toString(), value: "online"}
+            {tabText: "Online friends", secondaryText: ( onlineFriends?.length.toString() || "0" ), value: "online"}
         ]
         return id ? tabs : tabs.concat(extraTabsForMe)
     }, [friendsList, onlineUsers])
@@ -72,7 +71,7 @@ const FriendsMain: FC<IProps> = (props) => {
             }
             <div className={styles.mainPart}>
                 <BlockHeaderBorder>
-                    <Tabs activeTab={activeTab} setActiveTab={setActiveTab} tabList={tabList!}/>
+                    <Tabs activeTab={activeTab} setActiveTab={setActiveTab} tabList={tabList}/>
                 </BlockHeaderBorder>
                 <FriendsSearchBar value={inputValue} onChangeInput={onChangeInputFunction}/>
                 <FriendsList data={filteredFriends}/>

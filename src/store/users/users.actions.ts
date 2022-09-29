@@ -46,19 +46,6 @@ export const unFollowFriend = createAsyncThunk("users/unfollowFriend", async (us
         return rejectWithValue(err.response.data)
     }
 })
-// friends actions
-
-// following actions
-// export const getFollowingRequests = createAsyncThunk(
-//     "users/getRequestsFollowing",
-//     async (_, {rejectWithValue}) => {
-//         try {
-//             const {data} = await userService.userFollowingRequests()
-//             return data
-//         } catch (err: any) {
-//             return rejectWithValue(err.response.data)
-//         }
-//     })
 
 export const cancelFollow = createAsyncThunk(
     "users/cancelFollow",
