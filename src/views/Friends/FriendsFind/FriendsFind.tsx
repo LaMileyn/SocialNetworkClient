@@ -2,7 +2,7 @@ import React, {FC, useCallback, useEffect, useState} from 'react';
 import styles from './FriendsFind.module.scss';
 import BlockHeaderBorder from "../../../components/layout/BlockHeaderBorder/BlockHeaderBorder";
 import FriendsSearchBar from "../FriendsSearchBar/FriendsSearchBar";
-import {useAppDispatch, useAppSelector, useDebounce} from "../../../utils/hooks";
+import {useAppDispatch, useAppSelector} from "../../../utils/hooks";
 import FriendsList from "../FriendsList/FriendsList";
 import {getUsers} from "../../../store/users/users.actions";
 import {useParams} from "react-router-dom";

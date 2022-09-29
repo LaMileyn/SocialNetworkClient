@@ -19,10 +19,13 @@ const SharePost: FC = (props) => {
 
     const {user} = useAppSelector(state => state.auth)
 
-
     const [postText, setPostText] = useState<string>("")
-    const [handleChangeFile,loading,error] = useFile( (data) => setFile(data))
     const [file, setFile] = useState<string | null>(null);
+    const [isEmojiVisible, setIsEmojiVisible] = useState<boolean>(false)
+
+
+
+    const [handleChangeFile,loading,error] = useFile( (data) => setFile(data))
 
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLTextAreaElement>) => {
         e.preventDefault();
@@ -70,7 +73,11 @@ const SharePost: FC = (props) => {
                 </div>
             }
             <div className={styles.bottom}>
-                <SharePostBottom handleChangeFile={handleChangeFile}/>
+                <SharePostBottom handleChangeFile={handleChangeFile}
+                                 setPostText={setPostText}
+                                 isEmojiVisible={isEmojiVisible}
+                                 setIsEmojiVisible={setIsEmojiVisible}
+                />
             </div>
         </div>
     );

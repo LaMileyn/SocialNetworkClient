@@ -23,7 +23,7 @@ const FriendsMain: FC<IProps> = (props) => {
     const [searchFriendsValue, setSearchFriendsValue] = useState<string>("")
     const [inputValue, setInputValue] = useState<string>("")
 
-    const debouncedSearchText = useDebounce(inputValue, 300)
+    const debouncedSearchText : string = useDebounce<string>(inputValue, 300)
 
     const {user: me} = useAppSelector(state => state.auth)
     const {users: friendsList, fetching, error,} = useAppSelector(state => state.users)
