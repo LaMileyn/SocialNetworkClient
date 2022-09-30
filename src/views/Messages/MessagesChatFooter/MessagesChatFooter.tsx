@@ -23,7 +23,6 @@ const MessagesChatFooter: FC<IProps> = ({currentConversation, sender}) => {
 
     const [messageText, setMessageText] = useState("");
     const [messageEditText, setMessageEditText] = useState("");
-    const [isEmoji, setIsEmoji] = useState(false)
     const [isTyping, setIsTyping] = useState(false); // am i typing
     const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
 
@@ -33,8 +32,7 @@ const MessagesChatFooter: FC<IProps> = ({currentConversation, sender}) => {
     }, [messageEditingData])
 
 
-    const typingHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setMessageText(e.currentTarget.value);
+    const typingHandler = () => {
         if (!socket) return;
         if (!isTyping) {
             setIsTyping(true)
@@ -103,7 +101,7 @@ const MessagesChatFooter: FC<IProps> = ({currentConversation, sender}) => {
                 <ChatFooterInputArea messageEditing={messageEditing} handleUpdateMessage={handleUpdateMessage}
                                      handleSendMessage={handleSendMessage} messageEditText={messageEditText}
                                      messageText={messageText} setMessageEditText={setMessageEditText}
-                                     typingHandler={typingHandler}
+                                     typingHandler={typingHandler} setMessageText={setMessageText}
                 />
                 <div className={styles.bottom__send}>
                     {
