@@ -10,6 +10,7 @@ import FullSectionLoader from "../../../components/layout/FullSectionLoader/Full
 import FriendsRequestsExtra from "./FriendsRequestsExtra/FriendsRequestsExtra";
 import FriendsList from "../FriendsList/FriendsList";
 import FriendsSearchBar from "../FriendsSearchBar/FriendsSearchBar";
+import {getFollowersRequests} from "../../../store/friends/friends.actions";
 
 interface IProps {
 }
@@ -23,7 +24,7 @@ const FriendsMain: FC<IProps> = (props) => {
     const [searchFriendsValue, setSearchFriendsValue] = useState<string>("")
     const [inputValue, setInputValue] = useState<string>("")
 
-    const debouncedSearchText : string = useDebounce<string>(inputValue, 300)
+    const debouncedSearchText : string = useDebounce<string>(inputValue, 300);
 
     const {user: me} = useAppSelector(state => state.auth)
     const {users: friendsList, fetching, error,} = useAppSelector(state => state.users)
@@ -39,6 +40,8 @@ const FriendsMain: FC<IProps> = (props) => {
         setInputValue(value)
     }, [])
 
+
+
     useEffect(() => {
         setActiveTab("all")
         dispatch(getUsers({
@@ -47,6 +50,10 @@ const FriendsMain: FC<IProps> = (props) => {
             id :  paramsId ? paramsId :me!.userInfo!._id
         }))
     }, [debouncedSearchText])
+
+    useEffect( () =>{
+        dispatch(getFollowersRequests())
+    },[])
 
     const tabList: ITab[] = useMemo(() => {
         const tabs: ITab[] = [
@@ -65,6 +72,7 @@ const FriendsMain: FC<IProps> = (props) => {
     }, [friendsList, onlineUsers, activeTab])
 
     if (!friendsList) return <FullSectionLoader size={"standart"}/>
+
     return (
         <div className={styles.mainBlock}>
             {

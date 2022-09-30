@@ -2,15 +2,20 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  padding: 20px;
 }
 .right{
   &__top{
-    color: var(--color-text-main);
+    color: var(--color-primary);
+    cursor: pointer;
     display: flex;
     align-items: center;
     gap: .3rem;
     font-size: 16px;
     margin-bottom: 3px;
+    &:hover{
+      text-decoration: underline;
+    }
     svg{
       color: var(--color-primary);
     }

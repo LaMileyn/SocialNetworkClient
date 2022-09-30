@@ -36,9 +36,11 @@ const MainLayout: FC = (props) => {
         return () => window.removeEventListener("resize",resizeHand)
     }, [])
 
+
     function resizeHand(){
         setMargin(leftRef!.current!.children[0].clientWidth)
     }
+
     if (!socket) return <FullSectionLoader size={"large"}/>
     return (
         <>

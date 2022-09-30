@@ -44,7 +44,7 @@ const SharePost: FC = (props) => {
     return (
         <div className={styles.share}>
             <div className={styles.top}>
-                <Link to={`/profile/${user?.userInfo._id}`}>
+                <Link to={`/profile`}>
                     <Avatar src={"/images/" + user?.userInfo.profilePicture}/>
                 </Link>
                 <div className={styles.inputWrapper}>

@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IConversation, IMessage, IUser} from "../../models";
 import {createConversation, getAllConversations, getMessages} from "./chat.actions";
-import {isPendingAction, isRejectedAction} from "../index";
+
 
 
 type StateSlice = {

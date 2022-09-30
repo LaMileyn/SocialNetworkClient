@@ -22,15 +22,11 @@ const FriendRowActions: FC<IProps> = ({user}) => {
     const [dialogStartHandler,isLoading] = useDialogCreate()
 
     const friendStatus = useMemo(() => {
-        if (!users) return undefined;
-        let currentUser = users.find( u => u._id === user._id)
-        if (!currentUser) currentUser = user;
         const object = {
-            followers: currentUser.followers,
-            followingRequests: currentUser.followingRequests,
-            followersRequests: currentUser.followersRequests,
+            followers: user.followers,
+            followingRequests: user.followingRequests,
+            followersRequests: user.followersRequests,
         }
-        console.log(object)
         let res = undefined;
         for (let values of Object.entries(object)) {
             if ((values[1] as string[]).includes(me!.userInfo!._id)) res = values[0];

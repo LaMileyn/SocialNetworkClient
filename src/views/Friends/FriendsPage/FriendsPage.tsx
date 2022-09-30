@@ -13,8 +13,6 @@ const FriendsPage: FC = (props) => {
 
     useEffect(() => {
         if (id) dispatch(getCurrentUser(id))
-        dispatch(getFollowersRequests())
-        dispatch(getFollowingRequests())
     }, [id])
 
     return (

@@ -73,7 +73,7 @@ export const acceptFriendship = createAsyncThunk("users/acceptFriend", async (pa
     try {
         await userService.acceptFriendship(params.userToAccept._id)
         return{
-            userToAcceptId : params.userToAccept._id,
+            userToAccept : params.userToAccept,
             myId : params.myId
         }
     } catch (err: any) {

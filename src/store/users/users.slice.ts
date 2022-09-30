@@ -41,7 +41,6 @@ const usersSlice = createSlice({
                 if (currentUser) {
                     currentUser.followers = (currentUser.followers as string[]).filter( id => id !== action.payload.myId)
                 }
-                // state.users = state.users!.filter(user => user._id !== action.payload);
             })
             .addCase(followPerson.fulfilled, (state, action: PayloadAction<{
                 myId : string,
@@ -52,19 +51,21 @@ const usersSlice = createSlice({
                 if (currentUser) {
                     (currentUser.followersRequests as string[]).push(action.payload.myId)
                 }
-                // state.users = state.users!.filter(user => user._id !== action.payload._id)
             })
             .addCase(acceptFriendship.fulfilled, (state, action: PayloadAction<{
-                userToAcceptId : string,
+                userToAccept : IUser,
                 myId : string
             }>) => {
-                if (!state.users) return;
-                const currentUser = state.users.find(u => u._id === action.payload.userToAcceptId)
-                if (currentUser) {
-                    currentUser.followingRequests = (currentUser.followingRequests as string[]).filter( id => id !== action.payload.myId);
-                    (currentUser.followers as string[]).push(action.payload.myId)
+                if (!state.users) {
+                    state.users = []
+                    state.users.push(action.payload.userToAccept);
+                }else{
+                    const currentUser = state.users.find(u => u._id === action.payload.userToAccept._id)
+                    if (currentUser) {
+                        currentUser.followingRequests = (currentUser.followingRequests as string[]).filter( id => id !== action.payload.myId);
+                        (currentUser.followers as string[]).push(action.payload.myId)
+                    }
                 }
-                // state.users = state.users!.filter( person => person._id !== action.payload._id);
             })
             .addCase(rejectFriendship.fulfilled, (state, action: PayloadAction<{
                 myId : string,
@@ -75,17 +76,15 @@ const usersSlice = createSlice({
                 if (currentUser) {
                     currentUser.followingRequests = (currentUser.followingRequests as string[]).filter( id => id !== action.payload.myId);
                 }
-                // state.users = state.users!.filter( person => person._id !== action.payload);
             })
             .addCase(cancelFollow.fulfilled, (state, action: PayloadAction<{
                 userToCancelId: string, myId : string
             }>) => {
-                if (!state.users) return;
+                if (!state.users) return
                 const currentUser = state.users.find(u => u._id === action.payload.userToCancelId)
                 if (currentUser) {
                     currentUser.followersRequests = (currentUser.followersRequests as string[]).filter( id => id !== action.payload.myId)
                 }
-                // state.users = state.users!.filter(person => person._id !== action.payload);
             })
 
 
